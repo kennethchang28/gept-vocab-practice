@@ -2775,10 +2775,15 @@ const App = {
         </button>`;
       }).join('');
 
+      const explanation = submitted && userAns !== correct && blank.explain
+        ? `<div class="cloze-explain"><strong>正確答案：${this.escapeHtml(blank.opts[correct])}</strong><br>${this.escapeHtml(blank.explain)}</div>`
+        : '';
+
       return `
         <div class="cloze-q-block ${submitted ? (userAns === correct ? 'q-correct' : 'q-wrong') : ''}">
           <div class="cloze-q-num">第 ${i + 1} 題</div>
           <div class="cloze-opts-grid">${optsHtml}</div>
+          ${explanation}
         </div>
       `;
     }).join('');
