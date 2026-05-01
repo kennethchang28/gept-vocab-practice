@@ -1,0 +1,3061 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEPT 中級練習｜全民英檢</title>
+<style>
+  /* ============ 字型設定 ============ */
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  :root {
+    --bg-primary: #fffbf5;
+    --bg-paper: #fff7ec;
+    --bg-card: #ffffff;
+    --ink: #1a1612;
+    --ink-soft: #4a4239;
+    --ink-mute: #8a7e6f;
+    --accent-warm: #d97706;
+    --accent-deep: #b45309;
+    --accent-go: #059669;
+    --accent-stop: #dc2626;
+    --accent-cool: #2563eb;
+    --accent-purple: #7c3aed;
+    --line: #e8dcc8;
+    --line-strong: #c9b896;
+    --shadow-sm: 0 2px 0 #e8dcc8;
+    --shadow-md: 0 4px 0 #c9b896;
+    --shadow-lg: 0 6px 0 #b8a378, 0 12px 24px rgba(180, 83, 9, 0.12);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background:
+      radial-gradient(ellipse at top, #fff7e6 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, #fef3c7 0%, transparent 50%),
+      var(--bg-primary);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+  }
+
+  /* 紙質顆粒紋理 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(180, 83, 9, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 60% 70%, rgba(180, 83, 9, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px, 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============ 標題區 ============ */
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 24px 0 16px;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent-warm), transparent);
+    margin: 16px auto 0;
+    border-radius: 2px;
+  }
+
+  .title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .title .accent {
+    color: var(--accent-deep);
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--ink-mute);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  .stats-bar {
+    display: inline-flex;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 8px 20px;
+    background: var(--bg-card);
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stats-bar span {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .stats-bar strong {
+    color: var(--accent-deep);
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ============ 模式選擇 ============ */
+  .mode-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .mode-btn {
+    background: var(--bg-card);
+    border: 2.5px solid var(--ink);
+    border-radius: 14px;
+    padding: 18px 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    font-family: inherit;
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--line-strong);
+  }
+
+  .mode-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--line-strong);
+  }
+
+  .mode-btn.active {
+    background: var(--accent-warm);
+    color: white;
+    border-color: var(--accent-deep);
+    box-shadow: 0 4px 0 var(--accent-deep);
+  }
+
+  .mode-btn .icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .mode-btn .label {
+    font-weight: 700;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .mode-btn .desc {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  /* ============ 主練習區 ============ */
+  .practice-area {
+    background: var(--bg-card);
+    border: 2.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow-lg);
+    min-height: 420px;
+    position: relative;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px dashed var(--line);
+  }
+
+  .progress-info .progress-text {
+    font-size: 0.9rem;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .progress-info .progress-text strong {
+    color: var(--accent-deep);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1em;
+  }
+
+  .progress-bar-wrap {
+    flex: 1;
+    max-width: 200px;
+    height: 8px;
+    background: var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-left: 16px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-warm), var(--accent-go));
+    transition: width 0.4s ease;
+    border-radius: 4px;
+  }
+
+  /* ============ 閃卡模式 ============ */
+  .flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 480px;
+    height: 280px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    padding: 24px;
+    border: 2.5px solid var(--ink);
+  }
+
+  .flashcard-front {
+    background: linear-gradient(135deg, #fff8e7 0%, #ffeec4 100%);
+    box-shadow: 0 4px 0 var(--line-strong);
+  }
+
+  .flashcard-back {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    transform: rotateY(180deg);
+    box-shadow: 0 4px 0 var(--line-strong);
+  }
+
+  .flashcard-word {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .flashcard-pos {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--accent-deep);
+    background: var(--bg-paper);
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    margin-bottom: 16px;
+  }
+
+  .flashcard-translation {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .flashcard-hint {
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  .flashcard-controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ============ 通用按鈕 ============ */
+  .btn {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    background: var(--bg-card);
+    color: var(--ink);
+    box-shadow: 0 3px 0 var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+
+  .btn-primary {
+    background: var(--accent-warm);
+    color: white;
+    border-color: var(--accent-deep);
+    box-shadow: 0 3px 0 var(--accent-deep);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 0 var(--accent-deep);
+  }
+
+  .btn-primary:active {
+    box-shadow: 0 1px 0 var(--accent-deep);
+  }
+
+  .btn-success {
+    background: var(--accent-go);
+    color: white;
+    border-color: #047857;
+    box-shadow: 0 3px 0 #047857;
+  }
+
+  .btn-success:hover { box-shadow: 0 4px 0 #047857; }
+  .btn-success:active { box-shadow: 0 1px 0 #047857; }
+
+  .btn-warn {
+    background: #f59e0b;
+    color: white;
+    border-color: #b45309;
+    box-shadow: 0 3px 0 #b45309;
+  }
+
+  .btn-warn:hover { box-shadow: 0 4px 0 #b45309; }
+  .btn-warn:active { box-shadow: 0 1px 0 #b45309; }
+
+  .btn-cool {
+    background: var(--accent-cool);
+    color: white;
+    border-color: #1e40af;
+    box-shadow: 0 3px 0 #1e40af;
+  }
+
+  .btn-cool:hover { box-shadow: 0 4px 0 #1e40af; }
+  .btn-cool:active { box-shadow: 0 1px 0 #1e40af; }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 3px 0 var(--ink) !important;
+  }
+
+  /* ============ 選擇題模式 ============ */
+  .quiz-question {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .quiz-prompt-label {
+    font-size: 0.875rem;
+    color: var(--ink-mute);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .quiz-word {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .quiz-pos {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--accent-deep);
+    margin-bottom: 8px;
+  }
+
+  .quiz-meaning {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 16px;
+    background: var(--bg-paper);
+    border: 2px dashed var(--line-strong);
+    border-radius: 12px;
+    display: inline-block;
+    min-width: 200px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-option {
+    text-align: left;
+    padding: 16px 18px;
+    background: var(--bg-card);
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 3px 0 var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 var(--ink);
+    background: var(--bg-paper);
+  }
+
+  .quiz-option:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+
+  .quiz-option .opt-letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-warm);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .quiz-option .opt-text {
+    flex: 1;
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  .quiz-option.correct {
+    background: #d1fae5;
+    border-color: var(--accent-go);
+    box-shadow: 0 3px 0 var(--accent-go);
+  }
+
+  .quiz-option.correct .opt-letter {
+    background: var(--accent-go);
+  }
+
+  .quiz-option.wrong {
+    background: #fee2e2;
+    border-color: var(--accent-stop);
+    box-shadow: 0 3px 0 var(--accent-stop);
+  }
+
+  .quiz-option.wrong .opt-letter {
+    background: var(--accent-stop);
+  }
+
+  .quiz-option:disabled {
+    cursor: default;
+  }
+
+  /* ============ 拼字模式 ============ */
+  .spell-prompt {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .spell-meaning {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 12px 0 4px;
+  }
+
+  .spell-pos {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--accent-deep);
+    margin-bottom: 16px;
+  }
+
+  .spell-hint {
+    color: var(--ink-mute);
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  .spell-input-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .spell-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 20px;
+    font-size: 1.5rem;
+    font-family: 'Fraunces', serif;
+    text-align: center;
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    background: var(--bg-paper);
+    color: var(--ink);
+    box-shadow: 0 3px 0 var(--ink);
+    letter-spacing: 0.02em;
+    transition: all 0.15s ease;
+  }
+
+  .spell-input:focus {
+    outline: none;
+    border-color: var(--accent-warm);
+    box-shadow: 0 3px 0 var(--accent-deep);
+  }
+
+  .spell-input.shake {
+    animation: shake 0.4s;
+    border-color: var(--accent-stop);
+    background: #fee2e2;
+  }
+
+  .spell-input.correct-answer {
+    border-color: var(--accent-go);
+    background: #d1fae5;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .spell-letters {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.75rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-mute);
+    background: var(--bg-paper);
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 2px dashed var(--line-strong);
+  }
+
+  /* ============ 聽力模式 ============ */
+  .listen-area {
+    text-align: center;
+  }
+
+  .listen-icon-wrap {
+    display: inline-block;
+    margin: 20px 0 28px;
+  }
+
+  .listen-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-warm), var(--accent-deep));
+    border: 3px solid var(--ink);
+    box-shadow: 0 6px 0 var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 3.5rem;
+    color: white;
+    position: relative;
+  }
+
+  .listen-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 var(--ink);
+  }
+
+  .listen-icon:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 var(--ink);
+  }
+
+  .listen-icon.playing {
+    animation: pulse 1.2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .listen-prompt {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .listen-replay-hint {
+    font-size: 0.875rem;
+    color: var(--ink-mute);
+    margin-bottom: 24px;
+  }
+
+  /* ============ 結果回饋 ============ */
+  .feedback {
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-top: 16px;
+    text-align: center;
+    font-weight: 600;
+    border: 2px solid;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feedback.success {
+    background: #d1fae5;
+    color: #047857;
+    border-color: var(--accent-go);
+  }
+
+  .feedback.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: var(--accent-stop);
+  }
+
+  .feedback.info {
+    background: #dbeafe;
+    color: #1e40af;
+    border-color: var(--accent-cool);
+  }
+
+  /* ============ 動作列 ============ */
+  .action-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* ============ 統計／設定 ============ */
+  .settings-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px dashed var(--line);
+  }
+
+  .setting-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-paper);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.12s ease;
+    font-family: inherit;
+  }
+
+  .setting-chip:hover {
+    background: var(--bg-card);
+    border-color: var(--accent-warm);
+  }
+
+  .setting-chip.active {
+    background: var(--accent-warm);
+    color: white;
+    border-color: var(--accent-deep);
+  }
+
+  /* ============ Modal ============ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 22, 18, 0.5);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+
+  .modal-overlay.show {
+    display: flex;
+    animation: fadeIn 0.2s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal {
+    background: var(--bg-card);
+    border: 2.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .modal h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .modal p {
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  /* ============ 底部資訊 ============ */
+  footer {
+    text-align: center;
+    padding: 32px 16px 16px;
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+  }
+
+  footer a {
+    color: var(--accent-deep);
+    text-decoration: none;
+  }
+
+  /* ============ 響應式 ============ */
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px; }
+    .practice-area { padding: 20px 16px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .flashcard { height: 240px; }
+    .mode-selector { grid-template-columns: 1fr 1fr; }
+    .mode-btn { padding: 14px 12px; }
+    .mode-btn .label { font-size: 0.9rem; }
+    .mode-btn .desc { font-size: 0.7rem; }
+    .stats-bar { font-size: 0.8rem; padding: 6px 14px; gap: 10px; }
+  }
+
+  /* ============ 閱讀測驗 ============ */
+  .reading-passage {
+    background: var(--bg-paper);
+    border: 2px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    min-height: 520px;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .reading-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px dashed var(--line-strong);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .reading-type-badge {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    background: var(--accent-warm);
+    color: white;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+
+  .reading-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.08rem;
+    line-height: 1.85;
+    color: var(--ink);
+    white-space: pre-line;
+  }
+
+  .reading-text p {
+    margin-bottom: 12px;
+  }
+
+  .reading-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .reading-question {
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 0 3px 0 var(--ink);
+  }
+
+  .reading-q-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ============ 結果畫面 ============ */
+  .result-screen {
+    text-align: center;
+    padding: 32px 16px;
+  }
+
+  .result-emoji {
+    font-size: 4rem;
+    margin-bottom: 12px;
+  }
+
+  .result-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .result-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+    margin: 12px 0 4px;
+  }
+
+  .result-pct {
+    font-size: 1.1rem;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .cloze-sentence { font-size: 1.15rem; padding: 14px; }
+    .reading-title { font-size: 1.15rem; }
+    .reading-text { font-size: 0.98rem; }
+    .reading-passage { padding: 18px 16px; min-height: auto; max-height: none; overflow-y: visible; }
+    .result-emoji { font-size: 3rem; }
+    .result-title { font-size: 1.4rem; }
+    .result-score { font-size: 2.4rem; }
+    .mode-selector { grid-template-columns: 1fr 1fr; }
+  }
+  /* ============ 克漏字段落填空模式 ============ */
+  .cloze-progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed var(--line);
+  }
+
+  .cloze-progress-text {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .cloze-intro {
+    font-size: 0.95rem;
+    color: var(--ink-mute);
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: #fff8e7;
+    border-left: 4px solid var(--accent-warm);
+    border-radius: 4px;
+  }
+
+  .cloze-passage-box {
+    background: var(--bg-paper);
+    border: 2px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+  }
+
+  .cloze-passage-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--line-strong);
+  }
+
+  .cloze-passage-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--ink);
+  }
+
+  .cloze-passage-text p {
+    margin-bottom: 12px;
+  }
+
+  .cloze-passage-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .cloze-blank-empty {
+    display: inline-block;
+    padding: 2px 10px;
+    margin: 0 2px;
+    background: #fff;
+    border: 2px dashed var(--ink-mute);
+    border-radius: 6px;
+    color: var(--ink-mute);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95em;
+    font-weight: 600;
+  }
+
+  .cloze-blank-filled {
+    display: inline-block;
+    padding: 2px 10px;
+    margin: 0 2px;
+    background: #fff3d6;
+    border: 2px solid var(--accent-warm);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95em;
+    font-weight: 600;
+  }
+
+  .cloze-blank-filled.correct {
+    background: #d1fae5;
+    border-color: var(--accent-go);
+    color: #047857;
+  }
+
+  .cloze-blank-filled.wrong {
+    background: #fee2e2;
+    border-color: var(--accent-stop);
+  }
+
+  .cloze-blank-filled.wrong s {
+    color: var(--accent-stop);
+    text-decoration: line-through;
+    margin-right: 4px;
+  }
+
+  .cloze-blank-filled.wrong strong {
+    color: var(--accent-go);
+  }
+
+  .cloze-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .cloze-q-block {
+    background: var(--bg-card);
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cloze-q-block.q-correct {
+    background: #f0fdf4;
+    border-color: var(--accent-go);
+    box-shadow: 0 2px 0 var(--accent-go);
+  }
+
+  .cloze-q-block.q-wrong {
+    background: #fef2f2;
+    border-color: var(--accent-stop);
+    box-shadow: 0 2px 0 var(--accent-stop);
+  }
+
+  .cloze-q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .cloze-opts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .cloze-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--bg-paper);
+    border: 2px solid var(--line-strong);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cloze-opt:hover:not(:disabled) {
+    background: #fff;
+    border-color: var(--accent-warm);
+    transform: translateY(-1px);
+  }
+
+  .cloze-opt.chosen {
+    background: var(--accent-warm);
+    color: white;
+    border-color: var(--accent-deep);
+  }
+
+  .cloze-opt.chosen .cloze-opt-letter {
+    background: white;
+    color: var(--accent-deep);
+  }
+
+  .cloze-opt.correct {
+    background: #d1fae5;
+    border-color: var(--accent-go);
+    color: #047857;
+  }
+
+  .cloze-opt.correct .cloze-opt-letter {
+    background: var(--accent-go);
+    color: white;
+  }
+
+  .cloze-opt.wrong {
+    background: #fee2e2;
+    border-color: var(--accent-stop);
+    color: #991b1b;
+  }
+
+  .cloze-opt.wrong .cloze-opt-letter {
+    background: var(--accent-stop);
+    color: white;
+  }
+
+  .cloze-opt:disabled {
+    cursor: default;
+  }
+
+  .cloze-opt-letter {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-warm);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .cloze-opt-text {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .cloze-explain {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #fffbe6;
+    border-left: 3px solid #f59e0b;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .cloze-result {
+    text-align: center;
+    padding: 24px 16px;
+    background: linear-gradient(135deg, #fff8e7 0%, #fde68a 100%);
+    border: 2.5px solid var(--accent-warm);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 0 var(--line-strong);
+  }
+
+  .cloze-result-emoji {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .cloze-result-msg {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .cloze-result-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+  }
+
+  .cloze-result-pct {
+    font-size: 1rem;
+    color: var(--ink-mute);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .cloze-passage-box { padding: 16px 14px; }
+    .cloze-passage-title { font-size: 1.15rem; }
+    .cloze-passage-text { font-size: 1rem; line-height: 1.85; }
+    .cloze-opts-grid { grid-template-columns: 1fr; }
+    .cloze-opt { padding: 12px 14px; }
+    .cloze-result-msg { font-size: 1.2rem; }
+    .cloze-result-score { font-size: 2rem; }
+  }
+
+
+  /* 隱藏元素工具類 */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1 class="title">GEPT <span class="accent">中級</span> 練習</h1>
+    <p class="subtitle">全民英檢 Intermediate · 單字、聽力、克漏字與閱讀練習</p>
+    <div class="stats-bar">
+      <span>總單字數 <strong id="stat-total">0</strong></span>
+      <span>已熟練 <strong id="stat-known">0</strong></span>
+      <span>學習中 <strong id="stat-learning">0</strong></span>
+    </div>
+  </header>
+
+  <nav class="mode-selector" id="modeSelector">
+    <button class="mode-btn active" data-mode="flashcard">
+      <span class="icon">📇</span>
+      <span class="label">閃卡背誦</span>
+      <span class="desc">看單字學意思</span>
+    </button>
+    <button class="mode-btn" data-mode="quiz">
+      <span class="icon">✅</span>
+      <span class="label">選擇題</span>
+      <span class="desc">四選一測驗</span>
+    </button>
+    <button class="mode-btn" data-mode="listen">
+      <span class="icon">🎧</span>
+      <span class="label">發音聽力</span>
+      <span class="desc">聽發音選正解</span>
+    </button>
+    <button class="mode-btn" data-mode="cloze">
+      <span class="icon">📝</span>
+      <span class="label">克漏字</span>
+      <span class="desc">填入正確單字</span>
+    </button>
+    <button class="mode-btn" data-mode="reading">
+      <span class="icon">📖</span>
+      <span class="label">閱讀測驗</span>
+      <span class="desc">短文理解</span>
+    </button>
+  </nav>
+
+  <main class="practice-area" id="practiceArea">
+    <!-- 內容由 JavaScript 動態產生 -->
+  </main>
+
+  <footer>
+    進度自動儲存於此瀏覽器 · 共收錄 <strong id="footer-count">0</strong> 個 GEPT 中級單字 · GEPT 中級綜合練習 💛
+  </footer>
+</div>
+
+<!-- 重設確認 modal -->
+<div class="modal-overlay" id="resetModal">
+  <div class="modal">
+    <h3>要重新開始嗎？</h3>
+    <p>這會清除所有學習進度。確定要重設嗎？</p>
+    <div class="action-row">
+      <button class="btn" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="confirmReset()">確定重設</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// === GEPT 中級單字資料（已過濾掉初級單字）===
+const ALL_WORDS = [{"w":"abandon","p":"v.","t":"拋棄、放棄"},{"w":"abnormal","p":"adj.","t":"不正常的"},{"w":"aboard","p":"prep.","t":"在交通工具上"},{"w":"absence","p":"n.","t":"缺席、不在場"},{"w":"absolute","p":"adj.","t":"絕對的、完全的"},{"w":"absorb","p":"v.","t":"吸收、併入"},{"w":"abstract","p":"adj.","t":"抽象的"},{"w":"abuse","p":"v./n.","t":"濫用、虐待"},{"w":"academic","p":"adj.","t":"學術的、學業的"},{"w":"accent","p":"n.","t":"口音、重音"},{"w":"acceptable","p":"adj.","t":"可接受的"},{"w":"access","p":"n./v.","t":"進入、使用"},{"w":"accompany","p":"v.","t":"陪伴、伴隨"},{"w":"accomplish","p":"v.","t":"完成、達成"},{"w":"according","p":"adv.","t":"根據、按照"},{"w":"account","p":"n.","t":"帳戶、敘述"},{"w":"accountant","p":"n.","t":"會計師"},{"w":"accurate","p":"adj.","t":"準確的、精確的"},{"w":"accuse","p":"v.","t":"控告、指責"},{"w":"achieve","p":"v.","t":"達成、實現"},{"w":"acid","p":"n.","t":"酸"},{"w":"acquaintance","p":"n.","t":"相識的人、熟人"},{"w":"acquire","p":"v.","t":"獲得、取得"},{"w":"acre","p":"n.","t":"英畝"},{"w":"adapt","p":"v.","t":"適應、改編"},{"w":"addict","p":"n./v.","t":"上癮者、使上癮"},{"w":"addition","p":"n.","t":"加法、附加"},{"w":"additional","p":"adj.","t":"附加的、額外的"},{"w":"administration","p":"n.","t":"管理、行政"},{"w":"admirable","p":"adj.","t":"令人欽佩的"},{"w":"admission","p":"n.","t":"承認、入場"},{"w":"adopt","p":"v.","t":"採取、領養"},{"w":"adult","p":"n./adj.","t":"成人、成年的"},{"w":"advanced","p":"adj.","t":"先進的、進階的"},{"w":"advantage","p":"n.","t":"優勢、利益"},{"w":"adventure","p":"n.","t":"冒險、奇遇"},{"w":"advertise","p":"v.","t":"廣告、宣傳"},{"w":"advertisement","p":"n.","t":"廣告"},{"w":"advisor","p":"n.","t":"顧問"},{"w":"affair","p":"n.","t":"事件、事務"},{"w":"affect","p":"v.","t":"影響"},{"w":"affection","p":"n.","t":"喜愛、感情"},{"w":"agency","p":"n.","t":"代理機構、仲介"},{"w":"agent","p":"n.","t":"代理人、仲介"},{"w":"aggressive","p":"adj.","t":"侵略的、有衝勁的"},{"w":"agricultural","p":"adj.","t":"農業的"},{"w":"agriculture","p":"n.","t":"農業"},{"w":"alcohol","p":"n.","t":"酒精"},{"w":"alert","p":"adj./n.","t":"警覺的、警報"},{"w":"alley","p":"n.","t":"巷弄"},{"w":"alliance","p":"n.","t":"聯盟、同盟"},{"w":"allowance","p":"n.","t":"零用錢、津貼"},{"w":"alphabet","p":"n.","t":"字母"},{"w":"altitude","p":"n.","t":"高度、海拔"},{"w":"amaze","p":"v.","t":"使驚奇"},{"w":"ambassador","p":"n.","t":"大使"},{"w":"ambition","p":"n.","t":"抱負、雄心"},{"w":"ambitious","p":"adj.","t":"有雄心的"},{"w":"ambulance","p":"n.","t":"救護車"},{"w":"amuse","p":"v.","t":"使開心"},{"w":"amusement","p":"n.","t":"娛樂、消遣"},{"w":"analysis","p":"n.","t":"分析"},{"w":"analyze","p":"v.","t":"分析"},{"w":"ancestor","p":"n.","t":"祖先"},{"w":"announce","p":"v.","t":"宣布"},{"w":"announcement","p":"n.","t":"宣布、公告"},{"w":"annoy","p":"v.","t":"使惱怒"},{"w":"annual","p":"adj.","t":"每年的、年度的"},{"w":"anxiety","p":"n.","t":"焦慮、憂慮"},{"w":"anxious","p":"adj.","t":"焦慮的、渴望的"},{"w":"apparent","p":"adj.","t":"明顯的"},{"w":"appeal","p":"v./n.","t":"呼籲、吸引力"},{"w":"appearance","p":"n.","t":"外表、出現"},{"w":"applaud","p":"v.","t":"鼓掌、讚許"},{"w":"applause","p":"n.","t":"鼓掌、喝采"},{"w":"appliance","p":"n.","t":"家電用品"},{"w":"application","p":"n.","t":"申請、應用"},{"w":"appoint","p":"v.","t":"任命、指定"},{"w":"appointment","p":"n.","t":"約會、任命"},{"w":"approach","p":"v./n.","t":"接近、方法"},{"w":"approval","p":"n.","t":"贊成、批准"},{"w":"approve","p":"v.","t":"同意、批准"},{"w":"architect","p":"n.","t":"建築師"},{"w":"architecture","p":"n.","t":"建築、建築學"},{"w":"argument","p":"n.","t":"爭論、論點"},{"w":"arise","p":"v.","t":"出現、升起"},{"w":"armed","p":"adj.","t":"武裝的"},{"w":"arms","p":"n.","t":"武器"},{"w":"artificial","p":"adj.","t":"人造的、人工的"},{"w":"artistic","p":"adj.","t":"藝術的"},{"w":"aside","p":"adv.","t":"在旁邊"},{"w":"aspect","p":"n.","t":"方面、觀點"},{"w":"assemble","p":"v.","t":"集合、組裝"},{"w":"assembly","p":"n.","t":"集會、組裝"},{"w":"assign","p":"v.","t":"指派、分配"},{"w":"assignment","p":"n.","t":"作業、任務"},{"w":"assist","p":"v.","t":"幫助、協助"},{"w":"assistance","p":"n.","t":"協助"},{"w":"assistant","p":"n.","t":"助理、助手"},{"w":"associate","p":"v./n.","t":"聯想、同事"},{"w":"association","p":"n.","t":"協會、聯想"},{"w":"assume","p":"v.","t":"假設、認為"},{"w":"assure","p":"v.","t":"保證、使確信"},{"w":"astonish","p":"v.","t":"使驚訝"},{"w":"athlete","p":"n.","t":"運動員"},{"w":"athletic","p":"adj.","t":"運動的、健壯的"},{"w":"atmosphere","p":"n.","t":"大氣、氣氛"},{"w":"atom","p":"n.","t":"原子"},{"w":"attach","p":"v.","t":"附加、附上"},{"w":"attempt","p":"v./n.","t":"嘗試、企圖"},{"w":"attendance","p":"n.","t":"出席、參加"},{"w":"attendant","p":"n.","t":"服務員"},{"w":"attitude","p":"n.","t":"態度"},{"w":"attract","p":"v.","t":"吸引"},{"w":"attraction","p":"n.","t":"吸引、吸引力"},{"w":"attractive","p":"adj.","t":"有吸引力的"},{"w":"audience","p":"n.","t":"觀眾、聽眾"},{"w":"audio","p":"adj.","t":"聲音的、音頻的"},{"w":"author","p":"n.","t":"作者"},{"w":"authority","p":"n.","t":"權威、當局"},{"w":"automatic","p":"adj.","t":"自動的"},{"w":"available","p":"adj.","t":"可獲得的、有空的"},{"w":"award","p":"n./v.","t":"獎、頒發"},{"w":"aware","p":"adj.","t":"察覺的、知道的"},{"w":"awful","p":"adj.","t":"可怕的、糟糕的"},{"w":"awkward","p":"adj.","t":"尷尬的、笨拙的"},{"w":"bacteria","p":"n.","t":"細菌"},{"w":"baggage","p":"n.","t":"行李"},{"w":"bait","p":"n.","t":"誘餌"},{"w":"ban","p":"v./n.","t":"禁止"},{"w":"bankrupt","p":"adj.","t":"破產的"},{"w":"banquet","p":"n.","t":"宴會"},{"w":"bare","p":"adj.","t":"赤裸的、空的"},{"w":"bargain","p":"n./v.","t":"廉價品、討價還價"},{"w":"barrel","p":"n.","t":"桶、槍管"},{"w":"barrier","p":"n.","t":"障礙、柵欄"},{"w":"beam","p":"n.","t":"光束、橫樑"},{"w":"beast","p":"n.","t":"野獸"},{"w":"beg","p":"v.","t":"乞求、懇求"},{"w":"beggar","p":"n.","t":"乞丐"},{"w":"berry","p":"n.","t":"漿果"},{"w":"betray","p":"v.","t":"背叛"},{"w":"beverage","p":"n.","t":"飲料"},{"w":"bias","p":"n.","t":"偏見"},{"w":"bid","p":"v./n.","t":"出價、投標"},{"w":"bind","p":"v.","t":"綁、束縛"},{"w":"biography","p":"n.","t":"傳記"},{"w":"blade","p":"n.","t":"刀刃、葉片"},{"w":"blast","p":"n./v.","t":"爆炸、強風"},{"w":"blaze","p":"v./n.","t":"燃燒、火焰"},{"w":"bleed","p":"v.","t":"流血"},{"w":"blend","p":"v./n.","t":"混合、融合"},{"w":"bless","p":"v.","t":"祝福"},{"w":"blink","p":"v.","t":"眨眼、閃爍"},{"w":"blizzard","p":"n.","t":"暴風雪"},{"w":"bloody","p":"adj.","t":"血腥的"},{"w":"bloom","p":"v./n.","t":"開花、花朵"},{"w":"blossom","p":"n./v.","t":"花、開花"},{"w":"blush","p":"v.","t":"臉紅"},{"w":"boast","p":"v.","t":"自誇、誇耀"},{"w":"bold","p":"adj.","t":"大膽的、粗體的"},{"w":"bond","p":"n.","t":"聯繫、債券"},{"w":"boost","p":"v./n.","t":"增加、推動"},{"w":"bounce","p":"v.","t":"彈跳"},{"w":"boundary","p":"n.","t":"邊界、範圍"},{"w":"brand","p":"n.","t":"品牌"},{"w":"brass","p":"n.","t":"黃銅"},{"w":"breast","p":"n.","t":"胸部、乳房"},{"w":"breed","p":"v./n.","t":"繁殖、品種"},{"w":"bride","p":"n.","t":"新娘"},{"w":"brilliant","p":"adj.","t":"傑出的、明亮的"},{"w":"broadcast","p":"v./n.","t":"廣播、播送"},{"w":"bronze","p":"n.","t":"青銅"},{"w":"browse","p":"v.","t":"瀏覽"},{"w":"brunch","p":"n.","t":"早午餐"},{"w":"brutal","p":"adj.","t":"殘忍的"},{"w":"buckle","p":"n./v.","t":"扣環、扣緊"},{"w":"bud","p":"n.","t":"花蕾、芽"},{"w":"budget","p":"n.","t":"預算"},{"w":"buffet","p":"n.","t":"自助餐"},{"w":"bulb","p":"n.","t":"燈泡"},{"w":"bull","p":"n.","t":"公牛"},{"w":"bullet","p":"n.","t":"子彈"},{"w":"bulletin","p":"n.","t":"公告、佈告"},{"w":"bully","p":"v./n.","t":"欺負、惡霸"},{"w":"bundle","p":"n.","t":"捆、束"},{"w":"bureau","p":"n.","t":"局、處"},{"w":"cabin","p":"n.","t":"小屋、船艙"},{"w":"cabinet","p":"n.","t":"櫃子、內閣"},{"w":"calculate","p":"v.","t":"計算"},{"w":"calculator","p":"n.","t":"計算機"},{"w":"campaign","p":"n.","t":"活動、戰役"},{"w":"canal","p":"n.","t":"運河"},{"w":"cancel","p":"v.","t":"取消"},{"w":"cancer","p":"n.","t":"癌症"},{"w":"candidate","p":"n.","t":"候選人"},{"w":"canvas","p":"n.","t":"帆布、畫布"},{"w":"capable","p":"adj.","t":"有能力的"},{"w":"capacity","p":"n.","t":"容量、能力"},{"w":"capture","p":"v.","t":"捕獲、抓住"},{"w":"carbon","p":"n.","t":"碳"},{"w":"cargo","p":"n.","t":"貨物"},{"w":"carpenter","p":"n.","t":"木匠"},{"w":"carriage","p":"n.","t":"馬車、車廂"},{"w":"carrier","p":"n.","t":"運送者、航空母艦"},{"w":"cart","p":"n.","t":"手推車"},{"w":"carve","p":"v.","t":"雕刻"},{"w":"cashier","p":"n.","t":"收銀員"},{"w":"casual","p":"adj.","t":"輕鬆的、隨便的"},{"w":"category","p":"n.","t":"類別、範疇"},{"w":"cathedral","p":"n.","t":"大教堂"},{"w":"cattle","p":"n.","t":"牛"},{"w":"caution","p":"n.","t":"小心、警告"},{"w":"cease","p":"v.","t":"停止"},{"w":"celebration","p":"n.","t":"慶祝"},{"w":"cement","p":"n.","t":"水泥"},{"w":"cemetery","p":"n.","t":"墓地"},{"w":"ceremony","p":"n.","t":"典禮、儀式"},{"w":"certificate","p":"n.","t":"證書"},{"w":"chairman","p":"n.","t":"主席"},{"w":"chamber","p":"n.","t":"房間、會議廳"},{"w":"champion","p":"n.","t":"冠軍"},{"w":"characteristic","p":"n./adj.","t":"特徵、典型的"},{"w":"charity","p":"n.","t":"慈善、慈善機構"},{"w":"charm","p":"n./v.","t":"魅力、迷人"},{"w":"chat","p":"v./n.","t":"聊天"},{"w":"chew","p":"v.","t":"咀嚼"},{"w":"chill","p":"n./v.","t":"寒冷、使冷"},{"w":"chimney","p":"n.","t":"煙囪"},{"w":"choke","p":"v.","t":"窒息、噎住"},{"w":"chop","p":"v.","t":"砍、剁"},{"w":"chore","p":"n.","t":"家事、雜務"},{"w":"chorus","p":"n.","t":"合唱、副歌"},{"w":"cinema","p":"n.","t":"電影院"},{"w":"circuit","p":"n.","t":"電路、巡迴"},{"w":"circular","p":"adj.","t":"圓形的"},{"w":"circulate","p":"v.","t":"循環、流通"},{"w":"circumstance","p":"n.","t":"情況、環境"},{"w":"civil","p":"adj.","t":"公民的、民事的"},{"w":"civilian","p":"n.","t":"平民"},{"w":"civilization","p":"n.","t":"文明"},{"w":"claim","p":"v./n.","t":"宣稱、主張"},{"w":"clap","p":"v.","t":"拍手"},{"w":"clarify","p":"v.","t":"澄清"},{"w":"clash","p":"v./n.","t":"衝突"},{"w":"classic","p":"adj./n.","t":"經典的、經典作品"},{"w":"classify","p":"v.","t":"分類"},{"w":"clay","p":"n.","t":"黏土"},{"w":"cliff","p":"n.","t":"懸崖"},{"w":"clinic","p":"n.","t":"診所"},{"w":"clue","p":"n.","t":"線索"},{"w":"clumsy","p":"adj.","t":"笨拙的"},{"w":"coal","p":"n.","t":"煤"},{"w":"coast","p":"n.","t":"海岸"},{"w":"cocktail","p":"n.","t":"雞尾酒"},{"w":"code","p":"n.","t":"密碼、代碼"},{"w":"coffin","p":"n.","t":"棺材"},{"w":"coincidence","p":"n.","t":"巧合"},{"w":"collapse","p":"v./n.","t":"倒塌、崩潰"},{"w":"collar","p":"n.","t":"衣領"},{"w":"colleague","p":"n.","t":"同事"},{"w":"collection","p":"n.","t":"收集、收藏"},{"w":"colony","p":"n.","t":"殖民地"},{"w":"column","p":"n.","t":"專欄、柱子"},{"w":"combination","p":"n.","t":"結合、組合"},{"w":"combine","p":"v.","t":"結合"},{"w":"comedian","p":"n.","t":"喜劇演員"},{"w":"comedy","p":"n.","t":"喜劇"},{"w":"comfort","p":"n./v.","t":"舒適、安慰"},{"w":"commander","p":"n.","t":"指揮官"},{"w":"comment","p":"n./v.","t":"評論"},{"w":"commerce","p":"n.","t":"商業"},{"w":"commercial","p":"adj./n.","t":"商業的、商業廣告"},{"w":"commit","p":"v.","t":"犯下、承諾"},{"w":"committee","p":"n.","t":"委員會"},{"w":"communication","p":"n.","t":"溝通、通訊"},{"w":"community","p":"n.","t":"社區、社會"},{"w":"companion","p":"n.","t":"同伴"},{"w":"comparison","p":"n.","t":"比較"},{"w":"compete","p":"v.","t":"競爭、比賽"},{"w":"competition","p":"n.","t":"比賽、競爭"},{"w":"competitor","p":"n.","t":"競爭者"},{"w":"complain","p":"v.","t":"抱怨"},{"w":"complaint","p":"n.","t":"抱怨"},{"w":"complex","p":"adj.","t":"複雜的"},{"w":"complicate","p":"v.","t":"使複雜"},{"w":"compose","p":"v.","t":"組成、創作"},{"w":"composition","p":"n.","t":"作文、組成"},{"w":"compound","p":"n./adj.","t":"化合物、複合的"},{"w":"comprehension","p":"n.","t":"理解、理解力"},{"w":"comprehensive","p":"adj.","t":"全面的、綜合的"},{"w":"compromise","p":"n./v.","t":"妥協"},{"w":"compute","p":"v.","t":"計算"},{"w":"concentrate","p":"v.","t":"集中、專心"},{"w":"concentration","p":"n.","t":"專心、濃度"},{"w":"concept","p":"n.","t":"概念"},{"w":"concerning","p":"prep.","t":"關於"},{"w":"conclude","p":"v.","t":"結束、做結論"},{"w":"conclusion","p":"n.","t":"結論"},{"w":"concrete","p":"adj./n.","t":"具體的、混凝土"},{"w":"conduct","p":"v./n.","t":"進行、行為"},{"w":"conductor","p":"n.","t":"指揮、車掌"},{"w":"conference","p":"n.","t":"會議"},{"w":"confess","p":"v.","t":"承認、坦白"},{"w":"confidence","p":"n.","t":"信心"},{"w":"confirm","p":"v.","t":"確認"},{"w":"conflict","p":"n./v.","t":"衝突"},{"w":"confront","p":"v.","t":"面對、對抗"},{"w":"confusion","p":"n.","t":"困惑"},{"w":"congratulate","p":"v.","t":"恭喜"},{"w":"connection","p":"n.","t":"連接、關係"},{"w":"conscience","p":"n.","t":"良心"},{"w":"conscious","p":"adj.","t":"有意識的"},{"w":"consequence","p":"n.","t":"結果、後果"},{"w":"conservative","p":"adj.","t":"保守的"},{"w":"considerable","p":"adj.","t":"相當大的"},{"w":"consideration","p":"n.","t":"考慮"},{"w":"consist","p":"v.","t":"組成、由…構成"},{"w":"consistent","p":"adj.","t":"一致的"},{"w":"constant","p":"adj.","t":"不變的、持續的"},{"w":"constitute","p":"v.","t":"組成、構成"},{"w":"constitution","p":"n.","t":"憲法、構造"},{"w":"construct","p":"v.","t":"建造、構成"},{"w":"construction","p":"n.","t":"建造、建築"},{"w":"consult","p":"v.","t":"諮詢、商議"},{"w":"consultant","p":"n.","t":"顧問"},{"w":"consume","p":"v.","t":"消耗、消費"},{"w":"consumer","p":"n.","t":"消費者"},{"w":"contact","p":"v./n.","t":"聯絡、接觸"},{"w":"container","p":"n.","t":"容器"},{"w":"content","p":"n.","t":"內容"},{"w":"contest","p":"n.","t":"比賽、競賽"},{"w":"context","p":"n.","t":"背景、上下文"},{"w":"continent","p":"n.","t":"大陸、洲"},{"w":"continuous","p":"adj.","t":"連續的"},{"w":"contract","p":"n./v.","t":"合約、收縮"},{"w":"contrary","p":"adj./n.","t":"相反的、相反"},{"w":"contrast","p":"n./v.","t":"對比"},{"w":"contribute","p":"v.","t":"貢獻"},{"w":"contribution","p":"n.","t":"貢獻"},{"w":"convenience","p":"n.","t":"方便、便利"},{"w":"convention","p":"n.","t":"慣例、會議"},{"w":"conventional","p":"adj.","t":"傳統的、慣例的"},{"w":"convert","p":"v.","t":"轉換"},{"w":"convey","p":"v.","t":"傳達、運送"},{"w":"convince","p":"v.","t":"使信服、說服"},{"w":"cooperate","p":"v.","t":"合作"},{"w":"cooperation","p":"n.","t":"合作"},{"w":"cope","p":"v.","t":"應付、處理"},{"w":"copper","p":"n.","t":"銅"},{"w":"cord","p":"n.","t":"繩、電線"},{"w":"core","p":"n.","t":"核心"},{"w":"corn","p":"n.","t":"玉米"},{"w":"corporate","p":"adj.","t":"公司的、團體的"},{"w":"corporation","p":"n.","t":"公司、企業"},{"w":"correspond","p":"v.","t":"符合、通信"},{"w":"costume","p":"n.","t":"服裝、戲服"},{"w":"council","p":"n.","t":"議會、委員會"},{"w":"county","p":"n.","t":"縣、郡"},{"w":"courageous","p":"adj.","t":"勇敢的"},{"w":"courtesy","p":"n.","t":"禮貌"},{"w":"coward","p":"n.","t":"懦夫"},{"w":"cozy","p":"adj.","t":"舒適的"},{"w":"crack","p":"v./n.","t":"破裂、裂縫"},{"w":"craft","p":"n.","t":"工藝、技能"},{"w":"crash","p":"v./n.","t":"撞毀、碰撞"},{"w":"crawl","p":"v.","t":"爬行"},{"w":"creation","p":"n.","t":"創造、創作"},{"w":"creative","p":"adj.","t":"有創意的"},{"w":"creature","p":"n.","t":"生物、動物"},{"w":"creep","p":"v.","t":"爬行、悄悄移動"},{"w":"crew","p":"n.","t":"全體船員、機組"},{"w":"criminal","p":"n./adj.","t":"罪犯、犯罪的"},{"w":"crisis","p":"n.","t":"危機"},{"w":"crispy","p":"adj.","t":"酥脆的"},{"w":"critic","p":"n.","t":"評論家"},{"w":"critical","p":"adj.","t":"批判的、關鍵的"},{"w":"criticism","p":"n.","t":"批評"},{"w":"criticize","p":"v.","t":"批評"},{"w":"crow","p":"n.","t":"烏鴉"},{"w":"crown","p":"n.","t":"王冠"},{"w":"crucial","p":"adj.","t":"關鍵的、重要的"},{"w":"cruise","p":"n./v.","t":"巡航、航遊"},{"w":"crush","p":"v.","t":"壓碎、迷戀"},{"w":"crystal","p":"n.","t":"水晶"},{"w":"cube","p":"n.","t":"立方體"},{"w":"cucumber","p":"n.","t":"小黃瓜"},{"w":"cultural","p":"adj.","t":"文化的"},{"w":"cunning","p":"adj.","t":"狡猾的"},{"w":"cupboard","p":"n.","t":"櫥櫃"},{"w":"cure","p":"v./n.","t":"治癒、療法"},{"w":"curiosity","p":"n.","t":"好奇心"},{"w":"curious","p":"adj.","t":"好奇的"},{"w":"curl","p":"v.","t":"捲曲"},{"w":"current","p":"adj./n.","t":"目前的、水流"},{"w":"curse","p":"v./n.","t":"詛咒"},{"w":"curtain","p":"n.","t":"窗簾"},{"w":"curve","p":"n./v.","t":"曲線、彎曲"},{"w":"cushion","p":"n.","t":"靠墊、坐墊"},{"w":"customer","p":"n.","t":"顧客"},{"w":"dairy","p":"n.","t":"乳製品"},{"w":"damp","p":"adj.","t":"潮溼的"},{"w":"dash","p":"v./n.","t":"猛衝、短跑"},{"w":"data","p":"n.","t":"資料、數據"},{"w":"database","p":"n.","t":"資料庫"},{"w":"deadline","p":"n.","t":"截止日期"},{"w":"debate","p":"n./v.","t":"辯論"},{"w":"debt","p":"n.","t":"債務"},{"w":"decade","p":"n.","t":"十年"},{"w":"decay","p":"v./n.","t":"腐爛、衰退"},{"w":"deceive","p":"v.","t":"欺騙"},{"w":"decent","p":"adj.","t":"得體的、像樣的"},{"w":"declare","p":"v.","t":"宣布、聲明"},{"w":"decline","p":"v./n.","t":"下降、拒絕"},{"w":"decorate","p":"v.","t":"裝飾"},{"w":"decoration","p":"n.","t":"裝飾"},{"w":"decrease","p":"v./n.","t":"減少"},{"w":"deed","p":"n.","t":"行為、契約"},{"w":"defend","p":"v.","t":"保護、辯護"},{"w":"defense","p":"n.","t":"防禦、辯護"},{"w":"define","p":"v.","t":"定義"},{"w":"definite","p":"adj.","t":"明確的"},{"w":"definitely","p":"adv.","t":"確定地"},{"w":"definition","p":"n.","t":"定義"},{"w":"delete","p":"v.","t":"刪除"},{"w":"deliberate","p":"adj.","t":"故意的"},{"w":"delicate","p":"adj.","t":"精緻的、脆弱的"},{"w":"delivery","p":"n.","t":"遞送、分娩"},{"w":"democracy","p":"n.","t":"民主"},{"w":"democratic","p":"adj.","t":"民主的"},{"w":"demonstrate","p":"v.","t":"示範、證明"},{"w":"deny","p":"v.","t":"否認"},{"w":"department","p":"n.","t":"部門、系"},{"w":"departure","p":"n.","t":"出發、離開"},{"w":"depend","p":"v.","t":"依賴、取決於"},{"w":"deposit","p":"v./n.","t":"存款、押金"},{"w":"depress","p":"v.","t":"使沮喪"},{"w":"depression","p":"n.","t":"沮喪、不景氣"},{"w":"depth","p":"n.","t":"深度"},{"w":"derive","p":"v.","t":"獲得、源於"},{"w":"descend","p":"v.","t":"下降"},{"w":"description","p":"n.","t":"描述"},{"w":"designer","p":"n.","t":"設計師"},{"w":"despair","p":"n.","t":"絕望"},{"w":"desperate","p":"adj.","t":"絕望的、拼命的"},{"w":"despite","p":"prep.","t":"儘管"},{"w":"destination","p":"n.","t":"目的地"},{"w":"destroy","p":"v.","t":"破壞、毀滅"},{"w":"destruction","p":"n.","t":"破壞"},{"w":"detect","p":"v.","t":"察覺、發現"},{"w":"detective","p":"n.","t":"偵探"},{"w":"determination","p":"n.","t":"決心"},{"w":"determine","p":"v.","t":"決定、決心"},{"w":"device","p":"n.","t":"裝置、設備"},{"w":"devil","p":"n.","t":"魔鬼"},{"w":"devote","p":"v.","t":"奉獻、致力於"},{"w":"diagram","p":"n.","t":"圖表"},{"w":"dialect","p":"n.","t":"方言"},{"w":"dialogue","p":"n.","t":"對話"},{"w":"diaper","p":"n.","t":"尿布"},{"w":"difference","p":"n.","t":"差異"},{"w":"digest","p":"v.","t":"消化"},{"w":"dignity","p":"n.","t":"尊嚴"},{"w":"diligent","p":"adj.","t":"勤勉的"},{"w":"dim","p":"adj.","t":"昏暗的"},{"w":"dimension","p":"n.","t":"尺寸、面向"},{"w":"dine","p":"v.","t":"用餐"},{"w":"diploma","p":"n.","t":"文憑"},{"w":"diplomat","p":"n.","t":"外交官"},{"w":"dirt","p":"n.","t":"泥土、灰塵"},{"w":"disabled","p":"adj.","t":"殘障的"},{"w":"disadvantage","p":"n.","t":"缺點、不利"},{"w":"disagree","p":"v.","t":"不同意"},{"w":"disappear","p":"v.","t":"消失"},{"w":"disappoint","p":"v.","t":"使失望"},{"w":"disappointment","p":"n.","t":"失望"},{"w":"disaster","p":"n.","t":"災難"},{"w":"discipline","p":"n./v.","t":"紀律、訓練"},{"w":"disco","p":"n.","t":"迪斯可"},{"w":"discount","p":"n.","t":"折扣"},{"w":"discourage","p":"v.","t":"使氣餒"},{"w":"discovery","p":"n.","t":"發現"},{"w":"disease","p":"n.","t":"疾病"},{"w":"disguise","p":"v./n.","t":"偽裝"},{"w":"disgust","p":"n./v.","t":"厭惡、使厭惡"},{"w":"dislike","p":"v./n.","t":"不喜歡"},{"w":"dismiss","p":"v.","t":"解散、解雇"},{"w":"display","p":"v./n.","t":"展示、陳列"},{"w":"dispute","p":"n./v.","t":"爭論、爭議"},{"w":"distant","p":"adj.","t":"遙遠的"},{"w":"distinct","p":"adj.","t":"明顯的、不同的"},{"w":"distinction","p":"n.","t":"差別、區分"},{"w":"distinguish","p":"v.","t":"區別、辨別"},{"w":"distribute","p":"v.","t":"分發、分配"},{"w":"distribution","p":"n.","t":"分發、分配"},{"w":"district","p":"n.","t":"地區、行政區"},{"w":"disturb","p":"v.","t":"打擾"},{"w":"diverse","p":"adj.","t":"多樣的"},{"w":"divine","p":"adj.","t":"神聖的"},{"w":"division","p":"n.","t":"分割、部門"},{"w":"divorce","p":"v./n.","t":"離婚"},{"w":"dizzy","p":"adj.","t":"頭暈的"},{"w":"document","p":"n.","t":"文件"},{"w":"domestic","p":"adj.","t":"家庭的、國內的"},{"w":"dominate","p":"v.","t":"支配、控制"},{"w":"donate","p":"v.","t":"捐贈"},{"w":"donation","p":"n.","t":"捐贈、捐款"},{"w":"donkey","p":"n.","t":"驢子"},{"w":"dormitory","p":"n.","t":"宿舍"},{"w":"dose","p":"n.","t":"劑量"},{"w":"dough","p":"n.","t":"麵糰"},{"w":"download","p":"v.","t":"下載"},{"w":"draft","p":"n./v.","t":"草稿、起草"},{"w":"drag","p":"v.","t":"拖、拉"},{"w":"dragon","p":"n.","t":"龍"},{"w":"drain","p":"v./n.","t":"排水、排水管"},{"w":"drama","p":"n.","t":"戲劇"},{"w":"dramatic","p":"adj.","t":"戲劇性的"},{"w":"drift","p":"v.","t":"漂流、漂移"},{"w":"drill","p":"v./n.","t":"鑽孔、訓練"},{"w":"drown","p":"v.","t":"溺死"},{"w":"drunk","p":"adj.","t":"喝醉的"},{"w":"due","p":"adj.","t":"到期的、由於"},{"w":"dull","p":"adj.","t":"枯燥的、遲鈍的"},{"w":"dump","p":"v./n.","t":"丟棄、垃圾場"},{"w":"durable","p":"adj.","t":"耐用的"},{"w":"dwell","p":"v.","t":"居住"},{"w":"dye","p":"v./n.","t":"染、染料"},{"w":"dynamic","p":"adj.","t":"動態的、有活力的"},{"w":"eager","p":"adj.","t":"渴望的、熱切的"},{"w":"eagle","p":"n.","t":"老鷹"},{"w":"earnest","p":"adj.","t":"認真的、誠摯的"},{"w":"earnings","p":"n.","t":"收入、收益"},{"w":"earphone","p":"n.","t":"耳機"},{"w":"earthquake","p":"n.","t":"地震"},{"w":"ease","p":"n./v.","t":"容易、減輕"},{"w":"echo","p":"n./v.","t":"回聲、迴響"},{"w":"economic","p":"adj.","t":"經濟的"},{"w":"economical","p":"adj.","t":"節省的"},{"w":"economics","p":"n.","t":"經濟學"},{"w":"economy","p":"n.","t":"經濟"},{"w":"edge","p":"n.","t":"邊緣"},{"w":"edible","p":"adj.","t":"可食用的"},{"w":"edit","p":"v.","t":"編輯"},{"w":"edition","p":"n.","t":"版本"},{"w":"editor","p":"n.","t":"編輯"},{"w":"educate","p":"v.","t":"教育"},{"w":"educational","p":"adj.","t":"教育的"},{"w":"effective","p":"adj.","t":"有效的"},{"w":"efficient","p":"adj.","t":"有效率的"},{"w":"elastic","p":"adj.","t":"有彈性的"},{"w":"elbow","p":"n.","t":"手肘"},{"w":"elect","p":"v.","t":"選舉"},{"w":"election","p":"n.","t":"選舉"},{"w":"electrical","p":"adj.","t":"電的、電器的"},{"w":"electronic","p":"adj.","t":"電子的"},{"w":"electronics","p":"n.","t":"電子學"},{"w":"elegant","p":"adj.","t":"優雅的"},{"w":"element","p":"n.","t":"元素"},{"w":"eliminate","p":"v.","t":"消除"},{"w":"embarrass","p":"v.","t":"使尷尬"},{"w":"embarrassment","p":"n.","t":"尷尬"},{"w":"embassy","p":"n.","t":"大使館"},{"w":"emerge","p":"v.","t":"出現、浮現"},{"w":"emergency","p":"n.","t":"緊急情況"},{"w":"emotional","p":"adj.","t":"情緒的、情感的"},{"w":"emperor","p":"n.","t":"皇帝"},{"w":"emphasis","p":"n.","t":"強調"},{"w":"emphasize","p":"v.","t":"強調"},{"w":"empire","p":"n.","t":"帝國"},{"w":"employ","p":"v.","t":"雇用"},{"w":"employer","p":"n.","t":"雇主"},{"w":"employment","p":"n.","t":"雇用、工作"},{"w":"enclose","p":"v.","t":"封入、圍住"},{"w":"encounter","p":"v./n.","t":"遭遇、相遇"},{"w":"encourage","p":"v.","t":"鼓勵"},{"w":"encouragement","p":"n.","t":"鼓勵"},{"w":"endanger","p":"v.","t":"危及"},{"w":"ending","p":"n.","t":"結局"},{"w":"endure","p":"v.","t":"忍受、持續"},{"w":"energetic","p":"adj.","t":"精力充沛的"},{"w":"engage","p":"v.","t":"從事、訂婚"},{"w":"engagement","p":"n.","t":"約定、訂婚"},{"w":"engineering","p":"n.","t":"工程學"},{"w":"enjoyable","p":"adj.","t":"愉快的"},{"w":"enlarge","p":"v.","t":"擴大"},{"w":"enormous","p":"adj.","t":"巨大的"},{"w":"enrich","p":"v.","t":"使豐富"},{"w":"enroll","p":"v.","t":"註冊、登記"},{"w":"ensure","p":"v.","t":"確保"},{"w":"enterprise","p":"n.","t":"企業"},{"w":"entertain","p":"v.","t":"娛樂、款待"},{"w":"entertainment","p":"n.","t":"娛樂"},{"w":"enthusiasm","p":"n.","t":"熱情"},{"w":"enthusiastic","p":"adj.","t":"熱情的"},{"w":"envious","p":"adj.","t":"嫉妒的"},{"w":"environmental","p":"adj.","t":"環境的"},{"w":"envy","p":"v./n.","t":"嫉妒、羨慕"},{"w":"episode","p":"n.","t":"插曲、一集"},{"w":"equality","p":"n.","t":"平等"},{"w":"equip","p":"v.","t":"裝備"},{"w":"equipment","p":"n.","t":"設備、裝備"},{"w":"era","p":"n.","t":"時代、紀元"},{"w":"erase","p":"v.","t":"擦掉、消除"},{"w":"errand","p":"n.","t":"差事"},{"w":"erupt","p":"v.","t":"爆發"},{"w":"escalator","p":"n.","t":"電扶梯"},{"w":"essay","p":"n.","t":"散文、論文"},{"w":"essential","p":"adj.","t":"必要的、本質的"},{"w":"establish","p":"v.","t":"建立"},{"w":"establishment","p":"n.","t":"建立、機構"},{"w":"estate","p":"n.","t":"地產、財產"},{"w":"estimate","p":"v./n.","t":"估計"},{"w":"eve","p":"n.","t":"前夕"},{"w":"eventual","p":"adj.","t":"最終的"},{"w":"evidence","p":"n.","t":"證據"},{"w":"evident","p":"adj.","t":"明顯的"},{"w":"evil","p":"adj./n.","t":"邪惡的、邪惡"},{"w":"evolution","p":"n.","t":"進化、演變"},{"w":"evolve","p":"v.","t":"進化、演變"},{"w":"exact","p":"adj.","t":"精確的"},{"w":"exaggerate","p":"v.","t":"誇張、誇大"},{"w":"exam","p":"n.","t":"考試"},{"w":"examination","p":"n.","t":"考試、檢查"},{"w":"examine","p":"v.","t":"檢查"},{"w":"exceed","p":"v.","t":"超過"},{"w":"exception","p":"n.","t":"例外"},{"w":"exclude","p":"v.","t":"排除"},{"w":"execute","p":"v.","t":"執行、處決"},{"w":"executive","p":"n.","t":"主管、行政人員"},{"w":"exhaust","p":"v.","t":"使疲憊、耗盡"},{"w":"exhibit","p":"v./n.","t":"展示、展覽"},{"w":"exhibition","p":"n.","t":"展覽"},{"w":"existence","p":"n.","t":"存在"},{"w":"exit","p":"n./v.","t":"出口、離開"},{"w":"expand","p":"v.","t":"擴大、擴展"},{"w":"expansion","p":"n.","t":"擴張"},{"w":"expectation","p":"n.","t":"期望、預期"},{"w":"expense","p":"n.","t":"費用、花費"},{"w":"experiment","p":"n./v.","t":"實驗"},{"w":"explanation","p":"n.","t":"解釋"},{"w":"explode","p":"v.","t":"爆炸"},{"w":"explore","p":"v.","t":"探索、勘查"},{"w":"explorer","p":"n.","t":"探險家"},{"w":"explosion","p":"n.","t":"爆炸"},{"w":"export","p":"v./n.","t":"出口"},{"w":"expose","p":"v.","t":"暴露、揭露"},{"w":"expression","p":"n.","t":"表達、表情"},{"w":"extend","p":"v.","t":"延伸、擴展"},{"w":"extension","p":"n.","t":"延伸、分機"},{"w":"extensive","p":"adj.","t":"廣泛的"},{"w":"extent","p":"n.","t":"程度、範圍"},{"w":"exterior","p":"adj./n.","t":"外部的、外部"},{"w":"external","p":"adj.","t":"外部的"},{"w":"extreme","p":"adj./n.","t":"極端的、極端"},{"w":"fable","p":"n.","t":"寓言"},{"w":"fabric","p":"n.","t":"織物、布"},{"w":"facial","p":"adj.","t":"臉部的"},{"w":"facility","p":"n.","t":"設施、設備"},{"w":"factor","p":"n.","t":"因素"},{"w":"faculty","p":"n.","t":"全體教職員、能力"},{"w":"fade","p":"v.","t":"褪色、逐漸消失"},{"w":"failure","p":"n.","t":"失敗"},{"w":"faint","p":"adj./v.","t":"微弱的、昏倒"},{"w":"fairly","p":"adv.","t":"公平地、相當"},{"w":"fairy","p":"n.","t":"仙女、妖精"},{"w":"faithful","p":"adj.","t":"忠實的"},{"w":"fake","p":"adj./n.","t":"假的、贗品"},{"w":"fantasy","p":"n.","t":"幻想"},{"w":"fare","p":"n.","t":"車費、票價"},{"w":"farewell","p":"n.","t":"告別"},{"w":"farther","p":"adv./adj.","t":"更遠的"},{"w":"fascinate","p":"v.","t":"使著迷"},{"w":"fashionable","p":"adj.","t":"流行的"},{"w":"fasten","p":"v.","t":"扣緊、繫牢"},{"w":"fate","p":"n.","t":"命運"},{"w":"fatigue","p":"n.","t":"疲勞"},{"w":"favorable","p":"adj.","t":"有利的"},{"w":"federal","p":"adj.","t":"聯邦的"},{"w":"fee","p":"n.","t":"費用"},{"w":"feedback","p":"n.","t":"回饋"},{"w":"fence","p":"n.","t":"圍欄、籬笆"},{"w":"fertile","p":"adj.","t":"肥沃的"},{"w":"fertilizer","p":"n.","t":"肥料"},{"w":"fetch","p":"v.","t":"取來、拿來"},{"w":"fiber","p":"n.","t":"纖維"},{"w":"fiction","p":"n.","t":"小說、虛構"},{"w":"fierce","p":"adj.","t":"兇猛的"},{"w":"file","p":"n./v.","t":"檔案、歸檔"},{"w":"filter","p":"n./v.","t":"過濾器、過濾"},{"w":"finance","p":"n.","t":"財政、金融"},{"w":"financial","p":"adj.","t":"財政的、金融的"},{"w":"firework","p":"n.","t":"煙火"},{"w":"fist","p":"n.","t":"拳頭"},{"w":"fitness","p":"n.","t":"健康、健身"},{"w":"flame","p":"n.","t":"火焰"},{"w":"flash","p":"v./n.","t":"閃光、閃爍"},{"w":"flatter","p":"v.","t":"奉承、阿諛"},{"w":"flea","p":"n.","t":"跳蚤"},{"w":"flee","p":"v.","t":"逃跑"},{"w":"flesh","p":"n.","t":"肉、肌肉"},{"w":"flexible","p":"adj.","t":"靈活的、有彈性的"},{"w":"flock","p":"n.","t":"群"},{"w":"flood","p":"n./v.","t":"洪水、淹沒"},{"w":"flunk","p":"v.","t":"不及格"},{"w":"flush","p":"v.","t":"沖洗、臉紅"},{"w":"folk","p":"n./adj.","t":"人們、民間的"},{"w":"following","p":"adj.","t":"接下來的"},{"w":"fond","p":"adj.","t":"喜愛的"},{"w":"forbid","p":"v.","t":"禁止"},{"w":"forecast","p":"n./v.","t":"預測、預報"},{"w":"forehead","p":"n.","t":"額頭"},{"w":"forever","p":"adv.","t":"永遠"},{"w":"format","p":"n.","t":"格式"},{"w":"formation","p":"n.","t":"形成、構成"},{"w":"formula","p":"n.","t":"公式、配方"},{"w":"fort","p":"n.","t":"堡壘"},{"w":"forth","p":"adv.","t":"向前、向外"},{"w":"fortunate","p":"adj.","t":"幸運的"},{"w":"forum","p":"n.","t":"論壇"},{"w":"fossil","p":"n.","t":"化石"},{"w":"foster","p":"v.","t":"養育、培養"},{"w":"foundation","p":"n.","t":"基礎、基金會"},{"w":"fountain","p":"n.","t":"噴泉"},{"w":"fragile","p":"adj.","t":"脆弱的、易碎的"},{"w":"fragrance","p":"n.","t":"芬芳、香氣"},{"w":"frame","p":"n.","t":"框架、架構"},{"w":"frank","p":"adj.","t":"坦率的、直言的"},{"w":"freeway","p":"n.","t":"高速公路"},{"w":"freeze","p":"v.","t":"結冰、凍結"},{"w":"freight","p":"n.","t":"貨物、運費"},{"w":"frequency","p":"n.","t":"頻率、頻繁"},{"w":"frequent","p":"adj.","t":"頻繁的"},{"w":"freshman","p":"n.","t":"大一新生"},{"w":"fright","p":"n.","t":"驚嚇、恐懼"},{"w":"frost","p":"n.","t":"霜、結霜"},{"w":"frown","p":"v.","t":"皺眉"},{"w":"fuel","p":"n.","t":"燃料"},{"w":"fulfill","p":"v.","t":"實現、履行"},{"w":"fund","p":"n.","t":"基金、資金"},{"w":"fundamental","p":"adj.","t":"基本的、根本的"},{"w":"funeral","p":"n.","t":"葬禮"},{"w":"furniture","p":"n.","t":"家具"},{"w":"further","p":"adv./adj.","t":"進一步的、更遠的"},{"w":"gallery","p":"n.","t":"畫廊、美術館"},{"w":"gallon","p":"n.","t":"加侖"},{"w":"gamble","p":"v./n.","t":"賭博"},{"w":"gap","p":"n.","t":"差距、間隙"},{"w":"garlic","p":"n.","t":"大蒜"},{"w":"garment","p":"n.","t":"衣服、服裝"},{"w":"gasoline","p":"n.","t":"汽油"},{"w":"gathering","p":"n.","t":"聚會"},{"w":"gay","p":"adj.","t":"快樂的、同性戀的"},{"w":"gaze","p":"v./n.","t":"凝視"},{"w":"gear","p":"n.","t":"齒輪、裝備"},{"w":"gender","p":"n.","t":"性別"},{"w":"gene","p":"n.","t":"基因"},{"w":"generate","p":"v.","t":"產生、發電"},{"w":"generation","p":"n.","t":"世代、產生"},{"w":"generosity","p":"n.","t":"慷慨"},{"w":"genius","p":"n.","t":"天才"},{"w":"genuine","p":"adj.","t":"真正的、真誠的"},{"w":"geometry","p":"n.","t":"幾何學"},{"w":"germ","p":"n.","t":"細菌"},{"w":"gesture","p":"n.","t":"手勢、姿態"},{"w":"gigantic","p":"adj.","t":"巨大的"},{"w":"giggle","p":"v.","t":"咯咯地笑"},{"w":"glance","p":"v./n.","t":"瞥、一瞥"},{"w":"glare","p":"v./n.","t":"怒視、強光"},{"w":"glide","p":"v.","t":"滑動、滑行"},{"w":"glimpse","p":"n.","t":"一瞥"},{"w":"global","p":"adj.","t":"全球的"},{"w":"gloomy","p":"adj.","t":"陰暗的、憂鬱的"},{"w":"glory","p":"n.","t":"榮耀"},{"w":"glow","p":"v./n.","t":"發光"},{"w":"goddess","p":"n.","t":"女神"},{"w":"goods","p":"n.","t":"商品"},{"w":"gossip","p":"n./v.","t":"閒話、八卦"},{"w":"govern","p":"v.","t":"統治、治理"},{"w":"governor","p":"n.","t":"州長、總督"},{"w":"gown","p":"n.","t":"長袍、禮服"},{"w":"grab","p":"v.","t":"抓住"},{"w":"grace","p":"n.","t":"優雅、恩典"},{"w":"graceful","p":"adj.","t":"優雅的"},{"w":"gradual","p":"adj.","t":"逐漸的"},{"w":"graduate","p":"v./n.","t":"畢業、畢業生"},{"w":"graduation","p":"n.","t":"畢業"},{"w":"grain","p":"n.","t":"穀物、顆粒"},{"w":"grammar","p":"n.","t":"文法"},{"w":"grand","p":"adj.","t":"宏偉的"},{"w":"grant","p":"v./n.","t":"授予、補助金"},{"w":"grasp","p":"v.","t":"抓住、理解"},{"w":"grateful","p":"adj.","t":"感激的"},{"w":"gratitude","p":"n.","t":"感激"},{"w":"grave","p":"n.","t":"墳墓"},{"w":"gravity","p":"n.","t":"重力、嚴重"},{"w":"greasy","p":"adj.","t":"油膩的"},{"w":"greenhouse","p":"n.","t":"溫室"},{"w":"greeting","p":"n.","t":"問候、招呼"},{"w":"grief","p":"n.","t":"悲痛"},{"w":"grill","p":"v./n.","t":"燒烤、烤架"},{"w":"grin","p":"v.","t":"露齒而笑"},{"w":"grind","p":"v.","t":"磨碎"},{"w":"grocery","p":"n.","t":"雜貨店"},{"w":"growl","p":"v.","t":"咆哮"},{"w":"growth","p":"n.","t":"成長、增長"},{"w":"guarantee","p":"v./n.","t":"保證"},{"w":"guidance","p":"n.","t":"指導"},{"w":"guideline","p":"n.","t":"指導方針"},{"w":"guilt","p":"n.","t":"罪、罪惡感"},{"w":"guilty","p":"adj.","t":"有罪的、內疚的"},{"w":"gulf","p":"n.","t":"海灣"},{"w":"gum","p":"n.","t":"口香糖、牙齦"},{"w":"hairdresser","p":"n.","t":"美髮師"},{"w":"halt","p":"v./n.","t":"停止、暫停"},{"w":"handful","p":"n.","t":"一把、少數"},{"w":"handwriting","p":"n.","t":"筆跡"},{"w":"handy","p":"adj.","t":"方便的、靈巧的"},{"w":"hanger","p":"n.","t":"衣架"},{"w":"harbor","p":"n.","t":"港口"},{"w":"hardship","p":"n.","t":"困苦、艱難"},{"w":"hardware","p":"n.","t":"硬體、五金"},{"w":"harm","p":"n./v.","t":"傷害"},{"w":"harmful","p":"adj.","t":"有害的"},{"w":"harmony","p":"n.","t":"和諧、和聲"},{"w":"harsh","p":"adj.","t":"嚴厲的、刺耳的"},{"w":"harvest","p":"n./v.","t":"收穫、收割"},{"w":"hatch","p":"v.","t":"孵化"},{"w":"hatred","p":"n.","t":"憎恨"},{"w":"hawk","p":"n.","t":"老鷹"},{"w":"hay","p":"n.","t":"乾草"},{"w":"hazard","p":"n.","t":"危險"},{"w":"headline","p":"n.","t":"頭條新聞"},{"w":"headphones","p":"n.","t":"耳機"},{"w":"headquarters","p":"n.","t":"總部"},{"w":"heal","p":"v.","t":"治癒"},{"w":"healthful","p":"adj.","t":"有益健康的"},{"w":"hearing","p":"n.","t":"聽力、聽證會"},{"w":"heel","p":"n.","t":"腳跟、後跟"},{"w":"height","p":"n.","t":"高度"},{"w":"helicopter","p":"n.","t":"直升機"},{"w":"hell","p":"n.","t":"地獄"},{"w":"helmet","p":"n.","t":"頭盔、安全帽"},{"w":"herd","p":"n.","t":"獸群"},{"w":"heroine","p":"n.","t":"女英雄"},{"w":"hesitate","p":"v.","t":"猶豫"},{"w":"highlight","p":"v./n.","t":"強調、亮點"},{"w":"hint","p":"n./v.","t":"提示、暗示"},{"w":"historian","p":"n.","t":"歷史學家"},{"w":"historic","p":"adj.","t":"有歷史意義的"},{"w":"historical","p":"adj.","t":"歷史的"},{"w":"hollow","p":"adj.","t":"空心的"},{"w":"holy","p":"adj.","t":"神聖的"},{"w":"homeland","p":"n.","t":"祖國、家鄉"},{"w":"honeymoon","p":"n.","t":"蜜月"},{"w":"honor","p":"n./v.","t":"榮譽、尊敬"},{"w":"honorable","p":"adj.","t":"光榮的、可敬的"},{"w":"hook","p":"n./v.","t":"鉤子、鉤住"},{"w":"horizon","p":"n.","t":"地平線"},{"w":"horror","p":"n.","t":"恐怖"},{"w":"hose","p":"n.","t":"水管"},{"w":"hospitality","p":"n.","t":"好客、款待"},{"w":"household","p":"n./adj.","t":"家庭、家用的"},{"w":"housekeeper","p":"n.","t":"管家"},{"w":"howl","p":"v.","t":"嚎叫"},{"w":"hug","p":"v./n.","t":"擁抱"},{"w":"humanity","p":"n.","t":"人性、人類"},{"w":"humid","p":"adj.","t":"潮溼的"},{"w":"humor","p":"n.","t":"幽默"},{"w":"humorous","p":"adj.","t":"幽默的"},{"w":"hunger","p":"n.","t":"飢餓"},{"w":"hurricane","p":"n.","t":"颶風"},{"w":"hush","p":"v.","t":"使安靜"},{"w":"iceberg","p":"n.","t":"冰山"},{"w":"identical","p":"adj.","t":"相同的"},{"w":"identification","p":"n.","t":"身份證明"},{"w":"identify","p":"v.","t":"辨認、識別"},{"w":"identity","p":"n.","t":"身份、特徵"},{"w":"idiom","p":"n.","t":"慣用語、成語"},{"w":"idle","p":"adj.","t":"閒置的、懶散的"},{"w":"idol","p":"n.","t":"偶像"},{"w":"ignorance","p":"n.","t":"無知"},{"w":"ignorant","p":"adj.","t":"無知的"},{"w":"ignore","p":"v.","t":"忽視"},{"w":"illegal","p":"adj.","t":"非法的"},{"w":"illness","p":"n.","t":"疾病"},{"w":"illustrate","p":"v.","t":"說明、舉例"},{"w":"illustration","p":"n.","t":"插圖、說明"},{"w":"imaginary","p":"adj.","t":"想像的"},{"w":"imagination","p":"n.","t":"想像力"},{"w":"imaginative","p":"adj.","t":"富想像力的"},{"w":"imitate","p":"v.","t":"模仿"},{"w":"imitation","p":"n.","t":"模仿、仿造品"},{"w":"immediate","p":"adj.","t":"立即的"},{"w":"immigrant","p":"n.","t":"移民"},{"w":"impact","p":"n.","t":"影響、衝擊"},{"w":"imply","p":"v.","t":"暗示"},{"w":"importance","p":"n.","t":"重要性"},{"w":"impose","p":"v.","t":"強加、徵收"},{"w":"impress","p":"v.","t":"使印象深刻"},{"w":"impression","p":"n.","t":"印象"},{"w":"impressive","p":"adj.","t":"令人印象深刻的"},{"w":"improvement","p":"n.","t":"改進"},{"w":"incredible","p":"adj.","t":"不可思議的"},{"w":"independence","p":"n.","t":"獨立"},{"w":"independent","p":"adj.","t":"獨立的"},{"w":"index","p":"n.","t":"索引、指標"},{"w":"individual","p":"adj./n.","t":"個別的、個人"},{"w":"indoor","p":"adj.","t":"室內的"},{"w":"industrial","p":"adj.","t":"工業的"},{"w":"infect","p":"v.","t":"感染"},{"w":"infection","p":"n.","t":"感染"},{"w":"inferior","p":"adj.","t":"較差的、下級的"},{"w":"infinite","p":"adj.","t":"無限的"},{"w":"inflation","p":"n.","t":"通貨膨脹"},{"w":"influence","p":"n./v.","t":"影響"},{"w":"influential","p":"adj.","t":"有影響力的"},{"w":"ingredient","p":"n.","t":"成分、原料"},{"w":"initial","p":"adj.","t":"最初的"},{"w":"initiate","p":"v.","t":"發起、開始"},{"w":"inn","p":"n.","t":"小旅館"},{"w":"inner","p":"adj.","t":"內部的"},{"w":"innocent","p":"adj.","t":"無辜的、天真的"},{"w":"input","p":"n./v.","t":"輸入"},{"w":"inquire","p":"v.","t":"詢問"},{"w":"insert","p":"v.","t":"插入"},{"w":"inspect","p":"v.","t":"檢查、視察"},{"w":"inspector","p":"n.","t":"檢查員"},{"w":"inspiration","p":"n.","t":"靈感"},{"w":"inspire","p":"v.","t":"啟發、激勵"},{"w":"install","p":"v.","t":"安裝"},{"w":"instant","p":"adj./n.","t":"立即的、瞬間"},{"w":"instinct","p":"n.","t":"本能"},{"w":"institute","p":"n.","t":"學院、機構"},{"w":"institution","p":"n.","t":"機構、制度"},{"w":"instruct","p":"v.","t":"指導、教導"},{"w":"instruction","p":"n.","t":"指示、教導"},{"w":"instructor","p":"n.","t":"教師、指導員"},{"w":"instrument","p":"n.","t":"工具、樂器"},{"w":"insult","p":"v./n.","t":"侮辱"},{"w":"insurance","p":"n.","t":"保險"},{"w":"intelligence","p":"n.","t":"智力、情報"},{"w":"intend","p":"v.","t":"打算、想要"},{"w":"intense","p":"adj.","t":"強烈的"},{"w":"intensity","p":"n.","t":"強度、強烈"},{"w":"intention","p":"n.","t":"意圖、目的"},{"w":"interact","p":"v.","t":"互動"},{"w":"interaction","p":"n.","t":"互動"},{"w":"interfere","p":"v.","t":"干涉、妨礙"},{"w":"interior","p":"adj./n.","t":"內部的、內部"},{"w":"intermediate","p":"adj.","t":"中等的、中級的"},{"w":"internal","p":"adj.","t":"內部的"},{"w":"interpret","p":"v.","t":"解釋、口譯"},{"w":"interpreter","p":"n.","t":"口譯員"},{"w":"interrupt","p":"v.","t":"打斷"},{"w":"intersection","p":"n.","t":"十字路口"},{"w":"interval","p":"n.","t":"間隔"},{"w":"intimate","p":"adj.","t":"親密的"},{"w":"introduction","p":"n.","t":"介紹、引言"},{"w":"invade","p":"v.","t":"入侵、侵略"},{"w":"invasion","p":"n.","t":"入侵"},{"w":"invention","p":"n.","t":"發明"},{"w":"inventor","p":"n.","t":"發明家"},{"w":"invest","p":"v.","t":"投資"},{"w":"investigate","p":"v.","t":"調查"},{"w":"investment","p":"n.","t":"投資"},{"w":"invitation","p":"n.","t":"邀請"},{"w":"isolate","p":"v.","t":"隔離"},{"w":"ivory","p":"n.","t":"象牙"},{"w":"jail","p":"n.","t":"監獄"},{"w":"jar","p":"n.","t":"罐子"},{"w":"jaw","p":"n.","t":"下顎"},{"w":"jealous","p":"adj.","t":"嫉妒的"},{"w":"jelly","p":"n.","t":"果凍"},{"w":"jet","p":"n.","t":"噴射機"},{"w":"jewel","p":"n.","t":"寶石"},{"w":"jewelry","p":"n.","t":"珠寶"},{"w":"journal","p":"n.","t":"日誌、期刊"},{"w":"judgment","p":"n.","t":"判斷、判決"},{"w":"junk","p":"n.","t":"垃圾、廢物"},{"w":"jury","p":"n.","t":"陪審團"},{"w":"justice","p":"n.","t":"正義、司法"},{"w":"justify","p":"v.","t":"證明…正當"},{"w":"keen","p":"adj.","t":"熱衷的、敏銳的"},{"w":"kettle","p":"n.","t":"水壺"},{"w":"kidnap","p":"v.","t":"綁架"},{"w":"kidney","p":"n.","t":"腎臟"},{"w":"kit","p":"n.","t":"成套工具"},{"w":"knight","p":"n.","t":"騎士"},{"w":"knit","p":"v.","t":"編織"},{"w":"knot","p":"n.","t":"結"},{"w":"label","p":"n./v.","t":"標籤、貼標籤"},{"w":"labor","p":"n.","t":"勞動、勞工"},{"w":"laboratory","p":"n.","t":"實驗室"},{"w":"lace","p":"n.","t":"蕾絲、鞋帶"},{"w":"lack","p":"v./n.","t":"缺乏"},{"w":"lag","p":"v.","t":"落後"},{"w":"landlady","p":"n.","t":"女房東"},{"w":"landlord","p":"n.","t":"房東"},{"w":"landmark","p":"n.","t":"地標"},{"w":"landscape","p":"n.","t":"風景"},{"w":"lane","p":"n.","t":"巷、車道"},{"w":"lap","p":"n.","t":"大腿、一圈"},{"w":"largely","p":"adv.","t":"大部分、主要地"},{"w":"laser","p":"n.","t":"雷射"},{"w":"latest","p":"adj.","t":"最新的"},{"w":"laughter","p":"n.","t":"笑聲"},{"w":"launch","p":"v.","t":"發射、推出"},{"w":"laundry","p":"n.","t":"洗衣店、要洗的衣物"},{"w":"lawful","p":"adj.","t":"合法的"},{"w":"lawn","p":"n.","t":"草坪"},{"w":"layer","p":"n.","t":"層"},{"w":"leadership","p":"n.","t":"領導、領導能力"},{"w":"league","p":"n.","t":"聯盟、聯賽"},{"w":"leak","p":"v./n.","t":"漏、洩漏"},{"w":"lean","p":"v.","t":"傾斜、依靠"},{"w":"leap","p":"v.","t":"跳躍"},{"w":"learning","p":"n.","t":"學習、學問"},{"w":"leather","p":"n.","t":"皮革"},{"w":"lecture","p":"n./v.","t":"演講、訓誡"},{"w":"legal","p":"adj.","t":"法律的、合法的"},{"w":"legend","p":"n.","t":"傳說、傳奇"},{"w":"leisure","p":"n.","t":"閒暇"},{"w":"lemonade","p":"n.","t":"檸檬水"},{"w":"lessen","p":"v.","t":"減少"},{"w":"liberal","p":"adj.","t":"自由的、開明的"},{"w":"liberty","p":"n.","t":"自由"},{"w":"librarian","p":"n.","t":"圖書館員"},{"w":"license","p":"n.","t":"執照"},{"w":"lifeguard","p":"n.","t":"救生員"},{"w":"lifetime","p":"n.","t":"一生、終生"},{"w":"lighten","p":"v.","t":"照亮、減輕"},{"w":"lighthouse","p":"n.","t":"燈塔"},{"w":"likelihood","p":"n.","t":"可能性"},{"w":"limb","p":"n.","t":"四肢"},{"w":"limitation","p":"n.","t":"限制"},{"w":"linger","p":"v.","t":"逗留、徘徊"},{"w":"liquid","p":"n./adj.","t":"液體、液態的"},{"w":"liquor","p":"n.","t":"酒、烈酒"},{"w":"literary","p":"adj.","t":"文學的"},{"w":"literature","p":"n.","t":"文學"},{"w":"litter","p":"n./v.","t":"垃圾、亂丟"},{"w":"liver","p":"n.","t":"肝臟"},{"w":"load","p":"n./v.","t":"負荷、裝載"},{"w":"loaf","p":"n.","t":"一條（麵包）"},{"w":"loan","p":"n./v.","t":"貸款、出借"},{"w":"lobster","p":"n.","t":"龍蝦"},{"w":"log","p":"n./v.","t":"原木、紀錄"},{"w":"logic","p":"n.","t":"邏輯"},{"w":"logical","p":"adj.","t":"合邏輯的"},{"w":"loneliness","p":"n.","t":"寂寞"},{"w":"lord","p":"n.","t":"主、領主"},{"w":"lousy","p":"adj.","t":"討厭的、糟糕的"},{"w":"loyal","p":"adj.","t":"忠誠的"},{"w":"loyalty","p":"n.","t":"忠誠"},{"w":"luckily","p":"adv.","t":"幸運地"},{"w":"luggage","p":"n.","t":"行李"},{"w":"lullaby","p":"n.","t":"搖籃曲"},{"w":"lunar","p":"adj.","t":"月亮的"},{"w":"lung","p":"n.","t":"肺"},{"w":"luxurious","p":"adj.","t":"豪華的"},{"w":"luxury","p":"n.","t":"奢侈、奢侈品"},{"w":"machinery","p":"n.","t":"機器、機械"},{"w":"madam","p":"n.","t":"女士、夫人"},{"w":"magical","p":"adj.","t":"魔術的、神奇的"},{"w":"magnet","p":"n.","t":"磁鐵"},{"w":"magnetic","p":"adj.","t":"有磁性的"},{"w":"magnificent","p":"adj.","t":"壯麗的、宏偉的"},{"w":"maid","p":"n.","t":"女僕"},{"w":"mainland","p":"n.","t":"大陸"},{"w":"maintain","p":"v.","t":"維持、保養"},{"w":"maintenance","p":"n.","t":"維護、維持"},{"w":"majority","p":"n.","t":"多數"},{"w":"makeup","p":"n.","t":"化妝、組成"},{"w":"mammal","p":"n.","t":"哺乳動物"},{"w":"mansion","p":"n.","t":"豪宅"},{"w":"manual","p":"adj./n.","t":"手動的、手冊"},{"w":"manufacture","p":"v.","t":"製造"},{"w":"manufacturer","p":"n.","t":"製造商"},{"w":"marathon","p":"n.","t":"馬拉松"},{"w":"marble","p":"n.","t":"大理石"},{"w":"march","p":"v./n.","t":"行軍、遊行"},{"w":"margin","p":"n.","t":"邊緣、利潤"},{"w":"marine","p":"adj.","t":"海洋的"},{"w":"marker","p":"n.","t":"麥克筆、標記"},{"w":"mass","p":"n.","t":"大量、群眾"},{"w":"massive","p":"adj.","t":"巨大的"},{"w":"masterpiece","p":"n.","t":"傑作"},{"w":"mate","p":"n.","t":"夥伴、配偶"},{"w":"mature","p":"adj.","t":"成熟的"},{"w":"maximum","p":"n./adj.","t":"最大量、最大的"},{"w":"meadow","p":"n.","t":"草地"},{"w":"meaningful","p":"adj.","t":"有意義的"},{"w":"means","p":"n.","t":"方法、手段"},{"w":"meantime","p":"n.","t":"其間"},{"w":"meanwhile","p":"adv.","t":"同時"},{"w":"measurement","p":"n.","t":"測量、尺寸"},{"w":"mechanic","p":"n.","t":"機械工"},{"w":"mechanical","p":"adj.","t":"機械的"},{"w":"medal","p":"n.","t":"獎牌"},{"w":"media","p":"n.","t":"媒體"},{"w":"medical","p":"adj.","t":"醫學的"},{"w":"medication","p":"n.","t":"藥物治療"},{"w":"melody","p":"n.","t":"旋律"},{"w":"melon","p":"n.","t":"瓜"},{"w":"melt","p":"v.","t":"融化"},{"w":"membership","p":"n.","t":"會員身份"},{"w":"memorial","p":"n./adj.","t":"紀念物、紀念的"},{"w":"memorize","p":"v.","t":"記住、背誦"},{"w":"mental","p":"adj.","t":"心智的、精神的"},{"w":"merchant","p":"n.","t":"商人"},{"w":"mercy","p":"n.","t":"仁慈、憐憫"},{"w":"mere","p":"adj.","t":"僅僅的"},{"w":"merry","p":"adj.","t":"快樂的"},{"w":"mess","p":"n.","t":"混亂、雜亂"},{"w":"messenger","p":"n.","t":"信差"},{"w":"microphone","p":"n.","t":"麥克風"},{"w":"microwave","p":"n.","t":"微波爐"},{"w":"mild","p":"adj.","t":"溫和的"},{"w":"military","p":"adj./n.","t":"軍事的、軍隊"},{"w":"miner","p":"n.","t":"礦工"},{"w":"mineral","p":"n.","t":"礦物"},{"w":"miniature","p":"adj./n.","t":"小型的、縮小模型"},{"w":"minimum","p":"n./adj.","t":"最小量、最小的"},{"w":"minister","p":"n.","t":"部長、牧師"},{"w":"ministry","p":"n.","t":"部、神職"},{"w":"minority","p":"n.","t":"少數、少數民族"},{"w":"miracle","p":"n.","t":"奇蹟"},{"w":"mischief","p":"n.","t":"惡作劇、調皮"},{"w":"miserable","p":"adj.","t":"悲慘的"},{"w":"misery","p":"n.","t":"痛苦"},{"w":"missile","p":"n.","t":"飛彈"},{"w":"missing","p":"adj.","t":"失踪的、遺失的"},{"w":"mission","p":"n.","t":"任務、使命"},{"w":"misunderstand","p":"v.","t":"誤解"},{"w":"mob","p":"n.","t":"暴民、群眾"},{"w":"mobile","p":"adj.","t":"行動的、移動的"},{"w":"moderate","p":"adj.","t":"中等的、適度的"},{"w":"modest","p":"adj.","t":"謙虛的、適度的"},{"w":"moist","p":"adj.","t":"潮溼的"},{"w":"moisture","p":"n.","t":"溼氣、水分"},{"w":"monitor","p":"n./v.","t":"螢幕、監控"},{"w":"monk","p":"n.","t":"和尚、僧侶"},{"w":"monthly","p":"adj./adv.","t":"每月的、每月地"},{"w":"monument","p":"n.","t":"紀念碑"},{"w":"moral","p":"adj./n.","t":"道德的、寓意"},{"w":"moreover","p":"adv.","t":"此外"},{"w":"mortal","p":"adj.","t":"凡人的、致命的"},{"w":"mosquito","p":"n.","t":"蚊子"},{"w":"motel","p":"n.","t":"汽車旅館"},{"w":"motion","p":"n.","t":"動作、運動"},{"w":"motivate","p":"v.","t":"激勵"},{"w":"motivation","p":"n.","t":"動機"},{"w":"motor","p":"n.","t":"馬達、發動機"},{"w":"mount","p":"v.","t":"登上、安裝"},{"w":"mourn","p":"v.","t":"哀悼"},{"w":"muddy","p":"adj.","t":"泥濘的"},{"w":"murder","p":"v./n.","t":"謀殺"},{"w":"murderer","p":"n.","t":"凶手"},{"w":"muscle","p":"n.","t":"肌肉"},{"w":"musical","p":"adj./n.","t":"音樂的、音樂劇"},{"w":"mutual","p":"adj.","t":"互相的、共同的"},{"w":"mysterious","p":"adj.","t":"神祕的"},{"w":"mystery","p":"n.","t":"神祕、謎"},{"w":"myth","p":"n.","t":"神話、迷思"},{"w":"naked","p":"adj.","t":"裸露的"},{"w":"nasty","p":"adj.","t":"令人不快的、惡劣的"},{"w":"nationality","p":"n.","t":"國籍"},{"w":"naturally","p":"adv.","t":"自然地"},{"w":"naval","p":"adj.","t":"海軍的"},{"w":"navy","p":"n.","t":"海軍"},{"w":"necessity","p":"n.","t":"必要、必需品"},{"w":"neglect","p":"v.","t":"忽視、疏忽"},{"w":"negotiate","p":"v.","t":"談判、協商"},{"w":"nerve","p":"n.","t":"神經、勇氣"},{"w":"network","p":"n.","t":"網路"},{"w":"nevertheless","p":"adv.","t":"儘管如此"},{"w":"newscast","p":"n.","t":"新聞廣播"},{"w":"nickname","p":"n.","t":"暱稱"},{"w":"nightmare","p":"n.","t":"惡夢"},{"w":"nonsense","p":"n.","t":"廢話、胡說"},{"w":"normally","p":"adv.","t":"通常"},{"w":"notable","p":"adj.","t":"顯著的、值得注意的"},{"w":"notion","p":"n.","t":"概念、想法"},{"w":"novelist","p":"n.","t":"小說家"},{"w":"nowadays","p":"adv.","t":"現今"},{"w":"nuclear","p":"adj.","t":"核能的"},{"w":"nuisance","p":"n.","t":"麻煩、討厭的人"},{"w":"numerous","p":"adj.","t":"眾多的"},{"w":"nursery","p":"n.","t":"托兒所"},{"w":"nutrition","p":"n.","t":"營養"},{"w":"objection","p":"n.","t":"反對、異議"},{"w":"objective","p":"n./adj.","t":"目標、客觀的"},{"w":"obligation","p":"n.","t":"義務"},{"w":"observation","p":"n.","t":"觀察"},{"w":"observe","p":"v.","t":"觀察、遵守"},{"w":"observer","p":"n.","t":"觀察者"},{"w":"obstacle","p":"n.","t":"障礙"},{"w":"obtain","p":"v.","t":"獲得"},{"w":"obvious","p":"adj.","t":"明顯的"},{"w":"occasion","p":"n.","t":"場合、時機"},{"w":"occasional","p":"adj.","t":"偶爾的"},{"w":"occupation","p":"n.","t":"職業、佔領"},{"w":"occupy","p":"v.","t":"佔據、佔領"},{"w":"occur","p":"v.","t":"發生"},{"w":"odd","p":"adj.","t":"奇怪的、奇數的"},{"w":"offend","p":"v.","t":"冒犯"},{"w":"offense","p":"n.","t":"冒犯、犯罪"},{"w":"offensive","p":"adj.","t":"冒犯的、攻擊的"},{"w":"offering","p":"n.","t":"供品、提議"},{"w":"online","p":"adj./adv.","t":"線上的、在線上"},{"w":"opera","p":"n.","t":"歌劇"},{"w":"operate","p":"v.","t":"操作、運行"},{"w":"operation","p":"n.","t":"操作、手術"},{"w":"operator","p":"n.","t":"操作員、接線生"},{"w":"opponent","p":"n.","t":"對手"},{"w":"oppose","p":"v.","t":"反對"},{"w":"oppression","p":"n.","t":"壓迫"},{"w":"optimistic","p":"adj.","t":"樂觀的"},{"w":"option","p":"n.","t":"選擇、選項"},{"w":"oral","p":"adj.","t":"口頭的、口部的"},{"w":"orbit","p":"n./v.","t":"軌道、繞軌道"},{"w":"orchestra","p":"n.","t":"管弦樂團"},{"w":"organ","p":"n.","t":"器官、風琴"},{"w":"organic","p":"adj.","t":"有機的"},{"w":"organization","p":"n.","t":"組織"},{"w":"organize","p":"v.","t":"組織"},{"w":"origin","p":"n.","t":"起源"},{"w":"original","p":"adj.","t":"原創的、原本的"},{"w":"otherwise","p":"adv.","t":"否則"},{"w":"ought","p":"v.","t":"應該"},{"w":"outcome","p":"n.","t":"結果"},{"w":"outer","p":"adj.","t":"外部的"},{"w":"outline","p":"n./v.","t":"輪廓、概述"},{"w":"output","p":"n.","t":"產出、輸出"},{"w":"outstanding","p":"adj.","t":"傑出的"},{"w":"oval","p":"adj.","t":"橢圓形的"},{"w":"overall","p":"adj./adv.","t":"全面的、總共"},{"w":"overcoat","p":"n.","t":"大衣"},{"w":"overlook","p":"v.","t":"忽略、俯瞰"},{"w":"overnight","p":"adv./adj.","t":"通宵、一夜的"},{"w":"overseas","p":"adv./adj.","t":"在海外、海外的"},{"w":"overtake","p":"v.","t":"超越、追上"},{"w":"overthrow","p":"v.","t":"推翻"},{"w":"overweight","p":"adj.","t":"超重的"},{"w":"owe","p":"v.","t":"欠"},{"w":"owl","p":"n.","t":"貓頭鷹"},{"w":"ownership","p":"n.","t":"所有權"},{"w":"oxygen","p":"n.","t":"氧氣"},{"w":"pace","p":"n.","t":"步調、速度"},{"w":"pad","p":"n.","t":"墊子、便條紙"},{"w":"pal","p":"n.","t":"夥伴、朋友"},{"w":"palace","p":"n.","t":"宮殿"},{"w":"palm","p":"n.","t":"手掌、棕櫚"},{"w":"panel","p":"n.","t":"面板、小組"},{"w":"panic","p":"v./n.","t":"恐慌、驚慌"},{"w":"paradise","p":"n.","t":"天堂、樂園"},{"w":"paragraph","p":"n.","t":"段落"},{"w":"parcel","p":"n.","t":"包裹"},{"w":"participate","p":"v.","t":"參加"},{"w":"partly","p":"adv.","t":"部分地"},{"w":"partner","p":"n.","t":"夥伴、合夥人"},{"w":"partnership","p":"n.","t":"合夥關係"},{"w":"passage","p":"n.","t":"通道、段落"},{"w":"passion","p":"n.","t":"熱情"},{"w":"passive","p":"adj.","t":"被動的"},{"w":"passport","p":"n.","t":"護照"},{"w":"password","p":"n.","t":"密碼"},{"w":"pat","p":"v.","t":"輕拍"},{"w":"paw","p":"n.","t":"爪子"},{"w":"payment","p":"n.","t":"付款"},{"w":"peak","p":"n.","t":"頂峰"},{"w":"pearl","p":"n.","t":"珍珠"},{"w":"peculiar","p":"adj.","t":"奇特的"},{"w":"pedal","p":"n.","t":"踏板"},{"w":"peer","p":"n.","t":"同儕"},{"w":"penalty","p":"n.","t":"懲罰、罰款"},{"w":"pension","p":"n.","t":"退休金"},{"w":"per","p":"prep.","t":"每"},{"w":"perceive","p":"v.","t":"察覺、感知"},{"w":"percent","p":"n.","t":"百分比"},{"w":"percentage","p":"n.","t":"百分比"},{"w":"perform","p":"v.","t":"表演、執行"},{"w":"performance","p":"n.","t":"表演、表現"},{"w":"performer","p":"n.","t":"表演者"},{"w":"perfume","p":"n.","t":"香水"},{"w":"permanent","p":"adj.","t":"永久的"},{"w":"permission","p":"n.","t":"許可"},{"w":"permit","p":"v./n.","t":"允許、許可證"},{"w":"persist","p":"v.","t":"堅持"},{"w":"personality","p":"n.","t":"個性"},{"w":"personnel","p":"n.","t":"人事、員工"},{"w":"perspective","p":"n.","t":"觀點、看法"},{"w":"persuade","p":"v.","t":"說服"},{"w":"persuasion","p":"n.","t":"說服"},{"w":"pessimistic","p":"adj.","t":"悲觀的"},{"w":"pest","p":"n.","t":"害蟲"},{"w":"petal","p":"n.","t":"花瓣"},{"w":"phenomenon","p":"n.","t":"現象"},{"w":"philosopher","p":"n.","t":"哲學家"},{"w":"philosophy","p":"n.","t":"哲學"},{"w":"physician","p":"n.","t":"內科醫生"},{"w":"physics","p":"n.","t":"物理學"},{"w":"pickle","p":"n.","t":"醃菜、泡菜"},{"w":"pierce","p":"v.","t":"刺穿"},{"w":"pilgrim","p":"n.","t":"朝聖者"},{"w":"pinch","p":"v.","t":"捏、夾"},{"w":"pioneer","p":"n.","t":"先鋒"},{"w":"pirate","p":"n.","t":"海盜"},{"w":"pity","p":"n.","t":"遺憾、可惜"},{"w":"plain","p":"adj.","t":"樸素的、簡單的"},{"w":"pledge","p":"v./n.","t":"宣誓、誓言"},{"w":"plot","p":"n.","t":"情節、陰謀"},{"w":"plug","p":"n./v.","t":"插頭、堵塞"},{"w":"plum","p":"n.","t":"李子"},{"w":"plumber","p":"n.","t":"水管工"},{"w":"plunge","p":"v.","t":"投入、跳入"},{"w":"plural","p":"adj./n.","t":"複數的、複數"},{"w":"poet","p":"n.","t":"詩人"},{"w":"poetry","p":"n.","t":"詩、詩歌"},{"w":"poison","p":"n./v.","t":"毒、毒害"},{"w":"poisonous","p":"adj.","t":"有毒的"},{"w":"polar","p":"adj.","t":"極地的"},{"w":"pole","p":"n.","t":"竿、極"},{"w":"politeness","p":"n.","t":"禮貌"},{"w":"politician","p":"n.","t":"政治家"},{"w":"pollute","p":"v.","t":"污染"},{"w":"poorly","p":"adv.","t":"差勁地"},{"w":"populate","p":"v.","t":"居住於"},{"w":"population","p":"n.","t":"人口"},{"w":"portable","p":"adj.","t":"可攜式的"},{"w":"porter","p":"n.","t":"搬運工"},{"w":"portion","p":"n.","t":"部分"},{"w":"portrait","p":"n.","t":"肖像"},{"w":"pose","p":"v./n.","t":"擺姿勢、姿勢"},{"w":"possess","p":"v.","t":"擁有"},{"w":"possession","p":"n.","t":"擁有、所有物"},{"w":"possibility","p":"n.","t":"可能性"},{"w":"postage","p":"n.","t":"郵資"},{"w":"postpone","p":"v.","t":"延後"},{"w":"posture","p":"n.","t":"姿勢"},{"w":"potential","p":"adj./n.","t":"潛在的、潛力"},{"w":"pour","p":"v.","t":"傾倒"},{"w":"poverty","p":"n.","t":"貧窮"},{"w":"powder","p":"n.","t":"粉末"},{"w":"practical","p":"adj.","t":"實用的、實際的"},{"w":"prairie","p":"n.","t":"大草原"},{"w":"prayer","p":"n.","t":"祈禱"},{"w":"preach","p":"v.","t":"傳教、講道"},{"w":"precise","p":"adj.","t":"精確的"},{"w":"prediction","p":"n.","t":"預測"},{"w":"preferable","p":"adj.","t":"較好的、更可取的"},{"w":"pregnancy","p":"n.","t":"懷孕"},{"w":"pregnant","p":"adj.","t":"懷孕的"},{"w":"prejudice","p":"n.","t":"偏見"},{"w":"premier","p":"n./adj.","t":"首相、首要的"},{"w":"preparation","p":"n.","t":"準備"},{"w":"prescription","p":"n.","t":"處方"},{"w":"presence","p":"n.","t":"出席、在場"},{"w":"press","p":"v./n.","t":"按、新聞界"},{"w":"pressure","p":"n.","t":"壓力"},{"w":"presume","p":"v.","t":"假定、推測"},{"w":"pretend","p":"v.","t":"假裝"},{"w":"prevention","p":"n.","t":"預防"},{"w":"previous","p":"adj.","t":"先前的"},{"w":"prey","p":"n.","t":"獵物"},{"w":"priceless","p":"adj.","t":"無價的"},{"w":"pride","p":"n.","t":"驕傲、自尊"},{"w":"priest","p":"n.","t":"神父、牧師"},{"w":"primary","p":"adj.","t":"主要的、初級的"},{"w":"prime","p":"adj.","t":"主要的、最佳的"},{"w":"primitive","p":"adj.","t":"原始的"},{"w":"principle","p":"n.","t":"原則"},{"w":"prisoner","p":"n.","t":"囚犯"},{"w":"privacy","p":"n.","t":"隱私"},{"w":"privilege","p":"n.","t":"特權"},{"w":"procedure","p":"n.","t":"程序、步驟"},{"w":"proceed","p":"v.","t":"進行、繼續"},{"w":"process","p":"n./v.","t":"過程、處理"},{"w":"produce","p":"v./n.","t":"生產、農產品"},{"w":"producer","p":"n.","t":"生產者、製作人"},{"w":"product","p":"n.","t":"產品"},{"w":"production","p":"n.","t":"生產"},{"w":"productive","p":"adj.","t":"多產的、有生產力的"},{"w":"profession","p":"n.","t":"職業"},{"w":"professional","p":"adj.","t":"專業的"},{"w":"professor","p":"n.","t":"教授"},{"w":"profile","p":"n.","t":"側面、簡介"},{"w":"profit","p":"n.","t":"利潤"},{"w":"profitable","p":"adj.","t":"有利的、賺錢的"},{"w":"prohibit","p":"v.","t":"禁止"},{"w":"prominent","p":"adj.","t":"傑出的、突出的"},{"w":"promising","p":"adj.","t":"有前途的"},{"w":"promote","p":"v.","t":"促進、升遷"},{"w":"promotion","p":"n.","t":"促進、升遷"},{"w":"prompt","p":"adj.","t":"迅速的、即時的"},{"w":"pronunciation","p":"n.","t":"發音"},{"w":"proof","p":"n.","t":"證據、證明"},{"w":"propaganda","p":"n.","t":"宣傳"},{"w":"property","p":"n.","t":"財產、特性"},{"w":"prophet","p":"n.","t":"先知"},{"w":"proportion","p":"n.","t":"比例"},{"w":"proposal","p":"n.","t":"提議"},{"w":"propose","p":"v.","t":"提議、求婚"},{"w":"prosper","p":"v.","t":"繁榮"},{"w":"prosperity","p":"n.","t":"繁榮"},{"w":"protection","p":"n.","t":"保護"},{"w":"protest","p":"v./n.","t":"抗議"},{"w":"prove","p":"v.","t":"證明"},{"w":"proverb","p":"n.","t":"諺語"},{"w":"province","p":"n.","t":"省"},{"w":"psychological","p":"adj.","t":"心理的"},{"w":"psychology","p":"n.","t":"心理學"},{"w":"publication","p":"n.","t":"出版、出版品"},{"w":"publisher","p":"n.","t":"出版商"},{"w":"punch","p":"v./n.","t":"打、拳擊"},{"w":"punctual","p":"adj.","t":"準時的"},{"w":"punishment","p":"n.","t":"處罰"},{"w":"pupil","p":"n.","t":"學生、瞳孔"},{"w":"puppet","p":"n.","t":"木偶"},{"w":"purchase","p":"v./n.","t":"購買"},{"w":"pure","p":"adj.","t":"純粹的"},{"w":"pursue","p":"v.","t":"追求、追趕"},{"w":"pyramid","p":"n.","t":"金字塔"},{"w":"qualification","p":"n.","t":"資格"},{"w":"qualify","p":"v.","t":"使合格"},{"w":"quarrel","p":"v./n.","t":"爭吵"},{"w":"queer","p":"adj.","t":"奇怪的"},{"w":"quest","p":"n.","t":"探求、追尋"},{"w":"questionnaire","p":"n.","t":"問卷"},{"w":"quilt","p":"n.","t":"棉被"},{"w":"quote","p":"v./n.","t":"引用、引述"},{"w":"racial","p":"adj.","t":"種族的"},{"w":"radar","p":"n.","t":"雷達"},{"w":"radiation","p":"n.","t":"輻射"},{"w":"rage","p":"n.","t":"狂怒"},{"w":"raid","p":"n./v.","t":"突襲"},{"w":"rainfall","p":"n.","t":"降雨量"},{"w":"raisin","p":"n.","t":"葡萄乾"},{"w":"rally","p":"n.","t":"集會"},{"w":"random","p":"adj.","t":"隨機的"},{"w":"range","p":"n./v.","t":"範圍、變化"},{"w":"rank","p":"n./v.","t":"等級、排名"},{"w":"rapid","p":"adj.","t":"快速的"},{"w":"rarely","p":"adv.","t":"很少"},{"w":"rascal","p":"n.","t":"流氓、小淘氣"},{"w":"raw","p":"adj.","t":"生的、原始的"},{"w":"ray","p":"n.","t":"光線"},{"w":"razor","p":"n.","t":"剃刀"},{"w":"reaction","p":"n.","t":"反應"},{"w":"reality","p":"n.","t":"真實、現實"},{"w":"realize","p":"v.","t":"了解、實現"},{"w":"reasonable","p":"adj.","t":"合理的"},{"w":"rebel","p":"v./n.","t":"反抗、叛徒"},{"w":"recall","p":"v.","t":"想起、回憶"},{"w":"receipt","p":"n.","t":"收據"},{"w":"receiver","p":"n.","t":"接收者"},{"w":"reception","p":"n.","t":"接待、接收"},{"w":"recession","p":"n.","t":"不景氣、衰退"},{"w":"recipe","p":"n.","t":"食譜"},{"w":"recite","p":"v.","t":"背誦、朗誦"},{"w":"recognize","p":"v.","t":"認出、承認"},{"w":"recommend","p":"v.","t":"推薦、建議"},{"w":"recommendation","p":"n.","t":"推薦"},{"w":"recover","p":"v.","t":"康復、恢復"},{"w":"recovery","p":"n.","t":"康復、恢復"},{"w":"recreation","p":"n.","t":"娛樂、消遣"},{"w":"recycle","p":"v.","t":"回收、再利用"},{"w":"reduction","p":"n.","t":"減少"},{"w":"reference","p":"n.","t":"參考、提及"},{"w":"reflect","p":"v.","t":"反映、反射"},{"w":"reflection","p":"n.","t":"反射、思考"},{"w":"reform","p":"v./n.","t":"改革"},{"w":"refresh","p":"v.","t":"使恢復精神"},{"w":"refugee","p":"n.","t":"難民"},{"w":"refusal","p":"n.","t":"拒絕"},{"w":"regard","p":"v./n.","t":"視為、尊敬"},{"w":"regarding","p":"prep.","t":"關於"},{"w":"region","p":"n.","t":"地區、區域"},{"w":"register","p":"v./n.","t":"登記、註冊"},{"w":"regulate","p":"v.","t":"規定、調節"},{"w":"regulation","p":"n.","t":"規定、條例"},{"w":"reject","p":"v.","t":"拒絕"},{"w":"relate","p":"v.","t":"使有關係、敘述"},{"w":"relation","p":"n.","t":"關係"},{"w":"relationship","p":"n.","t":"關係"},{"w":"relative","p":"n./adj.","t":"親戚、相對的"},{"w":"relatively","p":"adv.","t":"相對地"},{"w":"relaxation","p":"n.","t":"放鬆"},{"w":"release","p":"v./n.","t":"釋放、發行"},{"w":"reliable","p":"adj.","t":"可靠的"},{"w":"relief","p":"n.","t":"救濟、減輕"},{"w":"relieve","p":"v.","t":"解除、減輕"},{"w":"religion","p":"n.","t":"宗教"},{"w":"religious","p":"adj.","t":"宗教的"},{"w":"reluctant","p":"adj.","t":"勉強的、不情願的"},{"w":"rely","p":"v.","t":"依賴"},{"w":"remain","p":"v.","t":"剩下、保持"},{"w":"remark","p":"v./n.","t":"評論"},{"w":"remarkable","p":"adj.","t":"卓越的、不凡的"},{"w":"remedy","p":"n.","t":"治療法、補救"},{"w":"remote","p":"adj.","t":"遙遠的、遙控的"},{"w":"remove","p":"v.","t":"移除"},{"w":"renew","p":"v.","t":"更新、續約"},{"w":"rent","p":"v./n.","t":"租用、租金"},{"w":"reporter","p":"n.","t":"記者"},{"w":"represent","p":"v.","t":"代表"},{"w":"representative","p":"n.","t":"代表、代理人"},{"w":"reproduce","p":"v.","t":"繁殖、複製"},{"w":"republic","p":"n.","t":"共和國"},{"w":"reputation","p":"n.","t":"名聲"},{"w":"request","p":"v./n.","t":"請求、要求"},{"w":"requirement","p":"n.","t":"要求、需求"},{"w":"rescue","p":"v./n.","t":"營救"},{"w":"research","p":"v./n.","t":"研究"},{"w":"researcher","p":"n.","t":"研究者"},{"w":"resemble","p":"v.","t":"像、類似"},{"w":"reserve","p":"v.","t":"保留、預訂"},{"w":"resident","p":"n.","t":"居民"},{"w":"resign","p":"v.","t":"辭職"},{"w":"resist","p":"v.","t":"抵抗"},{"w":"resistance","p":"n.","t":"抵抗"},{"w":"resolution","p":"n.","t":"決心、解決"},{"w":"resolve","p":"v.","t":"解決、決心"},{"w":"resort","p":"n.","t":"度假勝地"},{"w":"resource","p":"n.","t":"資源"},{"w":"respectful","p":"adj.","t":"恭敬的"},{"w":"respond","p":"v.","t":"回答、反應"},{"w":"response","p":"n.","t":"回答、反應"},{"w":"responsibility","p":"n.","t":"責任"},{"w":"responsible","p":"adj.","t":"負責的"},{"w":"restore","p":"v.","t":"恢復、修復"},{"w":"restrict","p":"v.","t":"限制"},{"w":"restriction","p":"n.","t":"限制"},{"w":"resume","p":"v.","t":"恢復、繼續"},{"w":"retail","p":"n./v.","t":"零售"},{"w":"retain","p":"v.","t":"保留"},{"w":"retire","p":"v.","t":"退休"},{"w":"retirement","p":"n.","t":"退休"},{"w":"retreat","p":"v./n.","t":"撤退"},{"w":"reveal","p":"v.","t":"揭露、顯示"},{"w":"revenge","p":"n.","t":"報仇"},{"w":"reverse","p":"v./adj.","t":"顛倒、相反的"},{"w":"revolution","p":"n.","t":"革命"},{"w":"reward","p":"n./v.","t":"獎賞、報酬"},{"w":"rhyme","p":"n./v.","t":"押韻"},{"w":"rhythm","p":"n.","t":"節奏"},{"w":"rib","p":"n.","t":"肋骨"},{"w":"ribbon","p":"n.","t":"絲帶、緞帶"},{"w":"riches","p":"n.","t":"財富"},{"w":"rid","p":"v.","t":"擺脫"},{"w":"riddle","p":"n.","t":"謎語"},{"w":"rifle","p":"n.","t":"步槍"},{"w":"riot","p":"n.","t":"暴動"},{"w":"ripe","p":"adj.","t":"成熟的"},{"w":"rival","p":"n.","t":"對手"},{"w":"roar","p":"v.","t":"咆哮、吼叫"},{"w":"rob","p":"v.","t":"搶劫"},{"w":"robber","p":"n.","t":"強盜"},{"w":"robbery","p":"n.","t":"搶劫"},{"w":"robe","p":"n.","t":"長袍"},{"w":"rocket","p":"n.","t":"火箭"},{"w":"roller","p":"n.","t":"滾筒"},{"w":"romance","p":"n.","t":"浪漫、戀愛"},{"w":"romantic","p":"adj.","t":"浪漫的"},{"w":"rooster","p":"n.","t":"公雞"},{"w":"rot","p":"v.","t":"腐爛"},{"w":"rotten","p":"adj.","t":"腐爛的"},{"w":"rough","p":"adj.","t":"粗糙的、粗略的"},{"w":"route","p":"n.","t":"路線"},{"w":"routine","p":"n./adj.","t":"例行公事、例行的"},{"w":"rub","p":"v.","t":"摩擦、揉"},{"w":"rubber","p":"n.","t":"橡膠、橡皮擦"},{"w":"rumor","p":"n.","t":"謠言"},{"w":"runner","p":"n.","t":"跑者"},{"w":"rural","p":"adj.","t":"鄉村的"},{"w":"rust","p":"n.","t":"鏽"},{"w":"rusty","p":"adj.","t":"生鏽的"},{"w":"sacred","p":"adj.","t":"神聖的"},{"w":"sacrifice","p":"v./n.","t":"犧牲"},{"w":"saddle","p":"n.","t":"馬鞍"},{"w":"saint","p":"n.","t":"聖人"},{"w":"sake","p":"n.","t":"緣故、目的"},{"w":"sample","p":"n.","t":"樣本、樣品"},{"w":"satellite","p":"n.","t":"衛星"},{"w":"satisfaction","p":"n.","t":"滿足"},{"w":"sausage","p":"n.","t":"香腸"},{"w":"saw","p":"n./v.","t":"鋸子、鋸"},{"w":"scale","p":"n.","t":"規模、刻度、體重計"},{"w":"scan","p":"v.","t":"掃描、瀏覽"},{"w":"scar","p":"n.","t":"傷疤"},{"w":"scare","p":"v.","t":"使害怕"},{"w":"scary","p":"adj.","t":"嚇人的"},{"w":"scatter","p":"v.","t":"散落、散播"},{"w":"scenery","p":"n.","t":"風景"},{"w":"scent","p":"n.","t":"氣味"},{"w":"scholar","p":"n.","t":"學者"},{"w":"scholarship","p":"n.","t":"獎學金"},{"w":"scientific","p":"adj.","t":"科學的"},{"w":"scoop","p":"n./v.","t":"勺子、舀"},{"w":"scout","p":"n.","t":"童子軍、偵察員"},{"w":"scratch","p":"v.","t":"抓、刮"},{"w":"screen","p":"n.","t":"螢幕、屏幕"},{"w":"screw","p":"n./v.","t":"螺絲、旋緊"},{"w":"scrub","p":"v.","t":"擦洗、刷"},{"w":"sculpture","p":"n.","t":"雕刻、雕像"},{"w":"seal","p":"n./v.","t":"海豹、印章、密封"},{"w":"seaside","p":"n.","t":"海邊"},{"w":"seasonal","p":"adj.","t":"季節性的"},{"w":"secondary","p":"adj.","t":"次要的、中等的"},{"w":"secure","p":"adj./v.","t":"安全的、確保"},{"w":"security","p":"n.","t":"安全"},{"w":"seemingly","p":"adv.","t":"看似、似乎"},{"w":"seize","p":"v.","t":"抓住、奪取"},{"w":"selection","p":"n.","t":"選擇"},{"w":"selfish","p":"adj.","t":"自私的"},{"w":"semester","p":"n.","t":"學期"},{"w":"sensation","p":"n.","t":"感覺、轟動"},{"w":"sensible","p":"adj.","t":"明智的、合理的"},{"w":"sensitive","p":"adj.","t":"敏感的"},{"w":"separation","p":"n.","t":"分離"},{"w":"sequence","p":"n.","t":"順序、連續"},{"w":"series","p":"n.","t":"系列"},{"w":"servant","p":"n.","t":"僕人"},{"w":"session","p":"n.","t":"會議、會期"},{"w":"settlement","p":"n.","t":"解決、殖民地"},{"w":"settler","p":"n.","t":"移居者、殖民者"},{"w":"severe","p":"adj.","t":"嚴重的、嚴厲的"},{"w":"sew","p":"v.","t":"縫"},{"w":"shady","p":"adj.","t":"陰涼的"},{"w":"shallow","p":"adj.","t":"淺的、膚淺的"},{"w":"shame","p":"n.","t":"羞愧、恥辱"},{"w":"shameful","p":"adj.","t":"可恥的"},{"w":"shampoo","p":"n.","t":"洗髮精"},{"w":"shave","p":"v.","t":"刮鬍子"},{"w":"shed","p":"v.","t":"流出、脫落"},{"w":"shelter","p":"n.","t":"避難所"},{"w":"shepherd","p":"n.","t":"牧羊人"},{"w":"shift","p":"v./n.","t":"轉變、輪班"},{"w":"shiny","p":"adj.","t":"閃亮的"},{"w":"shorten","p":"v.","t":"縮短"},{"w":"shortly","p":"adv.","t":"不久"},{"w":"shotgun","p":"n.","t":"獵槍"},{"w":"shrink","p":"v.","t":"縮水、退縮"},{"w":"shrug","p":"v.","t":"聳肩"},{"w":"shuttle","p":"n.","t":"接駁車、太空梭"},{"w":"sightseeing","p":"n.","t":"觀光"},{"w":"signal","p":"n./v.","t":"信號、發信號"},{"w":"signature","p":"n.","t":"簽名"},{"w":"significance","p":"n.","t":"重要性、意義"},{"w":"significant","p":"adj.","t":"重要的、有意義的"},{"w":"silk","p":"n.","t":"絲、絲綢"},{"w":"simplify","p":"v.","t":"簡化"},{"w":"sin","p":"n.","t":"罪、罪行"},{"w":"sincere","p":"adj.","t":"真誠的"},{"w":"sketch","p":"n./v.","t":"素描、草圖"},{"w":"skillful","p":"adj.","t":"熟練的、有技巧的"},{"w":"skip","p":"v.","t":"跳過、略過"},{"w":"skyscraper","p":"n.","t":"摩天大樓"},{"w":"slap","p":"v.","t":"摑、拍打"},{"w":"slave","p":"n.","t":"奴隸"},{"w":"slavery","p":"n.","t":"奴隸制度"},{"w":"sleeve","p":"n.","t":"袖子"},{"w":"slice","p":"n./v.","t":"片、切片"},{"w":"slide","p":"v.","t":"滑動"},{"w":"slight","p":"adj.","t":"輕微的"},{"w":"slippery","p":"adj.","t":"滑的"},{"w":"slogan","p":"n.","t":"標語、口號"},{"w":"slope","p":"n.","t":"斜坡"},{"w":"smog","p":"n.","t":"煙霧"},{"w":"snack","p":"n.","t":"點心、小吃"},{"w":"snap","p":"v.","t":"突然折斷、咬"},{"w":"sneak","p":"v.","t":"偷偷地走"},{"w":"sneeze","p":"v.","t":"打噴嚏"},{"w":"sniff","p":"v.","t":"嗅、聞"},{"w":"snore","p":"v.","t":"打鼾"},{"w":"soak","p":"v.","t":"浸泡"},{"w":"sob","p":"v.","t":"啜泣"},{"w":"society","p":"n.","t":"社會"},{"w":"sociology","p":"n.","t":"社會學"},{"w":"socket","p":"n.","t":"插座"},{"w":"software","p":"n.","t":"軟體"},{"w":"soil","p":"n.","t":"土壤"},{"w":"solar","p":"adj.","t":"太陽的、太陽能的"},{"w":"sole","p":"adj.","t":"唯一的"},{"w":"solid","p":"adj.","t":"固體的、結實的"},{"w":"solution","p":"n.","t":"解決辦法、溶液"},{"w":"somehow","p":"adv.","t":"不知何故、設法"},{"w":"somewhat","p":"adv.","t":"有點"},{"w":"sophomore","p":"n.","t":"大二生"},{"w":"soul","p":"n.","t":"靈魂"},{"w":"souvenir","p":"n.","t":"紀念品"},{"w":"sow","p":"v.","t":"播種"},{"w":"spade","p":"n.","t":"鏟子、黑桃"},{"w":"span","p":"n.","t":"期間、跨度"},{"w":"spare","p":"adj./v.","t":"備用的、騰出"},{"w":"sparkle","p":"v.","t":"閃耀"},{"w":"sparrow","p":"n.","t":"麻雀"},{"w":"specialist","p":"n.","t":"專家"},{"w":"species","p":"n.","t":"物種"},{"w":"specific","p":"adj.","t":"特定的、具體的"},{"w":"specify","p":"v.","t":"明確指出"},{"w":"spectacular","p":"adj.","t":"壯觀的"},{"w":"speedy","p":"adj.","t":"快速的"},{"w":"sphere","p":"n.","t":"球體、領域"},{"w":"spice","p":"n.","t":"香料"},{"w":"spill","p":"v.","t":"溢出、灑出"},{"w":"spin","p":"v.","t":"旋轉、紡織"},{"w":"spinach","p":"n.","t":"菠菜"},{"w":"spiritual","p":"adj.","t":"精神的、宗教的"},{"w":"spit","p":"v.","t":"吐出"},{"w":"spite","p":"n.","t":"惡意、儘管"},{"w":"splendid","p":"adj.","t":"壯麗的、傑出的"},{"w":"split","p":"v.","t":"分裂、分開"},{"w":"spoil","p":"v.","t":"寵壞、損壞"},{"w":"sponsor","p":"n./v.","t":"贊助者、贊助"},{"w":"spray","p":"v./n.","t":"噴灑、噴霧"},{"w":"sprout","p":"v./n.","t":"發芽、芽"},{"w":"spy","p":"n./v.","t":"間諜、暗中監視"},{"w":"squad","p":"n.","t":"小組、班"},{"w":"squeeze","p":"v.","t":"擠、擠壓"},{"w":"squirrel","p":"n.","t":"松鼠"},{"w":"stab","p":"v.","t":"刺、戳"},{"w":"stable","p":"adj./n.","t":"穩定的、馬廄"},{"w":"stadium","p":"n.","t":"體育場"},{"w":"staff","p":"n.","t":"員工、全體職員"},{"w":"stain","p":"n./v.","t":"污漬、弄髒"},{"w":"stale","p":"adj.","t":"不新鮮的"},{"w":"standard","p":"n./adj.","t":"標準、標準的"},{"w":"staple","p":"n.","t":"訂書針、主食"},{"w":"stare","p":"v.","t":"凝視、注視"},{"w":"starve","p":"v.","t":"挨餓"},{"w":"statement","p":"n.","t":"陳述、聲明"},{"w":"statesman","p":"n.","t":"政治家"},{"w":"statistics","p":"n.","t":"統計、統計學"},{"w":"statue","p":"n.","t":"雕像"},{"w":"status","p":"n.","t":"地位、狀態"},{"w":"steady","p":"adj.","t":"穩定的"},{"w":"steel","p":"n.","t":"鋼"},{"w":"steep","p":"adj.","t":"陡峭的"},{"w":"steer","p":"v.","t":"駕駛、引導"},{"w":"stem","p":"n.","t":"莖、樹幹"},{"w":"stereo","p":"n.","t":"立體聲"},{"w":"sticky","p":"adj.","t":"黏的"},{"w":"stiff","p":"adj.","t":"僵硬的"},{"w":"sting","p":"v.","t":"叮、刺"},{"w":"stingy","p":"adj.","t":"小氣的"},{"w":"stir","p":"v.","t":"攪拌"},{"w":"stitch","p":"n./v.","t":"縫線、縫"},{"w":"stocking","p":"n.","t":"長襪"},{"w":"storage","p":"n.","t":"儲藏"},{"w":"strategy","p":"n.","t":"策略"},{"w":"straw","p":"n.","t":"稻草、吸管"},{"w":"strengthen","p":"v.","t":"加強"},{"w":"stress","p":"n./v.","t":"壓力、強調"},{"w":"stretch","p":"v.","t":"伸展、延伸"},{"w":"stripe","p":"n.","t":"條紋"},{"w":"strive","p":"v.","t":"努力、奮鬥"},{"w":"stroke","p":"n.","t":"中風、一擊"},{"w":"structure","p":"n.","t":"結構"},{"w":"struggle","p":"v./n.","t":"奮鬥、掙扎"},{"w":"stubborn","p":"adj.","t":"頑固的"},{"w":"studio","p":"n.","t":"工作室、攝影棚"},{"w":"stuff","p":"n./v.","t":"東西、塞"},{"w":"sturdy","p":"adj.","t":"健壯的、堅固的"},{"w":"submit","p":"v.","t":"提交、屈服"},{"w":"subscribe","p":"v.","t":"訂閱"},{"w":"substance","p":"n.","t":"物質"},{"w":"substitute","p":"v./n.","t":"代替、替代品"},{"w":"subtract","p":"v.","t":"減去"},{"w":"suburb","p":"n.","t":"郊區"},{"w":"successful","p":"adj.","t":"成功的"},{"w":"sufficient","p":"adj.","t":"足夠的"},{"w":"suggestion","p":"n.","t":"建議"},{"w":"suicide","p":"n.","t":"自殺"},{"w":"suitable","p":"adj.","t":"適合的"},{"w":"summarize","p":"v.","t":"總結、摘要"},{"w":"summary","p":"n.","t":"摘要、總結"},{"w":"summit","p":"n.","t":"頂峰、高峰會"},{"w":"sunlight","p":"n.","t":"陽光"},{"w":"superb","p":"adj.","t":"極好的"},{"w":"superior","p":"adj.","t":"優越的、上級的"},{"w":"supervise","p":"v.","t":"監督"},{"w":"supper","p":"n.","t":"晚餐"},{"w":"suppose","p":"v.","t":"假定、認為"},{"w":"supreme","p":"adj.","t":"最高的、至上的"},{"w":"surgeon","p":"n.","t":"外科醫生"},{"w":"surgery","p":"n.","t":"外科手術"},{"w":"surplus","p":"n.","t":"剩餘、盈餘"},{"w":"surrender","p":"v.","t":"投降、屈服"},{"w":"surround","p":"v.","t":"包圍"},{"w":"surroundings","p":"n.","t":"周遭環境"},{"w":"survey","p":"n./v.","t":"調查"},{"w":"survival","p":"n.","t":"生存"},{"w":"survivor","p":"n.","t":"倖存者"},{"w":"suspect","p":"v./n.","t":"懷疑、嫌犯"},{"w":"suspicion","p":"n.","t":"懷疑"},{"w":"suspicious","p":"adj.","t":"可疑的"},{"w":"swallow","p":"v./n.","t":"吞嚥、燕子"},{"w":"swamp","p":"n.","t":"沼澤"},{"w":"swan","p":"n.","t":"天鵝"},{"w":"swear","p":"v.","t":"發誓、咒罵"},{"w":"sweat","p":"n./v.","t":"汗水、流汗"},{"w":"swell","p":"v.","t":"腫脹、膨脹"},{"w":"swift","p":"adj.","t":"迅速的"},{"w":"switch","p":"n./v.","t":"開關、切換"},{"w":"sword","p":"n.","t":"劍"},{"w":"syllable","p":"n.","t":"音節"},{"w":"sympathetic","p":"adj.","t":"有同情心的"},{"w":"sympathy","p":"n.","t":"同情"},{"w":"symphony","p":"n.","t":"交響樂"},{"w":"symptom","p":"n.","t":"症狀"},{"w":"systematic","p":"adj.","t":"有系統的"},{"w":"tablet","p":"n.","t":"藥片、平板"},{"w":"tag","p":"n.","t":"標籤"},{"w":"tailor","p":"n.","t":"裁縫師"},{"w":"talented","p":"adj.","t":"有才能的"},{"w":"talkative","p":"adj.","t":"健談的"},{"w":"tame","p":"adj./v.","t":"馴服的、馴服"},{"w":"tap","p":"v./n.","t":"輕拍、水龍頭"},{"w":"tease","p":"v.","t":"取笑、戲弄"},{"w":"technical","p":"adj.","t":"技術的"},{"w":"technician","p":"n.","t":"技術員"},{"w":"technique","p":"n.","t":"技術、技巧"},{"w":"technological","p":"adj.","t":"科技的"},{"w":"technology","p":"n.","t":"科技"},{"w":"teenage","p":"adj.","t":"青少年的"},{"w":"telegram","p":"n.","t":"電報"},{"w":"telegraph","p":"n.","t":"電報"},{"w":"telescope","p":"n.","t":"望遠鏡"},{"w":"temper","p":"n.","t":"脾氣"},{"w":"temporary","p":"adj.","t":"暫時的"},{"w":"tempt","p":"v.","t":"誘惑"},{"w":"temptation","p":"n.","t":"誘惑"},{"w":"tenant","p":"n.","t":"房客"},{"w":"tend","p":"v.","t":"傾向、趨向"},{"w":"tendency","p":"n.","t":"傾向、趨勢"},{"w":"tender","p":"adj.","t":"溫柔的、柔嫩的"},{"w":"tense","p":"adj./n.","t":"緊張的、時態"},{"w":"tension","p":"n.","t":"緊張"},{"w":"term","p":"n.","t":"學期、術語、條件"},{"w":"terminal","p":"n.","t":"終端、航廈"},{"w":"terrific","p":"adj.","t":"極好的"},{"w":"terrify","p":"v.","t":"使恐懼"},{"w":"territory","p":"n.","t":"領土、領域"},{"w":"terror","p":"n.","t":"恐怖"},{"w":"texture","p":"n.","t":"質地、紋理"},{"w":"theme","p":"n.","t":"主題"},{"w":"theory","p":"n.","t":"理論"},{"w":"thirst","p":"n.","t":"口渴"},{"w":"thorough","p":"adj.","t":"徹底的"},{"w":"thoughtful","p":"adj.","t":"體貼的、深思的"},{"w":"thread","p":"n.","t":"線、線索"},{"w":"threat","p":"n.","t":"威脅"},{"w":"threaten","p":"v.","t":"威脅"},{"w":"thrill","p":"v./n.","t":"使興奮、刺激"},{"w":"throne","p":"n.","t":"王位、王座"},{"w":"tide","p":"n.","t":"潮汐"},{"w":"tighten","p":"v.","t":"使緊"},{"w":"timber","p":"n.","t":"木材"},{"w":"timetable","p":"n.","t":"時間表"},{"w":"tin","p":"n.","t":"錫、罐頭"},{"w":"tire","p":"v./n.","t":"使疲累、輪胎"},{"w":"tissue","p":"n.","t":"面紙、組織"},{"w":"tobacco","p":"n.","t":"菸草"},{"w":"tolerate","p":"v.","t":"容忍"},{"w":"tomb","p":"n.","t":"墳墓"},{"w":"ton","p":"n.","t":"噸"},{"w":"toothpaste","p":"n.","t":"牙膏"},{"w":"torch","p":"n.","t":"火炬、手電筒"},{"w":"torture","p":"v./n.","t":"折磨"},{"w":"toss","p":"v.","t":"投、扔"},{"w":"tough","p":"adj.","t":"困難的、強硬的"},{"w":"tourism","p":"n.","t":"觀光業"},{"w":"tournament","p":"n.","t":"錦標賽"},{"w":"toxic","p":"adj.","t":"有毒的"},{"w":"trace","p":"v./n.","t":"追蹤、痕跡"},{"w":"trader","p":"n.","t":"商人"},{"w":"tradition","p":"n.","t":"傳統"},{"w":"traditional","p":"adj.","t":"傳統的"},{"w":"tragedy","p":"n.","t":"悲劇"},{"w":"tragic","p":"adj.","t":"悲劇的"},{"w":"trail","p":"n.","t":"小徑、痕跡"},{"w":"trait","p":"n.","t":"特徵、特點"},{"w":"transfer","p":"v.","t":"轉移、轉學"},{"w":"transform","p":"v.","t":"轉變"},{"w":"translate","p":"v.","t":"翻譯"},{"w":"translation","p":"n.","t":"翻譯"},{"w":"translator","p":"n.","t":"翻譯員"},{"w":"transport","p":"v./n.","t":"運輸"},{"w":"transportation","p":"n.","t":"運輸、交通工具"},{"w":"tray","p":"n.","t":"托盤"},{"w":"treatment","p":"n.","t":"治療、對待"},{"w":"tremble","p":"v.","t":"顫抖"},{"w":"tremendous","p":"adj.","t":"巨大的"},{"w":"trend","p":"n.","t":"趨勢"},{"w":"trial","p":"n.","t":"審判、試驗"},{"w":"triangle","p":"n.","t":"三角形"},{"w":"tribe","p":"n.","t":"部落"},{"w":"trigger","p":"n./v.","t":"扳機、引發"},{"w":"triumph","p":"n.","t":"勝利"},{"w":"trivial","p":"adj.","t":"瑣碎的"},{"w":"troop","p":"n.","t":"軍隊、部隊"},{"w":"tropical","p":"adj.","t":"熱帶的"},{"w":"trunk","p":"n.","t":"樹幹、行李箱"},{"w":"truthful","p":"adj.","t":"誠實的"},{"w":"tug","p":"v.","t":"用力拉"},{"w":"tulip","p":"n.","t":"鬱金香"},{"w":"tumble","p":"v.","t":"跌倒"},{"w":"tune","p":"n./v.","t":"曲調、調音"},{"w":"tunnel","p":"n.","t":"隧道"},{"w":"tutor","p":"n.","t":"家教、導師"},{"w":"twig","p":"n.","t":"細枝"},{"w":"twin","p":"n./adj.","t":"雙胞胎"},{"w":"twinkle","p":"v.","t":"閃爍"},{"w":"twist","p":"v.","t":"扭轉、纏繞"},{"w":"typical","p":"adj.","t":"典型的"},{"w":"ultimate","p":"adj.","t":"最終的、最後的"},{"w":"unconscious","p":"adj.","t":"無意識的"},{"w":"undergo","p":"v.","t":"經歷、遭受"},{"w":"underneath","p":"prep./adv.","t":"在…下面"},{"w":"understanding","p":"n.","t":"理解、諒解"},{"w":"undertake","p":"v.","t":"承擔、從事"},{"w":"underwear","p":"n.","t":"內衣"},{"w":"unemployment","p":"n.","t":"失業"},{"w":"unfortunate","p":"adj.","t":"不幸的"},{"w":"union","p":"n.","t":"聯盟、工會"},{"w":"unique","p":"adj.","t":"獨特的"},{"w":"unite","p":"v.","t":"聯合、團結"},{"w":"unity","p":"n.","t":"團結、整體"},{"w":"universal","p":"adj.","t":"宇宙的、全體的"},{"w":"universe","p":"n.","t":"宇宙"},{"w":"university","p":"n.","t":"大學"},{"w":"upload","p":"v.","t":"上傳"},{"w":"upset","p":"adj./v.","t":"心煩的、使不安"},{"w":"urban","p":"adj.","t":"都市的"},{"w":"urge","p":"v.","t":"催促、力勸"},{"w":"urgent","p":"adj.","t":"緊急的"},{"w":"useless","p":"adj.","t":"無用的"},{"w":"utility","p":"n.","t":"效用、實用"},{"w":"vacant","p":"adj.","t":"空的、空缺的"},{"w":"vacuum","p":"n.","t":"真空、吸塵器"},{"w":"vague","p":"adj.","t":"模糊的"},{"w":"vain","p":"adj.","t":"虛榮的、徒勞的"},{"w":"valid","p":"adj.","t":"有效的"},{"w":"valuable","p":"adj.","t":"有價值的"},{"w":"van","p":"n.","t":"廂型車"},{"w":"vanish","p":"v.","t":"消失"},{"w":"variable","p":"adj./n.","t":"易變的、變數"},{"w":"variety","p":"n.","t":"多樣性、種類"},{"w":"various","p":"adj.","t":"各種各樣的"},{"w":"vary","p":"v.","t":"變化、不同"},{"w":"vast","p":"adj.","t":"廣大的"},{"w":"vegetarian","p":"n.","t":"素食者"},{"w":"vendor","p":"n.","t":"小販"},{"w":"venture","p":"n.","t":"冒險、企業"},{"w":"verbal","p":"adj.","t":"口頭的、動詞的"},{"w":"verse","p":"n.","t":"詩、韻文"},{"w":"version","p":"n.","t":"版本"},{"w":"vertical","p":"adj.","t":"垂直的"},{"w":"vessel","p":"n.","t":"船、容器"},{"w":"veteran","p":"n.","t":"老兵、老手"},{"w":"vibrate","p":"v.","t":"震動"},{"w":"vice","p":"n.","t":"惡習、邪惡"},{"w":"victim","p":"n.","t":"受害者"},{"w":"viewer","p":"n.","t":"觀眾"},{"w":"violate","p":"v.","t":"違反"},{"w":"violence","p":"n.","t":"暴力"},{"w":"violent","p":"adj.","t":"暴力的、激烈的"},{"w":"violet","p":"n.","t":"紫羅蘭"},{"w":"virtue","p":"n.","t":"美德"},{"w":"virus","p":"n.","t":"病毒"},{"w":"visible","p":"adj.","t":"看得見的"},{"w":"vision","p":"n.","t":"視力、遠見"},{"w":"visual","p":"adj.","t":"視覺的"},{"w":"vital","p":"adj.","t":"重要的、致命的"},{"w":"vitamin","p":"n.","t":"維他命"},{"w":"vivid","p":"adj.","t":"生動的、鮮明的"},{"w":"vocabulary","p":"n.","t":"字彙、單字"},{"w":"volcano","p":"n.","t":"火山"},{"w":"volume","p":"n.","t":"音量、體積、卷"},{"w":"voluntary","p":"adj.","t":"自願的"},{"w":"volunteer","p":"n./v.","t":"志願者、自願"},{"w":"voter","p":"n.","t":"投票者"},{"w":"voyage","p":"n.","t":"航行、航海"},{"w":"wage","p":"n.","t":"工資、薪資"},{"w":"wagon","p":"n.","t":"四輪馬車"},{"w":"waist","p":"n.","t":"腰部"},{"w":"wander","p":"v.","t":"閒逛、徘徊"},{"w":"warmth","p":"n.","t":"溫暖"},{"w":"warrior","p":"n.","t":"戰士"},{"w":"waterfall","p":"n.","t":"瀑布"},{"w":"wax","p":"n.","t":"蠟"},{"w":"weaken","p":"v.","t":"使衰弱"},{"w":"wealth","p":"n.","t":"財富"},{"w":"wealthy","p":"adj.","t":"富有的"},{"w":"weapon","p":"n.","t":"武器"},{"w":"weave","p":"v.","t":"編織"},{"w":"web","p":"n.","t":"網、蜘蛛網"},{"w":"weed","p":"n.","t":"雜草"},{"w":"weekly","p":"adj./adv.","t":"每週的"},{"w":"weep","p":"v.","t":"哭泣"},{"w":"welfare","p":"n.","t":"福利"},{"w":"wheat","p":"n.","t":"小麥"},{"w":"whenever","p":"conj.","t":"無論何時"},{"w":"wherever","p":"conj.","t":"無論哪裡"},{"w":"whichever","p":"pron.","t":"無論哪個"},{"w":"whip","p":"n./v.","t":"鞭子、鞭打"},{"w":"wicked","p":"adj.","t":"邪惡的"},{"w":"widow","p":"n.","t":"寡婦"},{"w":"width","p":"n.","t":"寬度"},{"w":"wilderness","p":"n.","t":"荒野"},{"w":"wink","p":"v.","t":"眨眼"},{"w":"wire","p":"n.","t":"電線、金屬絲"},{"w":"wisdom","p":"n.","t":"智慧"},{"w":"witch","p":"n.","t":"女巫"},{"w":"withdraw","p":"v.","t":"撤退、提款"},{"w":"witness","p":"n./v.","t":"目擊者、目擊"},{"w":"wizard","p":"n.","t":"巫師"},{"w":"workshop","p":"n.","t":"工作坊、研討會"},{"w":"worthwhile","p":"adj.","t":"值得的"},{"w":"worthy","p":"adj.","t":"值得的、有價值的"},{"w":"wound","p":"n./v.","t":"傷口、使受傷"},{"w":"wrap","p":"v.","t":"包、裹"},{"w":"wrinkle","p":"n.","t":"皺紋"},{"w":"yawn","p":"v.","t":"打哈欠"},{"w":"yearly","p":"adj./adv.","t":"每年的"},{"w":"yell","p":"v.","t":"大叫、吼叫"},{"w":"yogurt","p":"n.","t":"優格"},{"w":"yolk","p":"n.","t":"蛋黃"},{"w":"youngster","p":"n.","t":"年輕人、少年"},{"w":"zone","p":"n.","t":"地區、區域"}];
+
+
+
+// ====================================================================
+// 閱讀測驗範本：預先寫好的短文，每篇含 2-4 道題目
+// 短文使用真實的中級單字，題目測驗理解能力
+// 包含：細節題、主旨題、推論題、字義題
+// ====================================================================
+
+// ====================================================================
+// 克漏字題庫 v3 — GEPT 段落填空格式
+// 每篇文章有 5-6 個 ___ 空格，每個空格 4 個選項
+// passage 中用 [1]、[2]、[3]... 標記空格位置
+// blanks 陣列依序對應每個空格的選項與答案
+// ====================================================================
+
+const CLOZE_PASSAGES = [
+  // ============ 文章 1：環保主題 ============
+  {
+    id: "c1",
+    title: "Saving the Planet",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Climate change is one of the biggest [1] facing humans today. Rising temperatures, melting ice, and severe weather are signs that our planet is in trouble. Scientists believe that human activities, especially the burning of fossil fuels, are the main [2] of these problems.
+
+The good news is that everyone can help. We can [3] less energy by turning off lights when we leave a room. We can also choose to walk, ride a bike, or take public transportation [4] of driving. Recycling and reusing items also reduce waste.
+
+Although individual actions may seem small, when millions of people make these changes, the [5] on the environment can be huge. Together, we can protect the Earth for future generations.`,
+    blanks: [
+      {
+        opts: ["solutions", "challenges", "victories", "celebrations"],
+        ans: 1,
+        explain: "challenges 挑戰；句意「氣候變遷是人類面臨的最大挑戰之一」"
+      },
+      {
+        opts: ["benefits", "results", "causes", "answers"],
+        ans: 2,
+        explain: "causes 原因；句意「人類活動是這些問題的主要原因」"
+      },
+      {
+        opts: ["consume", "produce", "create", "destroy"],
+        ans: 0,
+        explain: "consume 消耗；「消耗較少能源」搭配關燈最合理"
+      },
+      {
+        opts: ["because", "instead", "before", "during"],
+        ans: 1,
+        explain: "instead of 而不是；「走路…而不是開車」"
+      },
+      {
+        opts: ["damage", "danger", "impact", "shadow"],
+        ans: 2,
+        explain: "impact 影響；「對環境的影響可以很大」"
+      }
+    ]
+  },
+
+  // ============ 文章 2：科技主題 ============
+  {
+    id: "c2",
+    title: "The Smartphone Revolution",
+    intro: "下面這篇文章共有 6 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Smartphones have completely changed the way we live. Twenty years ago, phones were used [1] for making calls. Today, they are powerful computers in our pockets that can do almost anything.
+
+People use smartphones to take photos, watch videos, listen to music, and play games. They are also [2] tools for work and study. Students can [3] difficult problems by searching online, while workers can reply to emails from anywhere.
+
+However, smartphones also have some [4]. Many people spend too much time on their screens, which can hurt their eyes and affect their sleep. Some users even feel [5] when they don't have their phones with them. To stay healthy, experts [6] taking regular breaks from screens and putting phones away during meals.`,
+    blanks: [
+      {
+        opts: ["mostly", "barely", "rarely", "hardly"],
+        ans: 0,
+        explain: "mostly 大部分地；「電話過去主要用來打電話」"
+      },
+      {
+        opts: ["dangerous", "useful", "boring", "expensive"],
+        ans: 1,
+        explain: "useful 有用的；「也是工作和學習的有用工具」"
+      },
+      {
+        opts: ["create", "ignore", "solve", "forget"],
+        ans: 2,
+        explain: "solve 解決；「學生可透過網路搜尋解決難題」"
+      },
+      {
+        opts: ["advantages", "downsides", "celebrations", "rewards"],
+        ans: 1,
+        explain: "downsides 缺點；轉折詞 However 後應接負面詞"
+      },
+      {
+        opts: ["calm", "anxious", "satisfied", "proud"],
+        ans: 1,
+        explain: "anxious 焦慮的；「沒手機會感到焦慮」符合情境"
+      },
+      {
+        opts: ["recommend", "refuse", "ignore", "regret"],
+        ans: 0,
+        explain: "recommend 建議；「專家建議定期休息」"
+      }
+    ]
+  },
+
+  // ============ 文章 3：學校生活 ============
+  {
+    id: "c3",
+    title: "My Best Friend at School",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `I met Sarah on the first day of seventh grade. She sat next to me in math class, and we became friends right away. She always wears a [1] smile and is willing to help anyone who needs it.
+
+Sarah is one of the most [2] students in our class. She studies hard, but she also makes time to enjoy life. Every weekend, we go to the library together to [3] our homework. Afterwards, we usually grab a snack and chat about everything.
+
+Last month, I was [4] worried about my science project. Sarah noticed and offered to help me. She spent two whole afternoons explaining the difficult parts to me. Thanks to her, I got an excellent grade.
+
+A true friend is someone you can [5] on, and Sarah is exactly that kind of person. I feel lucky to have her in my life.`,
+    blanks: [
+      {
+        opts: ["sad", "friendly", "scary", "tired"],
+        ans: 1,
+        explain: "friendly 友善的；「友善的笑容」"
+      },
+      {
+        opts: ["lazy", "noisy", "diligent", "rude"],
+        ans: 2,
+        explain: "diligent 勤勉的；和「努力學習」搭配"
+      },
+      {
+        opts: ["throw", "finish", "skip", "lose"],
+        ans: 1,
+        explain: "finish 完成；「一起去圖書館完成作業」"
+      },
+      {
+        opts: ["hardly", "rarely", "extremely", "never"],
+        ans: 2,
+        explain: "extremely 極度地；副詞修飾 worried"
+      },
+      {
+        opts: ["depend", "stand", "give", "decide"],
+        ans: 0,
+        explain: "depend on 依靠；「能依靠的人」是慣用搭配"
+      }
+    ]
+  },
+
+  // ============ 文章 4：健康主題 ============
+  {
+    id: "c4",
+    title: "The Importance of Exercise",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Many teenagers today spend hours sitting at desks or staring at screens. This kind of lifestyle is not good for their [1]. Doctors warn that lack of exercise can lead to serious health problems later in life.
+
+Regular exercise has many benefits. It [2] muscles and bones, improves heart health, and helps people sleep better at night. Exercise also [3] stress and improves mood by releasing chemicals in the brain that make us feel happy.
+
+You don't need to spend hours in a gym to stay fit. Simple [4] like walking, climbing stairs, and dancing can all keep your body active. Experts recommend at least 60 minutes of physical activity every day for young people.
+
+Building healthy habits when you are young will [5] you for the rest of your life. Start small, stay consistent, and your body will thank you.`,
+    blanks: [
+      {
+        opts: ["hobbies", "health", "homework", "happiness"],
+        ans: 1,
+        explain: "health 健康；「對健康不好」"
+      },
+      {
+        opts: ["weakens", "loses", "strengthens", "removes"],
+        ans: 2,
+        explain: "strengthens 強化；運動「強化肌肉骨骼」"
+      },
+      {
+        opts: ["increases", "reduces", "creates", "ignores"],
+        ans: 1,
+        explain: "reduces 減少；「減輕壓力」"
+      },
+      {
+        opts: ["activities", "problems", "diseases", "machines"],
+        ans: 0,
+        explain: "activities 活動；後面舉例都是運動類型"
+      },
+      {
+        opts: ["harm", "benefit", "trouble", "punish"],
+        ans: 1,
+        explain: "benefit 使受益；「健康的習慣會讓你受益一輩子」"
+      }
+    ]
+  },
+
+  // ============ 文章 5：旅遊文化 ============
+  {
+    id: "c5",
+    title: "A Trip to Tainan",
+    intro: "下面這篇文章共有 6 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Last summer, my family took a [1] to Tainan, the oldest city in Taiwan. We had heard so many great things about it, and we were not disappointed.
+
+The city is famous for its [2] history. We visited several old temples and forts that were built hundreds of years ago. Our tour guide told us interesting stories about how Tainan became an important center of Taiwanese culture.
+
+Of course, we also enjoyed the food. Tainan is well-known for its [3] dishes like beef soup, milkfish, and shrimp rolls. The flavors were amazing, and the prices were [4] than I had expected. We ate at small local restaurants where the cooks have been [5] their recipes for generations.
+
+Before we left, we stopped at a famous tea shop to buy some local products as [6] for our friends back home. I will definitely return to Tainan one day.`,
+    blanks: [
+      {
+        opts: ["lesson", "trip", "test", "rest"],
+        ans: 1,
+        explain: "trip 旅行；「全家旅行」"
+      },
+      {
+        opts: ["short", "boring", "rich", "secret"],
+        ans: 2,
+        explain: "rich 豐富的；「豐富的歷史」"
+      },
+      {
+        opts: ["traditional", "modern", "foreign", "frozen"],
+        ans: 0,
+        explain: "traditional 傳統的；台南以傳統小吃聞名"
+      },
+      {
+        opts: ["higher", "lower", "stricter", "louder"],
+        ans: 1,
+        explain: "lower 較低的；「價格比預期低」"
+      },
+      {
+        opts: ["losing", "forgetting", "passing down", "throwing away"],
+        ans: 2,
+        explain: "passing down 傳承；「將食譜代代相傳」"
+      },
+      {
+        opts: ["souvenirs", "complaints", "punishments", "warnings"],
+        ans: 0,
+        explain: "souvenirs 紀念品；「買當地產品作為紀念品」"
+      }
+    ]
+  },
+
+  // ============ 文章 6：動物保育 ============
+  {
+    id: "c6",
+    title: "Saving the Sea Turtles",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Sea turtles have lived in our oceans for over 100 million years. They are amazing creatures, but today many [1] are in danger of dying out. Several factors threaten their survival.
+
+One major problem is plastic pollution. Sea turtles often [2] plastic bags for jellyfish, their favorite food. When they eat the plastic, it can block their stomachs and cause them to die. Another threat comes from fishing nets, which can [3] turtles by accident.
+
+Climate change also affects sea turtles. Warmer beaches change the [4] of male and female babies that hatch from the eggs. If beaches become too warm, almost all baby turtles will be female, which is bad for the species.
+
+Many countries are now taking action to [5] sea turtles. They have created protected areas, banned single-use plastics, and started programs to clean up beaches. With these efforts, we hope these ancient creatures will continue to swim in our oceans for many more years.`,
+    blanks: [
+      {
+        opts: ["humans", "species", "machines", "places"],
+        ans: 1,
+        explain: "species 物種；「許多物種瀕臨絕種」"
+      },
+      {
+        opts: ["mistake", "remember", "draw", "produce"],
+        ans: 0,
+        explain: "mistake A for B 把 A 誤認為 B"
+      },
+      {
+        opts: ["feed", "trap", "wash", "teach"],
+        ans: 1,
+        explain: "trap 困住；「漁網意外困住海龜」"
+      },
+      {
+        opts: ["color", "size", "balance", "speed"],
+        ans: 2,
+        explain: "balance 平衡；「公母比例的平衡」"
+      },
+      {
+        opts: ["catch", "hunt", "protect", "ignore"],
+        ans: 2,
+        explain: "protect 保護；和前文「採取行動」呼應"
+      }
+    ]
+  },
+
+  // ============ 文章 7：青少年成長 ============
+  {
+    id: "c7",
+    title: "Learning from Mistakes",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `When I was in eighth grade, I made a big mistake. I copied my friend's homework because I had forgotten to do mine. The teacher [1] noticed and called both of us into her office.
+
+At first, I felt really [2] and tried to make excuses. I said I had been too busy and didn't have time. But the teacher looked at me kindly and said, "Everyone makes mistakes. What matters is what you do [3]."
+
+She didn't punish us harshly. Instead, she asked us to talk about why we did it and how we felt. After our conversation, I [4] that I had been wrong. Copying didn't help me learn anything, and it was unfair to my friend who had to share his work.
+
+From that day on, I always do my own homework, even when it's hard. That mistake taught me an important [5]: honesty is more valuable than a good grade.`,
+    blanks: [
+      {
+        opts: ["barely", "quickly", "rarely", "slowly"],
+        ans: 1,
+        explain: "quickly 很快地；老師「很快發現」"
+      },
+      {
+        opts: ["proud", "happy", "embarrassed", "excited"],
+        ans: 2,
+        explain: "embarrassed 尷尬的；被發現作弊的反應"
+      },
+      {
+        opts: ["before", "afterwards", "instead", "however"],
+        ans: 1,
+        explain: "afterwards 之後；「重要的是你之後做什麼」"
+      },
+      {
+        opts: ["denied", "forgot", "realized", "doubted"],
+        ans: 2,
+        explain: "realized 意識到；「我意識到我錯了」"
+      },
+      {
+        opts: ["gift", "lesson", "secret", "joke"],
+        ans: 1,
+        explain: "lesson 教訓；「教會我重要的一課」"
+      }
+    ]
+  },
+
+  // ============ 文章 8：運動主題 ============
+  {
+    id: "c8",
+    title: "The Magic of Team Sports",
+    intro: "下面這篇文章共有 6 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Team sports like basketball, soccer, and volleyball offer many [1] beyond physical exercise. Players learn skills that will help them throughout their lives.
+
+First, team sports teach the value of [2]. Players must work together to win games. No matter how talented one person is, they cannot succeed [3]. Each member has a role to play, and the team is only as strong as its weakest member.
+
+Second, players develop leadership skills. The team captain must [4] decisions during games and encourage teammates when they feel down. These experiences help young athletes become confident leaders later in life.
+
+Third, team sports teach how to handle both success and failure. When the team wins, players celebrate together. When they lose, they learn to [5] each other up and try harder next time. They also learn to [6] their opponents, even after a difficult game.
+
+These life lessons are the real prize of playing team sports — much more valuable than any trophy.`,
+    blanks: [
+      {
+        opts: ["dangers", "benefits", "complaints", "rules"],
+        ans: 1,
+        explain: "benefits 好處；「許多好處」"
+      },
+      {
+        opts: ["loneliness", "competition", "cooperation", "anger"],
+        ans: 2,
+        explain: "cooperation 合作；team sports 強調合作精神"
+      },
+      {
+        opts: ["alone", "easily", "loudly", "publicly"],
+        ans: 0,
+        explain: "alone 獨自；「無法獨自成功」"
+      },
+      {
+        opts: ["avoid", "make", "delete", "lose"],
+        ans: 1,
+        explain: "make decisions 做決定（慣用搭配）"
+      },
+      {
+        opts: ["lift", "throw", "wake", "pick"],
+        ans: 0,
+        explain: "lift up 鼓舞、提振；「互相打氣」"
+      },
+      {
+        opts: ["fight", "respect", "ignore", "blame"],
+        ans: 1,
+        explain: "respect 尊重；運動家精神「尊重對手」"
+      }
+    ]
+  },
+
+  // ============ 文章 9：寵物與家庭 ============
+  {
+    id: "c9",
+    title: "Adopting a Rescue Dog",
+    intro: "下面這篇文章共有 5 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Last year, my family decided to adopt a dog from an animal shelter. We had thought about getting a pet for a long time, but we wanted to give a home to an animal in [1] rather than buying one from a pet shop.
+
+When we arrived at the shelter, we met dozens of dogs hoping to find families. One small brown dog [2] caught our attention. He was sitting quietly in a corner, watching us with sad eyes. The shelter staff told us he had been there for over six months because most people prefer puppies.
+
+We named him Buddy and brought him home. At first, he was very [3] and would hide under the furniture. He was clearly afraid that we might hurt him or send him back. But with patience and love, Buddy slowly began to [4] us.
+
+Now, six months later, Buddy is a different dog. He runs to greet us when we come home and sleeps peacefully on his bed. Adopting him was one of the best [5] our family has ever made. Every dog deserves a second chance.`,
+    blanks: [
+      {
+        opts: ["luck", "need", "control", "fashion"],
+        ans: 1,
+        explain: "in need 有需要的；「需要幫助的動物」"
+      },
+      {
+        opts: ["instantly", "rarely", "barely", "never"],
+        ans: 0,
+        explain: "instantly 立刻；「立刻吸引我們的注意」"
+      },
+      {
+        opts: ["brave", "fearful", "noisy", "playful"],
+        ans: 1,
+        explain: "fearful 害怕的；和「躲在家具下」搭配"
+      },
+      {
+        opts: ["forget", "trust", "fight", "leave"],
+        ans: 1,
+        explain: "trust 信任；「漸漸開始信任我們」"
+      },
+      {
+        opts: ["mistakes", "decisions", "promises", "secrets"],
+        ans: 1,
+        explain: "decisions 決定；「最棒的決定之一」"
+      }
+    ]
+  },
+
+  // ============ 文章 10：科學發現 ============
+  {
+    id: "c10",
+    title: "Why We Need Sleep",
+    intro: "下面這篇文章共有 6 個空格，請從每題的選項中選出最適合的答案。",
+    passage: `Have you ever wondered why we [1] about one-third of our lives sleeping? For a long time, scientists were not sure why sleep was so important. Now, modern research has [2] some surprising answers.
+
+During sleep, our brains are actually very busy. While our bodies rest, the brain is [3] memories from the day. It decides which information is important to keep and which to forget. This is why students who sleep well usually perform better on tests.
+
+Sleep is also when our bodies [4] themselves. Damaged cells are fixed, muscles grow stronger, and the immune system becomes more powerful. Without enough sleep, people are more likely to get sick and feel tired all the time.
+
+Doctors recommend that teenagers get 8 to 10 hours of sleep every night. However, many young people don't get enough sleep [5] of homework, social media, or simply staying up too late.
+
+If you want to feel your best, try to go to bed at a [6] time every night. Your brain and body will thank you tomorrow.`,
+    blanks: [
+      {
+        opts: ["save", "spend", "earn", "lose"],
+        ans: 1,
+        explain: "spend time 花費時間（spend ... -ing）"
+      },
+      {
+        opts: ["hidden", "destroyed", "revealed", "denied"],
+        ans: 2,
+        explain: "revealed 揭示；「研究揭示了答案」"
+      },
+      {
+        opts: ["forgetting", "organizing", "creating", "deleting"],
+        ans: 1,
+        explain: "organizing 整理；「整理當天的記憶」"
+      },
+      {
+        opts: ["repair", "harm", "ignore", "challenge"],
+        ans: 0,
+        explain: "repair 修復；「身體修復自己」"
+      },
+      {
+        opts: ["instead", "because", "before", "during"],
+        ans: 1,
+        explain: "because of 因為（後接名詞）"
+      },
+      {
+        opts: ["different", "regular", "random", "wrong"],
+        ans: 1,
+        explain: "regular 規律的；「每晚規律的時間就寢」"
+      }
+    ]
+  },
+];
+
+
+const READING_PASSAGES = [
+  // ============ 短文 1：科學主題（短）============
+  {
+    id: "p1",
+    type: "短",
+    title: "The Honey Bee",
+    passage: `Honey bees are amazing insects. They live in groups called colonies. Each colony has one queen, many workers, and some male bees. The workers fly from flower to flower to collect pollen. They also produce honey, which we love to eat. Without bees, many plants would not survive because bees help them grow.`,
+    questions: [
+      {
+        q: "What is the main idea of this passage?",
+        opts: [
+          "Honey bees are important for many plants.",
+          "Honey bees only eat flowers.",
+          "Honey bees live alone in the wild.",
+          "Honey bees are dangerous animals."
+        ],
+        ans: 0
+      },
+      {
+        q: "What do worker bees do?",
+        opts: [
+          "They lay eggs.",
+          "They protect the queen only.",
+          "They collect pollen and produce honey.",
+          "They sleep all day."
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 2：日常生活（短）============
+  {
+    id: "p2",
+    type: "短",
+    title: "A New Habit",
+    passage: `Lisa decided to start running every morning. At first, it was very difficult. She felt tired and sometimes wanted to give up. However, she did not stop. After two months, she noticed that she had more energy during the day. She also slept better at night. Now, running is one of her favorite activities.`,
+    questions: [
+      {
+        q: "How did Lisa feel when she started running?",
+        opts: [
+          "She felt very happy.",
+          "She felt energetic.",
+          "She felt tired and wanted to give up.",
+          "She felt nothing special."
+        ],
+        ans: 2
+      },
+      {
+        q: "What can we learn from this passage?",
+        opts: [
+          "Running is bad for health.",
+          "Continuing a new habit can bring good changes.",
+          "Lisa stopped running after two months.",
+          "Morning is the only time to exercise."
+        ],
+        ans: 1
+      }
+    ]
+  },
+
+  // ============ 短文 3：環境（中）============
+  {
+    id: "p3",
+    type: "中",
+    title: "Plastic Pollution in the Ocean",
+    passage: `Every year, millions of tons of plastic waste end up in our oceans. This plastic causes serious damage to marine animals. Sea turtles often think plastic bags are jellyfish and try to eat them. Birds collect plastic pieces and feed them to their babies, thinking they are food. Many fish also swallow tiny plastic pieces, which then enter the human food chain when we eat seafood.
+
+Scientists believe that by 2050, there might be more plastic than fish in the ocean. To solve this problem, governments around the world are passing new laws. Some countries have banned single-use plastic bags. Others encourage people to use reusable containers. We can also help by reducing our daily plastic use and recycling whenever possible.`,
+    questions: [
+      {
+        q: "What is the main problem discussed in this passage?",
+        opts: [
+          "Sea turtles are becoming smaller.",
+          "Plastic waste harms ocean animals and may affect humans too.",
+          "Fishing is no longer popular.",
+          "Birds cannot find enough food."
+        ],
+        ans: 1
+      },
+      {
+        q: "Why do sea turtles eat plastic bags?",
+        opts: [
+          "They like the taste of plastic.",
+          "They mistake them for jellyfish.",
+          "They cannot find any other food.",
+          "Their parents teach them to do so."
+        ],
+        ans: 1
+      },
+      {
+        q: "Which of the following is NOT mentioned as a solution?",
+        opts: [
+          "Banning single-use plastic bags",
+          "Using reusable containers",
+          "Recycling more often",
+          "Building more fishing boats"
+        ],
+        ans: 3
+      },
+      {
+        q: "What does the word 'banned' mean in this passage?",
+        opts: [
+          "encouraged",
+          "produced",
+          "made illegal",
+          "imported"
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 4：科技（中）============
+  {
+    id: "p4",
+    type: "中",
+    title: "The Rise of Online Learning",
+    passage: `Online learning has changed education in many ways. Before, students had to travel to schools or universities to attend classes. Now, with just a computer and the internet, they can learn from teachers all over the world. This has made education more accessible to people who live in remote areas or who cannot afford expensive schools.
+
+However, online learning also has some disadvantages. Some students find it hard to focus when studying alone at home. They miss the chance to make friends face-to-face and to participate in group activities. In addition, not all subjects can be taught well online. Subjects like science, which need lab experiments, are difficult to teach through a screen.
+
+Despite these problems, online learning is here to stay. Many schools now offer a mix of online and traditional classes, giving students the best of both worlds.`,
+    questions: [
+      {
+        q: "What is one advantage of online learning according to the passage?",
+        opts: [
+          "It is more expensive than traditional school.",
+          "It helps students make more friends.",
+          "It makes education available to more people.",
+          "It is the only way to study science."
+        ],
+        ans: 2
+      },
+      {
+        q: "Why is science difficult to teach online?",
+        opts: [
+          "Science teachers are too busy.",
+          "Lab experiments are hard to do through a screen.",
+          "Students don't like science.",
+          "Computers cannot show science topics."
+        ],
+        ans: 1
+      },
+      {
+        q: "What does 'remote areas' most likely mean?",
+        opts: [
+          "Places near big cities",
+          "Places far away from urban centers",
+          "Modern shopping centers",
+          "Underground locations"
+        ],
+        ans: 1
+      },
+      {
+        q: "What is the writer's attitude toward online learning?",
+        opts: [
+          "Strongly against it",
+          "It has both good and bad sides",
+          "It will replace all traditional schools",
+          "It is only for rich people"
+        ],
+        ans: 1
+      }
+    ]
+  },
+
+  // ============ 短文 5：文化（短）============
+  {
+    id: "p5",
+    type: "短",
+    title: "The Lantern Festival",
+    passage: `The Lantern Festival is celebrated on the 15th day of the first lunar month. On this day, people hang colorful lanterns outside their homes and streets. Many cities also hold lantern shows where artists create huge, beautiful lanterns shaped like animals or famous characters. Families enjoy eating sweet rice balls together. Children love solving riddles that are written on the lanterns.`,
+    questions: [
+      {
+        q: "When is the Lantern Festival celebrated?",
+        opts: [
+          "On the first day of the new year",
+          "On the 15th day of the first lunar month",
+          "In the middle of summer",
+          "On the last day of the year"
+        ],
+        ans: 1
+      },
+      {
+        q: "What do people do during the Lantern Festival?",
+        opts: [
+          "They climb mountains.",
+          "They go swimming.",
+          "They hang lanterns and eat rice balls.",
+          "They wear costumes and dance."
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 6：歷史（中）============
+  {
+    id: "p6",
+    type: "中",
+    title: "The Great Wall of China",
+    passage: `The Great Wall of China is one of the most famous structures in the world. It was built over many centuries, with construction beginning more than 2,000 years ago. The wall stretches for thousands of miles across northern China, going through mountains, deserts, and grasslands.
+
+The main purpose of the Great Wall was to protect China from invaders. Soldiers stood guard at watchtowers along the wall. When enemies were spotted, they would light fires to warn other soldiers far away. This early warning system was very effective.
+
+Today, the Great Wall is a popular tourist attraction. Millions of people visit it each year. However, parts of the wall are damaged and need repair. The Chinese government is working hard to protect this important piece of history for future generations.`,
+    questions: [
+      {
+        q: "What was the original purpose of the Great Wall?",
+        opts: [
+          "To attract tourists",
+          "To protect China from invaders",
+          "To divide farmland",
+          "To celebrate ancient kings"
+        ],
+        ans: 1
+      },
+      {
+        q: "How did soldiers warn each other of enemies?",
+        opts: [
+          "By sending messages on horses",
+          "By using flags",
+          "By lighting fires at watchtowers",
+          "By blowing horns"
+        ],
+        ans: 2
+      },
+      {
+        q: "What problem does the Great Wall face today?",
+        opts: [
+          "Too many soldiers guard it.",
+          "Some parts are damaged and need repair.",
+          "It is too short for tourists.",
+          "Nobody wants to visit it anymore."
+        ],
+        ans: 1
+      }
+    ]
+  },
+
+  // ============ 短文 7：心理/教育（中）============
+  {
+    id: "p7",
+    type: "中",
+    title: "The Power of Failure",
+    passage: `Many people are afraid of failure. They think that failing means they are not smart or talented enough. However, successful people often say that failure is one of the best teachers in life.
+
+When we fail, we learn what does not work. We discover our weaknesses and find areas where we need to improve. Without these lessons, we cannot truly grow. Thomas Edison, the inventor of the light bulb, failed thousands of times before he succeeded. He once said that he had not failed, but had simply found thousands of ways that did not work.
+
+The next time you fail at something, try not to feel discouraged. Instead, ask yourself: "What can I learn from this experience?" By thinking this way, every failure becomes a step closer to success.`,
+    questions: [
+      {
+        q: "What is the main message of this passage?",
+        opts: [
+          "We should never try difficult things.",
+          "Failure can help us learn and grow.",
+          "Smart people never fail.",
+          "Edison was the greatest inventor."
+        ],
+        ans: 1
+      },
+      {
+        q: "Why does the writer mention Thomas Edison?",
+        opts: [
+          "To explain how the light bulb works",
+          "To show that successful people also experience failure",
+          "To complain about old technology",
+          "To compare him with modern scientists"
+        ],
+        ans: 1
+      },
+      {
+        q: "What does 'discouraged' mean in this passage?",
+        opts: [
+          "feeling proud and confident",
+          "feeling sleepy",
+          "feeling sad and wanting to give up",
+          "feeling angry at others"
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 8：旅遊（短）============
+  {
+    id: "p8",
+    type: "短",
+    title: "A Trip to Japan",
+    passage: `Last summer, my family took a trip to Japan. We visited Tokyo, Kyoto, and Osaka. In Tokyo, we saw tall buildings and crowded streets. Kyoto was very different—full of old temples and quiet gardens. In Osaka, we tried delicious local food at small restaurants. Each city had its own special character. I hope to return to Japan someday.`,
+    questions: [
+      {
+        q: "Which city did the writer visit for old temples?",
+        opts: [
+          "Tokyo",
+          "Kyoto",
+          "Osaka",
+          "All three cities"
+        ],
+        ans: 1
+      },
+      {
+        q: "How does the writer feel about the trip?",
+        opts: [
+          "Disappointed",
+          "Bored",
+          "Wants to go again",
+          "Worried"
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 9：動物（短）============
+  {
+    id: "p9",
+    type: "短",
+    title: "Dolphins: The Smart Swimmers",
+    passage: `Dolphins are among the most intelligent animals in the ocean. They can recognize themselves in mirrors and even use simple tools. Dolphins live in groups and communicate with each other using clicks and whistles. Scientists believe each dolphin has its own special whistle, like a name. They are also known for being friendly to humans and often play near boats.`,
+    questions: [
+      {
+        q: "How do dolphins communicate with each other?",
+        opts: [
+          "By singing songs",
+          "Using clicks and whistles",
+          "Through colorful patterns",
+          "By touching with their tails"
+        ],
+        ans: 1
+      },
+      {
+        q: "What is special about each dolphin's whistle?",
+        opts: [
+          "It is exactly the same as others.",
+          "It can be heard from miles away.",
+          "It works like a personal name.",
+          "It changes every day."
+        ],
+        ans: 2
+      }
+    ]
+  },
+
+  // ============ 短文 10：社會議題（中）============
+  {
+    id: "p10",
+    type: "中",
+    title: "The Importance of Sleep",
+    passage: `Many teenagers do not get enough sleep. Doctors recommend that young people aged 13 to 18 should sleep about 8 to 10 hours every night. However, most teenagers sleep much less than this because of homework, social media, and other activities.
+
+Lack of sleep can cause many problems. Tired students have trouble focusing in class and may get lower grades. Sleep also affects mood—people who don't sleep well often feel sad or angry for no clear reason. In addition, regular sleep helps the body fight illness.
+
+To improve sleep, experts suggest going to bed at the same time every night. Avoid using phones or computers right before sleeping, because the bright light makes it harder to fall asleep. A quiet, dark room is best for good sleep.`,
+    questions: [
+      {
+        q: "How many hours should teenagers sleep each night?",
+        opts: [
+          "5 to 7 hours",
+          "8 to 10 hours",
+          "11 to 12 hours",
+          "Less than 6 hours"
+        ],
+        ans: 1
+      },
+      {
+        q: "According to the passage, what can lack of sleep cause?",
+        opts: [
+          "Better grades",
+          "More energy during the day",
+          "Trouble focusing and bad mood",
+          "Faster growth"
+        ],
+        ans: 2
+      },
+      {
+        q: "Why should we avoid using phones before sleeping?",
+        opts: [
+          "Phones are too heavy.",
+          "The bright light makes sleep harder.",
+          "Phones make loud noises.",
+          "Phones cost too much money."
+        ],
+        ans: 1
+      },
+      {
+        q: "What is the best sleep environment?",
+        opts: [
+          "A bright, noisy room",
+          "A quiet, dark room",
+          "A room full of phones",
+          "A room with the TV on"
+        ],
+        ans: 1
+      }
+    ]
+  },
+];
+
+
+
+// ============================================================
+// 進度管理（localStorage）
+// ============================================================
+const STORAGE_KEY = 'gept_intermediate_progress_v1';
+const SETTINGS_KEY = 'gept_intermediate_settings_v1';
+
+const Progress = {
+  data: {},
+  load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      this.data = raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      this.data = {};
+    }
+  },
+  save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+    } catch (e) {}
+  },
+  getStatus(word) {
+    return this.data[word] || { seen: 0, correct: 0, wrong: 0, mastered: false };
+  },
+  markCorrect(word) {
+    const s = this.getStatus(word);
+    s.seen = (s.seen || 0) + 1;
+    s.correct = (s.correct || 0) + 1;
+    if (s.correct >= 3) s.mastered = true;
+    this.data[word] = s;
+    this.save();
+  },
+  markWrong(word) {
+    const s = this.getStatus(word);
+    s.seen = (s.seen || 0) + 1;
+    s.wrong = (s.wrong || 0) + 1;
+    s.mastered = false;
+    this.data[word] = s;
+    this.save();
+  },
+  markSeen(word) {
+    const s = this.getStatus(word);
+    s.seen = (s.seen || 0) + 1;
+    this.data[word] = s;
+    this.save();
+  },
+  toggleMastered(word) {
+    const s = this.getStatus(word);
+    s.mastered = !s.mastered;
+    this.data[word] = s;
+    this.save();
+  },
+  reset() {
+    this.data = {};
+    localStorage.removeItem(STORAGE_KEY);
+  },
+  getStats() {
+    let known = 0, learning = 0;
+    for (const w of ALL_WORDS) {
+      const s = this.getStatus(w.w);
+      if (s.mastered) known++;
+      else if (s.seen > 0) learning++;
+    }
+    return { total: ALL_WORDS.length, known, learning };
+  }
+};
+
+const Settings = {
+  data: { mode: 'flashcard', filter: 'all', autoSpeak: true },
+  load() {
+    try {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if (raw) Object.assign(this.data, JSON.parse(raw));
+    } catch (e) {}
+  },
+  save() {
+    try {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(this.data));
+    } catch (e) {}
+  }
+};
+
+// ============================================================
+// 工具函數
+// ============================================================
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pickRandom(arr, n, excludeWord) {
+  const pool = arr.filter(x => x.w !== excludeWord);
+  return shuffle(pool).slice(0, n);
+}
+
+function getFilteredWords() {
+  const filter = Settings.data.filter || 'all';
+  if (filter === 'all') return ALL_WORDS;
+  if (filter === 'unlearned') {
+    return ALL_WORDS.filter(w => !Progress.getStatus(w.w).mastered);
+  }
+  if (filter === 'learning') {
+    return ALL_WORDS.filter(w => {
+      const s = Progress.getStatus(w.w);
+      return s.seen > 0 && !s.mastered;
+    });
+  }
+  return ALL_WORDS;
+}
+
+// ============================================================
+// 語音合成
+// ============================================================
+const Speech = {
+  voice: null,
+  enabled: 'speechSynthesis' in window,
+  init() {
+    if (!this.enabled) return;
+    const setVoice = () => {
+      const voices = speechSynthesis.getVoices();
+      // 優先選英美女聲
+      const preferred = voices.find(v => /en-US/i.test(v.lang) && /female|samantha|karen|zira/i.test(v.name))
+        || voices.find(v => /en-US/i.test(v.lang))
+        || voices.find(v => /en-GB/i.test(v.lang))
+        || voices.find(v => /en/i.test(v.lang));
+      this.voice = preferred || voices[0];
+    };
+    setVoice();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = setVoice;
+    }
+  },
+  speak(text, opts = {}) {
+    if (!this.enabled) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    if (this.voice) u.voice = this.voice;
+    u.rate = opts.rate || 0.9;
+    u.pitch = opts.pitch || 1;
+    u.volume = 1;
+    u.lang = 'en-US';
+    speechSynthesis.speak(u);
+  }
+};
+
+// ============================================================
+// 模式管理
+// ============================================================
+const App = {
+  currentMode: 'flashcard',
+  currentWord: null,
+  currentPool: [],
+  poolIndex: 0,
+  streak: 0,
+
+  init() {
+    Progress.load();
+    Settings.load();
+    Speech.init();
+    this.currentMode = Settings.data.mode || 'flashcard';
+    this.bindModeButtons();
+    this.refreshPool();
+    this.updateStats();
+    this.updateModeButtons();
+    this.render();
+  },
+
+  bindModeButtons() {
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.currentMode = btn.dataset.mode;
+        Settings.data.mode = this.currentMode;
+        Settings.save();
+        this.refreshPool();
+        this.updateModeButtons();
+        this.render();
+      });
+    });
+  },
+
+  updateModeButtons() {
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === this.currentMode);
+    });
+  },
+
+  refreshPool() {
+    this.currentPool = shuffle(getFilteredWords());
+    this.poolIndex = 0;
+    if (this.currentPool.length === 0) {
+      this.currentPool = shuffle(ALL_WORDS);
+    }
+  },
+
+  nextWord() {
+    if (this.poolIndex >= this.currentPool.length) {
+      this.refreshPool();
+    }
+    this.currentWord = this.currentPool[this.poolIndex++];
+    return this.currentWord;
+  },
+
+  updateStats() {
+    const s = Progress.getStats();
+    document.getElementById('stat-total').textContent = s.total;
+    document.getElementById('stat-known').textContent = s.known;
+    document.getElementById('stat-learning').textContent = s.learning;
+    document.getElementById('footer-count').textContent = s.total;
+  },
+
+  render() {
+    const area = document.getElementById('practiceArea');
+    if (this.currentMode === 'flashcard') this.renderFlashcard(area);
+    else if (this.currentMode === 'quiz') this.renderQuiz(area);
+    else if (this.currentMode === 'listen') this.renderListen(area);
+    else if (this.currentMode === 'cloze') this.renderCloze(area);
+    else if (this.currentMode === 'reading') this.renderReading(area);
+    this.updateStats();
+  },
+
+  // ============================================================
+  // 進度條 + 過濾選項
+  // ============================================================
+  renderProgressBar() {
+    const s = Progress.getStats();
+    const pct = s.total ? Math.round((s.known / s.total) * 100) : 0;
+    const filter = Settings.data.filter || 'all';
+    return `
+      <div class="progress-info">
+        <div class="progress-text">
+          熟練度 <strong>${pct}%</strong> · 連續答對 <strong>${this.streak}</strong>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" style="width:${pct}%"></div>
+        </div>
+      </div>
+    `;
+  },
+
+  renderSettingsRow() {
+    const filter = Settings.data.filter || 'all';
+    return `
+      <div class="settings-row">
+        <span style="font-size:0.85rem;color:var(--ink-mute);">範圍：</span>
+        <button class="setting-chip ${filter==='all'?'active':''}" onclick="App.setFilter('all')">全部</button>
+        <button class="setting-chip ${filter==='unlearned'?'active':''}" onclick="App.setFilter('unlearned')">未熟練</button>
+        <button class="setting-chip ${filter==='learning'?'active':''}" onclick="App.setFilter('learning')">學習中</button>
+        <button class="setting-chip" onclick="openResetModal()" title="重設進度">🔄 重設</button>
+      </div>
+    `;
+  },
+
+  setFilter(filter) {
+    Settings.data.filter = filter;
+    Settings.save();
+    this.refreshPool();
+    this.streak = 0;
+    this.render();
+  },
+
+  // ============================================================
+  // 1. 閃卡模式
+  // ============================================================
+  renderFlashcard(area) {
+    if (!this.currentWord) this.nextWord();
+    const w = this.currentWord;
+    const status = Progress.getStatus(w.w);
+
+    area.innerHTML = `
+      ${this.renderProgressBar()}
+      <div class="flashcard-container">
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-inner">
+            <div class="flashcard-face flashcard-front">
+              <div class="flashcard-word">${w.w}</div>
+              <div class="flashcard-pos">${w.p}</div>
+              <div class="flashcard-hint">點一下卡片看意思 · 或按 🔊 聽發音</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="flashcard-translation">${w.t}</div>
+              <div class="flashcard-hint" style="margin-top:20px;">${w.w} <em style="color:var(--ink-mute)">${w.p}</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="flashcard-controls">
+          <button class="btn btn-cool" onclick="App.speakCurrent()">🔊 發音</button>
+          <button class="btn btn-success" onclick="App.markFlashcardKnown()">${status.mastered ? '✓ 已熟練' : '✓ 我會了'}</button>
+          <button class="btn btn-warn" onclick="App.markFlashcardLearning()">繼續學</button>
+          <button class="btn btn-primary" onclick="App.nextFlashcard()">下一張 →</button>
+        </div>
+      </div>
+      ${this.renderSettingsRow()}
+    `;
+
+    const card = document.getElementById('flashcard');
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+      if (card.classList.contains('flipped')) {
+        Progress.markSeen(w.w);
+      }
+    });
+
+    if (Settings.data.autoSpeak) {
+      setTimeout(() => Speech.speak(w.w), 250);
+    }
+  },
+
+  speakCurrent() {
+    if (this.currentWord) Speech.speak(this.currentWord.w);
+  },
+
+  markFlashcardKnown() {
+    if (!this.currentWord) return;
+    Progress.markCorrect(this.currentWord.w);
+    Progress.data[this.currentWord.w].mastered = true;
+    Progress.save();
+    this.streak++;
+    this.nextFlashcard();
+  },
+
+  markFlashcardLearning() {
+    if (!this.currentWord) return;
+    const s = Progress.getStatus(this.currentWord.w);
+    s.mastered = false;
+    s.seen = (s.seen || 0) + 1;
+    Progress.data[this.currentWord.w] = s;
+    Progress.save();
+    this.streak = 0;
+    this.nextFlashcard();
+  },
+
+  nextFlashcard() {
+    this.nextWord();
+    this.render();
+  },
+
+  // ============================================================
+  // 2. 選擇題模式
+  // ============================================================
+  renderQuiz(area) {
+    if (!this.currentWord) this.nextWord();
+    const w = this.currentWord;
+    // 隨機決定題型：英→中 或 中→英
+    const isEnToCh = Math.random() < 0.5;
+    this._currentQuizDir = isEnToCh ? 'en2ch' : 'ch2en';
+
+    const wrongs = pickRandom(ALL_WORDS, 3, w.w);
+    const allOpts = shuffle([w, ...wrongs]);
+    this._currentQuizOptions = allOpts;
+    this._currentQuizAnswer = w;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const optionsHtml = allOpts.map((opt, i) => {
+      const text = isEnToCh ? opt.t : `${opt.w}`;
+      return `
+        <button class="quiz-option" data-idx="${i}" onclick="App.checkQuizAnswer(${i})">
+          <div class="opt-letter">${letters[i]}</div>
+          <div class="opt-text">${text}</div>
+        </button>
+      `;
+    }).join('');
+
+    const promptArea = isEnToCh
+      ? `
+        <div class="quiz-prompt-label">這個英文單字是什麼意思？</div>
+        <div class="quiz-word">${w.w}</div>
+        <div class="quiz-pos">${w.p}</div>
+        <div style="margin-top:8px;">
+          <button class="btn btn-cool" onclick="App.speakCurrent()" style="font-size:0.85rem;padding:8px 14px;">🔊 聽發音</button>
+        </div>
+      `
+      : `
+        <div class="quiz-prompt-label">下面哪個英文單字是這個意思？</div>
+        <div class="quiz-meaning">${w.t}</div>
+        <div class="quiz-pos" style="margin-top:8px;">${w.p}</div>
+      `;
+
+    area.innerHTML = `
+      ${this.renderProgressBar()}
+      <div class="quiz-question">${promptArea}</div>
+      <div class="quiz-options" id="quizOptions">${optionsHtml}</div>
+      <div id="quizFeedback"></div>
+      <div class="action-row" id="quizActions"></div>
+      ${this.renderSettingsRow()}
+    `;
+  },
+
+  checkQuizAnswer(idx) {
+    const opts = this._currentQuizOptions;
+    const answer = this._currentQuizAnswer;
+    const chosen = opts[idx];
+    const optionEls = document.querySelectorAll('#quizOptions .quiz-option');
+    optionEls.forEach(el => el.disabled = true);
+
+    const correctIdx = opts.indexOf(answer);
+    const fb = document.getElementById('quizFeedback');
+
+    if (chosen.w === answer.w) {
+      optionEls[idx].classList.add('correct');
+      Progress.markCorrect(answer.w);
+      this.streak++;
+      const cheers = ['答對了！🎉', '太棒了！👍', '正確！✨', '答對！繼續加油 💪', '完美！🌟'];
+      fb.innerHTML = `<div class="feedback success">${cheers[Math.floor(Math.random()*cheers.length)]} <strong>${answer.w}</strong> = ${answer.t}</div>`;
+      Speech.speak(answer.w);
+    } else {
+      optionEls[idx].classList.add('wrong');
+      optionEls[correctIdx].classList.add('correct');
+      Progress.markWrong(answer.w);
+      this.streak = 0;
+      fb.innerHTML = `<div class="feedback error">沒關係，再記一次！正確答案是 <strong>${answer.w}</strong> = ${answer.t}</div>`;
+      Speech.speak(answer.w);
+    }
+
+    document.getElementById('quizActions').innerHTML = `
+      <button class="btn btn-primary" onclick="App.nextQuiz()" id="nextQuizBtn" autofocus>下一題 →</button>
+    `;
+    setTimeout(() => {
+      const btn = document.getElementById('nextQuizBtn');
+      if (btn) btn.focus();
+    }, 80);
+  },
+
+  nextQuiz() {
+    this.nextWord();
+    this.render();
+  },
+
+  // ============================================================
+  // 4. 聽力模式
+  // ============================================================
+  renderListen(area) {
+    if (!Speech.enabled) {
+      area.innerHTML = `
+        <div class="feedback error">
+          您的瀏覽器不支援語音播放功能。建議使用 Chrome、Edge 或 Safari 瀏覽器。
+        </div>
+      `;
+      return;
+    }
+
+    if (!this.currentWord) this.nextWord();
+    const w = this.currentWord;
+    const wrongs = pickRandom(ALL_WORDS, 3, w.w);
+    const allOpts = shuffle([w, ...wrongs]);
+    this._currentListenOptions = allOpts;
+    this._currentListenAnswer = w;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const optionsHtml = allOpts.map((opt, i) => `
+      <button class="quiz-option" data-idx="${i}" onclick="App.checkListenAnswer(${i})">
+        <div class="opt-letter">${letters[i]}</div>
+        <div class="opt-text"><strong>${opt.w}</strong> <span style="color:var(--ink-mute);font-size:0.9em;">${opt.t}</span></div>
+      </button>
+    `).join('');
+
+    area.innerHTML = `
+      ${this.renderProgressBar()}
+      <div class="listen-area">
+        <div class="quiz-prompt-label">仔細聽，選出正確的單字</div>
+        <div class="listen-icon-wrap">
+          <div class="listen-icon" id="listenIcon" onclick="App.playListen()">🔊</div>
+        </div>
+        <div class="listen-prompt">點上面的喇叭聽單字發音</div>
+        <div class="listen-replay-hint">可以多聽幾次再回答</div>
+      </div>
+      <div class="quiz-options" id="quizOptions">${optionsHtml}</div>
+      <div id="listenFeedback"></div>
+      <div class="action-row" id="listenActions"></div>
+      ${this.renderSettingsRow()}
+    `;
+
+    // 自動播放一次
+    setTimeout(() => this.playListen(), 300);
+  },
+
+  playListen() {
+    const icon = document.getElementById('listenIcon');
+    if (icon) {
+      icon.classList.add('playing');
+      setTimeout(() => icon.classList.remove('playing'), 1500);
+    }
+    Speech.speak(this._currentListenAnswer.w, { rate: 0.85 });
+  },
+
+  checkListenAnswer(idx) {
+    const opts = this._currentListenOptions;
+    const answer = this._currentListenAnswer;
+    const chosen = opts[idx];
+    const optionEls = document.querySelectorAll('#quizOptions .quiz-option');
+    optionEls.forEach(el => el.disabled = true);
+
+    const correctIdx = opts.indexOf(answer);
+    const fb = document.getElementById('listenFeedback');
+
+    if (chosen.w === answer.w) {
+      optionEls[idx].classList.add('correct');
+      Progress.markCorrect(answer.w);
+      this.streak++;
+      fb.innerHTML = `<div class="feedback success">聽對了！🎧✨ <strong>${answer.w}</strong> = ${answer.t}</div>`;
+    } else {
+      optionEls[idx].classList.add('wrong');
+      optionEls[correctIdx].classList.add('correct');
+      Progress.markWrong(answer.w);
+      this.streak = 0;
+      fb.innerHTML = `<div class="feedback error">差一點！正確的是 <strong>${answer.w}</strong> = ${answer.t}</div>`;
+    }
+
+    document.getElementById('listenActions').innerHTML = `
+      <button class="btn btn-cool" onclick="App.playListen()">🔊 再聽一次</button>
+      <button class="btn btn-primary" onclick="App.nextListen()" id="nextListenBtn">下一題 →</button>
+    `;
+    setTimeout(() => {
+      const btn = document.getElementById('nextListenBtn');
+      if (btn) btn.focus();
+    }, 80);
+  },
+
+  nextListen() {
+    this.nextWord();
+    this.render();
+  },
+
+  // ============================================================
+  // 5. 克漏字模式（GEPT 段落填空格式）
+  // ============================================================
+  clozeState: { passage: null, answers: [], submitted: false },
+
+  initClozeSession() {
+    // 隨機抽一篇文章
+    const passage = CLOZE_PASSAGES[Math.floor(Math.random() * CLOZE_PASSAGES.length)];
+    this.clozeState = {
+      passage: passage,
+      answers: new Array(passage.blanks.length).fill(null),
+      submitted: false
+    };
+  },
+
+  renderCloze(area) {
+    if (!this.clozeState.passage) {
+      this.initClozeSession();
+    }
+
+    const p = this.clozeState.passage;
+    const submitted = this.clozeState.submitted;
+
+    // 把文章中的 [1], [2], ... 替換成題目標記
+    let displayPassage = this.escapeHtml(p.passage);
+    for (let i = 0; i < p.blanks.length; i++) {
+      const num = i + 1;
+      const userAns = this.clozeState.answers[i];
+      const correct = p.blanks[i].ans;
+
+      let blankHtml;
+      if (submitted) {
+        const isCorrect = userAns === correct;
+        const userText = userAns !== null ? p.blanks[i].opts[userAns] : '（未作答）';
+        const correctText = p.blanks[i].opts[correct];
+        if (isCorrect) {
+          blankHtml = `<span class="cloze-blank-filled correct" title="答對了！">(${num}) <strong>${userText}</strong> ✓</span>`;
+        } else {
+          blankHtml = `<span class="cloze-blank-filled wrong" title="正確答案：${correctText}">(${num}) <s>${userText}</s> → <strong>${correctText}</strong></span>`;
+        }
+      } else {
+        const filled = userAns !== null ? p.blanks[i].opts[userAns] : '';
+        if (filled) {
+          blankHtml = `<span class="cloze-blank-filled" data-blank="${i}">(${num}) <strong>${this.escapeHtml(filled)}</strong></span>`;
+        } else {
+          blankHtml = `<span class="cloze-blank-empty" data-blank="${i}">(${num}) ______</span>`;
+        }
+      }
+      displayPassage = displayPassage.replace(`[${num}]`, blankHtml);
+    }
+    // 段落分隔
+    displayPassage = displayPassage.split('\n\n').map(para => `<p>${para}</p>`).join('');
+
+    // 題目選項區
+    const questionsHtml = p.blanks.map((blank, i) => {
+      const userAns = this.clozeState.answers[i];
+      const correct = blank.ans;
+      const optsHtml = blank.opts.map((opt, j) => {
+        let cls = 'cloze-opt';
+        if (submitted) {
+          if (j === correct) cls += ' correct';
+          else if (j === userAns && j !== correct) cls += ' wrong';
+          if (j === userAns) cls += ' chosen';
+        } else {
+          if (j === userAns) cls += ' chosen';
+        }
+        const disabled = submitted ? 'disabled' : '';
+        const action = submitted ? '' : `onclick="App.selectClozeOption(${i}, ${j})"`;
+        return `<button class="${cls}" ${action} ${disabled}>
+          <span class="cloze-opt-letter">${'ABCD'[j]}</span>
+          <span class="cloze-opt-text">${this.escapeHtml(opt)}</span>
+        </button>`;
+      }).join('');
+
+      return `
+        <div class="cloze-q-block ${submitted ? (userAns === correct ? 'q-correct' : 'q-wrong') : ''}">
+          <div class="cloze-q-num">第 ${i + 1} 題</div>
+          <div class="cloze-opts-grid">${optsHtml}</div>
+        </div>
+      `;
+    }).join('');
+
+    // 動作按鈕
+    const answeredCount = this.clozeState.answers.filter(a => a !== null).length;
+    const totalQ = p.blanks.length;
+    let actionHtml;
+    if (submitted) {
+      const score = this.clozeState.answers.filter((a, i) => a === p.blanks[i].ans).length;
+      const pct = Math.round((score / totalQ) * 100);
+      let emoji, msg;
+      if (pct === 100) { emoji = '🏆'; msg = '滿分！太厲害了！'; }
+      else if (pct >= 80) { emoji = '🌟'; msg = '表現很棒！'; }
+      else if (pct >= 60) { emoji = '💪'; msg = '不錯，繼續加油！'; }
+      else { emoji = '🌱'; msg = '看一下解析，下次會更好！'; }
+      actionHtml = `
+        <div class="cloze-result">
+          <div class="cloze-result-emoji">${emoji}</div>
+          <div class="cloze-result-msg">${msg}</div>
+          <div class="cloze-result-score">${score} / ${totalQ}</div>
+          <div class="cloze-result-pct">正確率 ${pct}%</div>
+        </div>
+        <div class="action-row">
+          <button class="btn btn-primary" onclick="App.restartCloze()">換一篇文章 →</button>
+        </div>
+      `;
+    } else {
+      const allAnswered = answeredCount === totalQ;
+      actionHtml = `
+        <div class="action-row">
+          <button class="btn ${allAnswered ? 'btn-primary' : ''}" onclick="App.submitCloze()" ${!allAnswered ? 'disabled' : ''}>
+            ${allAnswered ? '送出答案 ✓' : `還有 ${totalQ - answeredCount} 題未作答`}
+          </button>
+          <button class="btn" onclick="App.restartCloze()">換一篇 🔄</button>
+        </div>
+      `;
+    }
+
+    area.innerHTML = `
+      <div class="cloze-progress-bar">
+        <div class="cloze-progress-text">
+          <strong>${p.title}</strong> · 已作答 ${answeredCount} / ${totalQ}
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" style="width:${(answeredCount / totalQ * 100)}%"></div>
+        </div>
+      </div>
+
+      <div class="cloze-intro">${this.escapeHtml(p.intro)}</div>
+
+      <div class="cloze-passage-box">
+        <div class="cloze-passage-title">${this.escapeHtml(p.title)}</div>
+        <div class="cloze-passage-text">${displayPassage}</div>
+      </div>
+
+      <div class="cloze-questions">
+        ${questionsHtml}
+      </div>
+
+      ${actionHtml}
+    `;
+
+    // 滾動到尚未作答的第一題（提交後則滾到結果）
+    if (!submitted && answeredCount > 0 && answeredCount < totalQ) {
+      // 不自動滾動，讓使用者自己控制
+    }
+  },
+
+  escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  },
+
+  selectClozeOption(blankIdx, optIdx) {
+    if (this.clozeState.submitted) return;
+    this.clozeState.answers[blankIdx] = optIdx;
+    this.render();
+  },
+
+  submitCloze() {
+    if (this.clozeState.answers.includes(null)) return;
+    this.clozeState.submitted = true;
+    this.render();
+    // 滾動到結果區
+    setTimeout(() => {
+      const result = document.querySelector('.cloze-result');
+      if (result) result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  },
+
+  restartCloze() {
+    this.initClozeSession();
+    this.render();
+    // 滾到頂端
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+  // ============================================================
+  // 6. 閱讀測驗模式
+  // ============================================================
+  readingState: { questions: [], idx: 0, score: 0, answered: 0, totalQuestions: 0 },
+
+  initReadingSession() {
+    const target = 20;
+    const passages = shuffle(READING_PASSAGES).map(passage => {
+      const count = Math.min(passage.questions.length, Math.random() < 0.5 ? 2 : 3);
+      return {
+        passage,
+        qs: shuffle(passage.questions).slice(0, count),
+        answers: Array(count).fill(null)
+      };
+    });
+    const picked = [];
+    let totalQuestions = 0;
+    for (const item of passages) {
+      if (totalQuestions >= target) break;
+      picked.push(item);
+      totalQuestions += item.qs.length;
+    }
+    this.readingState = {
+      questions: picked,
+      idx: 0,
+      score: 0,
+      answered: 0,
+      totalQuestions
+    };
+  },
+
+  renderReading(area) {
+    if (!this.readingState.questions || this.readingState.questions.length === 0) {
+      this.initReadingSession();
+    }
+    if (this.readingState.idx >= this.readingState.questions.length) {
+      this.renderReadingFinish(area);
+      return;
+    }
+    const cur = this.readingState.questions[this.readingState.idx];
+    const passage = cur.passage;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const questionsHtml = cur.qs.map((q, qIdx) => {
+      const optionsHtml = q.opts.map((opt, i) => `
+        <button class="quiz-option" data-idx="${i}" onclick="App.checkReadingAnswer(${qIdx}, ${i})">
+          <div class="opt-letter">${letters[i]}</div>
+          <div class="opt-text">${opt}</div>
+        </button>
+      `).join('');
+      return `
+        <div class="reading-question">
+          <div class="quiz-prompt-label">問題 ${qIdx + 1}</div>
+          <div class="reading-q-text">${q.q}</div>
+        </div>
+        <div class="quiz-options" id="quizOptions${qIdx}">${optionsHtml}</div>
+      `;
+    }).join('');
+
+    area.innerHTML = `
+      ${this.renderReadingProgress()}
+      <div class="reading-passage">
+        <div class="reading-title">${passage.title} <span class="reading-type-badge">${passage.type === '短' ? '短文' : '中等'}</span></div>
+        <div class="reading-text">${passage.passage.split('\n\n').map(p => '<p>' + p + '</p>').join('')}</div>
+      </div>
+      ${questionsHtml}
+      <div id="readingFeedback"></div>
+      <div class="action-row" id="readingActions"></div>
+      ${this.renderReadingSettings()}
+    `;
+  },
+
+  renderReadingProgress() {
+    const s = this.readingState;
+    const total = s.totalQuestions || s.questions.reduce((sum, item) => sum + item.qs.length, 0);
+    const pct = total ? Math.round((s.answered / total) * 100) : 0;
+    return `
+      <div class="progress-info">
+        <div class="progress-text">
+          第 <strong>${Math.min(s.idx + 1, s.questions.length)}</strong> / ${s.questions.length} 篇 · 已作答 <strong>${s.answered}</strong> / ${total} 題 · 答對 <strong>${s.score}</strong>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" style="width:${pct}%"></div>
+        </div>
+      </div>
+    `;
+  },
+
+  renderReadingSettings() {
+    return `
+      <div class="settings-row">
+        <button class="setting-chip" onclick="App.restartReading()">🔄 重新開始閱讀測驗</button>
+      </div>
+    `;
+  },
+
+  restartReading() {
+    this.initReadingSession();
+    this.render();
+  },
+
+  checkReadingAnswer(qIdx, idx) {
+    const cur = this.readingState.questions[this.readingState.idx];
+    if (!cur || cur.answers[qIdx] !== null) return;
+
+    const q = cur.qs[qIdx];
+    const correct = q.ans;
+    const optionEls = document.querySelectorAll(`#quizOptions${qIdx} .quiz-option`);
+    optionEls.forEach(el => el.disabled = true);
+    cur.answers[qIdx] = idx;
+
+    const fb = document.getElementById('readingFeedback');
+    this.readingState.answered++;
+
+    if (idx === correct) {
+      optionEls[idx].classList.add('correct');
+      this.readingState.score++;
+      const cheers = ['答對了！👏', '正確！理解力很好 ✨', '完美！🎉'];
+      fb.innerHTML = `<div class="feedback success">${cheers[Math.floor(Math.random()*cheers.length)]}</div>`;
+    } else {
+      optionEls[idx].classList.add('wrong');
+      optionEls[correct].classList.add('correct');
+      fb.innerHTML = `<div class="feedback error">差一點！再回去文章找找線索 💡</div>`;
+    }
+
+    if (cur.answers.every(ans => ans !== null)) {
+      document.getElementById('readingActions').innerHTML = `
+        <button class="btn btn-primary" onclick="App.nextReading()" id="nextReadingBtn">${this.readingState.idx + 1 >= this.readingState.questions.length ? '看結果 →' : '下一篇 →'}</button>
+      `;
+      setTimeout(() => {
+        const btn = document.getElementById('nextReadingBtn');
+        if (btn) btn.focus();
+      }, 80);
+    }
+  },
+
+  nextReading() {
+    this.readingState.idx++;
+    this.render();
+  },
+
+  renderReadingFinish(area) {
+    const s = this.readingState;
+    const total = s.totalQuestions || s.questions.reduce((sum, item) => sum + item.qs.length, 0);
+    const pct = total ? Math.round((s.score / total) * 100) : 0;
+    let msg, emoji;
+    if (pct === 100) { msg = '完美！閱讀理解滿分！'; emoji = '🏆'; }
+    else if (pct >= 80) { msg = '閱讀力很好！'; emoji = '📚'; }
+    else if (pct >= 60) { msg = '不錯！多讀一些英文短文會更上手！'; emoji = '💪'; }
+    else { msg = '加油！多閱讀就會進步！'; emoji = '🌱'; }
+
+    area.innerHTML = `
+      <div class="result-screen">
+        <div class="result-emoji">${emoji}</div>
+        <div class="result-title">${msg}</div>
+        <div class="result-score">${s.score} / ${total}</div>
+        <div class="result-pct">正確率 ${pct}%</div>
+      </div>
+      <div class="action-row">
+        <button class="btn btn-primary" onclick="App.restartReading()">再做一次 →</button>
+      </div>
+    `;
+  }
+};
+
+// ============================================================
+// Modal 控制
+// ============================================================
+function openResetModal() {
+  document.getElementById('resetModal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('resetModal').classList.remove('show');
+}
+function confirmReset() {
+  Progress.reset();
+  App.streak = 0;
+  App.refreshPool();
+  App.render();
+  closeModal();
+}
+
+// ============================================================
+// 鍵盤快捷鍵
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (App.currentMode === 'flashcard') {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      const card = document.getElementById('flashcard');
+      if (card) card.click();
+    } else if (e.key === 'ArrowRight' || e.key === 'n') {
+      App.nextFlashcard();
+    } else if (e.key === 's') {
+      App.speakCurrent();
+    }
+  }
+});
+
+// ============================================================
+// 啟動
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+
+</script>
+</body>
+</html>
