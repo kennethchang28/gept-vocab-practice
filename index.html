@@ -2630,7 +2630,7 @@ const App = {
     const optionsHtml = allOpts.map((opt, i) => `
       <button class="quiz-option" data-idx="${i}" onclick="App.checkListenAnswer(${i})">
         <div class="opt-letter">${letters[i]}</div>
-        <div class="opt-text"><strong>${opt.w}</strong> <span style="color:var(--ink-mute);font-size:0.9em;">${opt.t}</span></div>
+        <div class="opt-text">${opt.t}</div>
       </button>
     `).join('');
 
