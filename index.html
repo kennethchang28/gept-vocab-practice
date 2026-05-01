@@ -513,6 +513,16 @@
     word-break: break-word;
   }
 
+  .quiz-option.chosen {
+    background: var(--bg-paper);
+    border-color: var(--accent-cool);
+    box-shadow: 0 3px 0 var(--accent-cool);
+  }
+
+  .quiz-option.chosen .opt-letter {
+    background: var(--accent-cool);
+  }
+
   .quiz-option.correct {
     background: #d1fae5;
     border-color: var(--accent-go);
@@ -2895,7 +2905,8 @@ const App = {
       return {
         passage,
         qs: shuffle(passage.questions).slice(0, count),
-        answers: Array(count).fill(null)
+        answers: Array(count).fill(null),
+        submitted: false
       };
     });
     const picked = [];
@@ -2924,23 +2935,51 @@ const App = {
     }
     const cur = this.readingState.questions[this.readingState.idx];
     const passage = cur.passage;
+    const submitted = cur.submitted;
 
     const letters = ['A', 'B', 'C', 'D'];
     const questionsHtml = cur.qs.map((q, qIdx) => {
-      const optionsHtml = q.opts.map((opt, i) => `
-        <button class="quiz-option" data-idx="${i}" onclick="App.checkReadingAnswer(${qIdx}, ${i})">
-          <div class="opt-letter">${letters[i]}</div>
-          <div class="opt-text">${opt}</div>
-        </button>
-      `).join('');
+      const userAns = cur.answers[qIdx];
+      const correct = q.ans;
+      const optionsHtml = q.opts.map((opt, i) => {
+        let cls = 'quiz-option';
+        if (submitted) {
+          if (i === correct) cls += ' correct';
+          else if (i === userAns && i !== correct) cls += ' wrong';
+        } else if (i === userAns) {
+          cls += ' chosen';
+        }
+        const disabled = submitted ? 'disabled' : '';
+        const action = submitted ? '' : `onclick="App.checkReadingAnswer(${qIdx}, ${i})"`;
+        return `
+          <button class="${cls}" data-idx="${i}" ${action} ${disabled}>
+            <div class="opt-letter">${letters[i]}</div>
+            <div class="opt-text">${opt}</div>
+          </button>
+        `;
+      }).join('');
+      const explanation = submitted && userAns !== correct
+        ? `<div class="feedback error">
+            <strong>正確答案：${this.escapeHtml(q.opts[correct])}</strong><br>
+            ${this.escapeHtml(q.explain || '請回到文章中找和題目最直接相關的句子。')}
+          </div>`
+        : '';
       return `
         <div class="reading-question">
           <div class="quiz-prompt-label">問題 ${qIdx + 1}</div>
           <div class="reading-q-text">${q.q}</div>
         </div>
         <div class="quiz-options" id="quizOptions${qIdx}">${optionsHtml}</div>
+        ${explanation}
       `;
     }).join('');
+    const answeredThisPassage = cur.answers.filter(ans => ans !== null).length;
+    const allAnswered = answeredThisPassage === cur.qs.length;
+    const actionHtml = submitted
+      ? `<button class="btn btn-primary" onclick="App.nextReading()" id="nextReadingBtn">${this.readingState.idx + 1 >= this.readingState.questions.length ? '看結果 →' : '下一篇 →'}</button>`
+      : `<button class="btn ${allAnswered ? 'btn-primary' : ''}" onclick="App.submitReading()" ${!allAnswered ? 'disabled' : ''}>
+          ${allAnswered ? '送出答案 ✓' : `還有 ${cur.qs.length - answeredThisPassage} 題未作答`}
+        </button>`;
 
     area.innerHTML = `
       ${this.renderReadingProgress()}
@@ -2949,8 +2988,7 @@ const App = {
         <div class="reading-text">${passage.passage.split('\n\n').map(p => '<p>' + p + '</p>').join('')}</div>
       </div>
       ${questionsHtml}
-      <div id="readingFeedback"></div>
-      <div class="action-row" id="readingActions"></div>
+      <div class="action-row" id="readingActions">${actionHtml}</div>
       ${this.renderReadingSettings()}
     `;
   },
@@ -2986,42 +3024,24 @@ const App = {
 
   checkReadingAnswer(qIdx, idx) {
     const cur = this.readingState.questions[this.readingState.idx];
-    if (!cur || cur.answers[qIdx] !== null) return;
-
-    const q = cur.qs[qIdx];
-    const correct = q.ans;
-    const optionEls = document.querySelectorAll(`#quizOptions${qIdx} .quiz-option`);
-    optionEls.forEach(el => el.disabled = true);
+    if (!cur || cur.submitted) return;
     cur.answers[qIdx] = idx;
+    this.render();
+  },
 
-    const fb = document.getElementById('readingFeedback');
-    this.readingState.answered++;
+  submitReading() {
+    const cur = this.readingState.questions[this.readingState.idx];
+    if (!cur || cur.submitted || cur.answers.includes(null)) return;
 
-    if (idx === correct) {
-      optionEls[idx].classList.add('correct');
-      this.readingState.score++;
-      const cheers = ['答對了！👏', '正確！理解力很好 ✨', '完美！🎉'];
-      fb.innerHTML = `<div class="feedback success">${cheers[Math.floor(Math.random()*cheers.length)]}</div>`;
-    } else {
-      optionEls[idx].classList.add('wrong');
-      optionEls[correct].classList.add('correct');
-      const correctText = q.opts[correct];
-      const explanation = q.explain || `正確答案是「${correctText}」。請回到文章中找和題目最直接相關的句子。`;
-      fb.innerHTML = `<div class="feedback error">
-        <strong>正確答案：${this.escapeHtml(correctText)}</strong><br>
-        ${this.escapeHtml(explanation)}
-      </div>`;
-    }
-
-    if (cur.answers.every(ans => ans !== null)) {
-      document.getElementById('readingActions').innerHTML = `
-        <button class="btn btn-primary" onclick="App.nextReading()" id="nextReadingBtn">${this.readingState.idx + 1 >= this.readingState.questions.length ? '看結果 →' : '下一篇 →'}</button>
-      `;
-      setTimeout(() => {
-        const btn = document.getElementById('nextReadingBtn');
-        if (btn) btn.focus();
-      }, 80);
-    }
+    const score = cur.answers.filter((ans, i) => ans === cur.qs[i].ans).length;
+    this.readingState.score += score;
+    this.readingState.answered += cur.qs.length;
+    cur.submitted = true;
+    this.render();
+    setTimeout(() => {
+      const btn = document.getElementById('nextReadingBtn');
+      if (btn) btn.focus();
+    }, 80);
   },
 
   nextReading() {
