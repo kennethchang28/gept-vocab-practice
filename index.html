@@ -2884,7 +2884,8 @@ const App = {
 
   initReadingSession() {
     const target = 20;
-    const passages = shuffle(READING_PASSAGES).map(passage => {
+    const eligiblePassages = READING_PASSAGES.filter(passage => passage.type !== '短');
+    const passages = shuffle(eligiblePassages).map(passage => {
       const count = Math.min(passage.questions.length, Math.random() < 0.5 ? 2 : 3);
       return {
         passage,
@@ -2939,7 +2940,7 @@ const App = {
     area.innerHTML = `
       ${this.renderReadingProgress()}
       <div class="reading-passage">
-        <div class="reading-title">${passage.title} <span class="reading-type-badge">${passage.type === '短' ? '短文' : '中等'}</span></div>
+        <div class="reading-title">${passage.title} <span class="reading-type-badge">${passage.type === '長' || passage.type === '較長' ? '較長' : '中等'}</span></div>
         <div class="reading-text">${passage.passage.split('\n\n').map(p => '<p>' + p + '</p>').join('')}</div>
       </div>
       ${questionsHtml}
